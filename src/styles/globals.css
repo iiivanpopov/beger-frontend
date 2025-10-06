@@ -1,0 +1,38 @@
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --accent: #da4c32;
+  --accent-hover: #d43115;
+  --text-primary: #2b2b2b;
+  --text-secondary: #3d3c3c;
+  --text-tertiary: #666;
+  --background-primary: #fff;
+  --background-secondary: #f9f9f9;
+  --background-tertiary: #e6e6e6;
+  --background-quaternary: #e2e2e2;
+  --background-body: #7990a7;
+  --font-title: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  background: var(--background-body);
+}

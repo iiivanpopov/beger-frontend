@@ -1,0 +1,128 @@
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 1000px;
+  outline: none;
+  font-family: var(--font-body);
+  font-weight: 500;
+  background: none;
+  transition:
+    background-color 0.2s ease-in-out,
+    border-color 0.2s ease-in-out,
+    color 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &.large {
+    min-width: 150px;
+    min-height: 42px;
+    font-size: 18px;
+
+    &.icon {
+      width: 42px;
+      min-width: unset;
+      height: 42px;
+      min-height: unset;
+
+      svg {
+        width: 21px;
+        height: 21px;
+      }
+    }
+  }
+
+  &.medium {
+    min-width: 127.5px;
+    min-height: 36px;
+    font-size: 16px;
+
+    &.icon {
+      width: 36px;
+      min-width: unset;
+      height: 36px;
+      min-height: unset;
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  &.small {
+    min-width: 105px;
+    min-height: 30px;
+    font-size: 14px;
+
+    &.icon {
+      width: 30px;
+      min-width: unset;
+      height: 30px;
+      min-height: unset;
+
+      svg {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+
+  &.icon {
+    min-width: unset;
+    min-height: unset;
+  }
+
+  &.contained {
+    color: var(--background-primary);
+  }
+
+  &.underlined {
+    min-width: unset;
+    min-height: unset;
+    text-decoration: underline;
+    color: var(--text-primary);
+    background: none;
+  }
+
+  &.primary {
+    &:not(.underlined) {
+      background: var(--accent);
+
+      &:hover,
+      &:active {
+        background-color: var(--accent-hover);
+      }
+
+      &:focus {
+        border-color: var(--accent-hover);
+      }
+
+      &:disabled {
+        color: var(--background-quaternary);
+        background-color: var(--text-tertiary);
+      }
+    }
+
+    &.underlined {
+      &:hover,
+      &:focus {
+        color: var(--accent-hover);
+      }
+
+      &:active {
+        color: var(--accent);
+      }
+
+      &:disabled {
+        color: var(--background-quaternary);
+      }
+    }
+  }
+}

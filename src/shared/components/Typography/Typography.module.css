@@ -1,0 +1,33 @@
+.typography {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+
+  &.heading {
+    font-family: var(--font-title);
+    font-size: 48px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  &.subheading {
+    font-family: var(--font-title);
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  &.body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-primary);
+  }
+
+  &.caption {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-tertiary);
+  }
+}
