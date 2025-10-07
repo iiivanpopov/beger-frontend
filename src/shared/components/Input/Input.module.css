@@ -1,5 +1,5 @@
 .input {
-  width: 200px;
+  width: 180px;
   min-height: 40px;
   padding: 0 5px 0 20px;
   border: 1px solid transparent;
@@ -21,6 +21,8 @@
   }
 
   &.contained {
+    background: var(--background-primary);
+
     &:focus {
       border-color: var(--text-primary);
     }

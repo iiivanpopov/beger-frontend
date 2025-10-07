@@ -1,10 +1,16 @@
-import { Input, Popover } from '@/shared/components'
+import { Dropdown } from '@/shared/components'
 
 export function App() {
   return (
-    <Popover>
-      <Popover.Trigger>Trigger</Popover.Trigger>
-      <Popover.Content><Input placeholder="Input123" /></Popover.Content>
-    </Popover>
+    <>
+      <Dropdown defaultSelected="Variant 1">
+        <Dropdown.Trigger />
+        <Dropdown.Options>
+          <Dropdown.Option>Variant 1</Dropdown.Option>
+          <Dropdown.Option>Variant 2</Dropdown.Option>
+          <Dropdown.Option>Variant 3</Dropdown.Option>
+        </Dropdown.Options>
+      </Dropdown>
+    </>
   )
 }

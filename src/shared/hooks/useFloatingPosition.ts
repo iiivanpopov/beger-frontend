@@ -21,7 +21,6 @@ export function useFloatingPosition(
 
       let x = targetRect.left + targetRect.width / 2 - target.clientWidth / 2 + offset.x + window.scrollX
       let y = targetRect.bottom + offset.y + window.scrollY
-
       x = Math.max(window.scrollX, Math.min(x, window.scrollX + window.innerWidth - target.clientWidth))
       y = Math.max(window.scrollY, Math.min(y, window.scrollY + window.innerHeight - target.clientHeight))
 

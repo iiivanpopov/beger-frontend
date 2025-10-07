@@ -44,7 +44,7 @@ function Popover({ children, external }: PopoverProps) {
   return <PopoverContext value={value}>{children}</PopoverContext>
 }
 
-type PopoverTriggerProps = AsChildProps<
+export type PopoverTriggerProps = AsChildProps<
   ComponentProps<'button'>,
   HTMLAttributes<HTMLElement>
 >
@@ -55,7 +55,11 @@ function PopoverTrigger({ children, className, asChild, ...props }: PopoverTrigg
   if (asChild) {
     return cloneMerged(children, {
       ref: triggerRef,
-      onClick: toggle,
+      onClick: (e: React.MouseEvent) => {
+        e.preventDefault()
+        e.stopPropagation()
+        toggle()
+      },
     })
   }
 
@@ -65,7 +69,11 @@ function PopoverTrigger({ children, className, asChild, ...props }: PopoverTrigg
       type="button"
       className={clsx(styles.trigger, className)}
       ref={triggerRef}
-      onClick={toggle}
+      onClick={(e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        toggle()
+      }}
       aria-expanded={isOpen}
     >
       {children}
@@ -80,13 +88,13 @@ function PopoverContent({ children, className, ...props }: PopoverContentProps) 
 
   useClickOutside<HTMLDivElement>((e: MouseEvent) => {
     const target = e.target as Node
-    if (target !== triggerRef.current) {
+    if (!triggerRef.current?.contains(target)) {
       close()
     }
   }, contentRef)
 
   useFloatingPosition(triggerRef, contentRef, {
-    y: 8,
+    y: 6,
     x: 0,
   }, !isOpen)
 
