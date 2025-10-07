@@ -1,5 +1,10 @@
+import { Input, Popover } from '@/shared/components'
+
 export function App() {
   return (
-    <div>Application</div>
+    <Popover>
+      <Popover.Trigger>Trigger</Popover.Trigger>
+      <Popover.Content><Input placeholder="Input123" /></Popover.Content>
+    </Popover>
   )
 }

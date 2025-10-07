@@ -1,4 +1,5 @@
 export * from './Button/Button'
+export * from './Input/Input'
 export * from './Modal/Modal'
 export * from './Popover/Popover'
 export * from './Typography/Typography'

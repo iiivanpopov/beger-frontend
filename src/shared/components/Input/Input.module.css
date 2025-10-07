@@ -1,0 +1,38 @@
+.input {
+  width: 200px;
+  min-height: 40px;
+  padding: 0 5px 0 20px;
+  border: 1px solid transparent;
+  border-radius: 1000px;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--text-primary);
+  transition:
+    background-color 0.2s ease-in-out,
+    border-color 0.2s ease-in-out,
+    color 0.2s ease-in-out;
+
+  &::placeholder {
+    font-family: var(--font-title);
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+  }
+
+  &.contained {
+    &:focus {
+      border-color: var(--text-primary);
+    }
+  }
+
+  &:disabled {
+    color: var(--background-quaternary);
+    background-color: var(--text-tertiary);
+    cursor: not-allowed;
+
+    &::placeholder {
+      color: var(--background-quaternary);
+    }
+  }
+}

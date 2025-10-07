@@ -1,9 +1,9 @@
 import type { ComponentProps, Dispatch, HTMLAttributes, ReactNode, SetStateAction } from 'react'
 import type { AsChildProps } from '@/shared/types'
 import clsx from 'clsx'
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { useClickOutside, useControlledState } from '@/shared/hooks'
+import { useClickOutside, useControlledState, useFloatingPosition } from '@/shared/hooks'
 import { buildContext, cloneMerged } from '@/shared/utils'
 import styles from './Popover.module.css'
 
@@ -85,37 +85,13 @@ function PopoverContent({ children, className, ...props }: PopoverContentProps) 
     }
   }, contentRef)
 
-  useEffect(() => {
-    if (!isOpen)
-      return
+  useFloatingPosition(triggerRef, contentRef, {
+    y: 8,
+    x: 0,
+  }, !isOpen)
 
-    const updatePosition = () => {
-      const triggerRect = triggerRef.current.getBoundingClientRect()
-      const contentElement = contentRef.current
-      if (!contentElement)
-        return
-
-      const x = triggerRect.left + triggerRect.width / 2 - contentElement.clientWidth / 2 + window.scrollX
-      const y = triggerRect.bottom + 8 + window.scrollY
-
-      contentElement.style.transform = `translate(${x}px, ${y}px)`
-    }
-
-    const frame = requestAnimationFrame(updatePosition)
-
-    window.addEventListener('resize', updatePosition)
-    window.addEventListener('scroll', updatePosition, true)
-
-    return () => {
-      cancelAnimationFrame(frame)
-      window.removeEventListener('resize', updatePosition)
-      window.removeEventListener('scroll', updatePosition, true)
-    }
-  }, [contentRef, isOpen, triggerRef])
-
-  if (!isOpen) {
+  if (!isOpen)
     return null
-  }
 
   return createPortal(
     <div {...props} ref={contentRef} className={clsx(styles.content, className)}>
