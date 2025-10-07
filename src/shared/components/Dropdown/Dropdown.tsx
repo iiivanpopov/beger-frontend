@@ -3,11 +3,13 @@ import clsx from 'clsx'
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { useControlledState } from '@/shared/hooks'
-import { buildContext } from '@/shared/utils'
+import { buildContext, normalizeValue } from '@/shared/utils'
 import { Popover } from '../Popover/Popover'
 import styles from './Dropdown.module.css'
 
 interface DropdownContextProps {
+  selectedLabel: ReactNode
+  setSelectedLabel: Dispatch<SetStateAction<ReactNode>>
   selected: string
   setSelected: Dispatch<SetStateAction<string>>
   isOpen: boolean
@@ -17,25 +19,35 @@ const [DropdownContext, useDropdownContext] = buildContext<DropdownContextProps>
 
 interface DropdownProps {
   children: ReactNode
-  defaultSelected?: string
   external?: [string, Dispatch<SetStateAction<string>>]
+  initial?: {
+    value: string | string[] | number
+    label: string
+  }
 }
 
-function Dropdown({ children, external, defaultSelected }: DropdownProps) {
-  const [selected, setSelected] = useControlledState(external, external ? external[0] : defaultSelected ?? '')
+function Dropdown({ children, external, initial }: DropdownProps) {
+  const [selected, setSelected] = useControlledState(
+    external,
+    external?.[0] ?? normalizeValue(initial?.value),
+  )
+  const [selectedLabel, setSelectedLabel] = useState<ReactNode>(initial?.label ?? '')
   const externalPopover = useState(false)
 
-  const value = useMemo(() => ({
-    selected,
-    setSelected,
-    isOpen: externalPopover[0],
-  }), [externalPopover, selected, setSelected])
+  const value = useMemo(
+    () => ({
+      selected,
+      setSelected,
+      selectedLabel,
+      setSelectedLabel,
+      isOpen: externalPopover[0],
+    }),
+    [externalPopover, selected, selectedLabel, setSelected, setSelectedLabel],
+  )
 
   return (
     <Popover external={externalPopover}>
-      <DropdownContext value={value}>
-        {children}
-      </DropdownContext>
+      <DropdownContext value={value}>{children}</DropdownContext>
     </Popover>
   )
 }
@@ -44,14 +56,20 @@ type Variant = 'contained'
 
 interface DropdownTriggerProps {
   variant?: Variant
+  icon?: boolean
 }
 
-function DropdownTrigger({ variant = 'contained' }: DropdownTriggerProps) {
-  const { selected, isOpen } = useDropdownContext()
+function DropdownTrigger({ variant = 'contained', icon }: DropdownTriggerProps) {
+  const { isOpen, selectedLabel } = useDropdownContext()
 
   return (
-    <Popover.Trigger className={clsx(styles.trigger, styles[variant])}>
-      <span>{selected}</span>
+    <Popover.Trigger className={clsx(
+      styles.trigger,
+      styles[variant],
+      { [styles.icon]: icon },
+    )}
+    >
+      <span>{selectedLabel}</span>
       {!isOpen && <ChevronDownIcon className={styles.arrow} />}
       {isOpen && <ChevronUpIcon className={styles.arrow} />}
     </Popover.Trigger>
@@ -71,15 +89,17 @@ function DropdownOptions({ children }: DropdownOptionsProps) {
 }
 
 type DropdownOptionProps = ComponentProps<'button'> & {
-  children: string
+  children: ReactNode
   className?: string
+  value: string
 }
 
-function DropdownOption({ children, className, ...props }: DropdownOptionProps) {
-  const { setSelected, selected } = useDropdownContext()
+function DropdownOption({ children, value, className, ...props }: DropdownOptionProps) {
+  const { setSelectedLabel, setSelected, selected } = useDropdownContext()
 
   const handleSelect = () => {
-    setSelected(children)
+    setSelected(value)
+    setSelectedLabel(children)
   }
 
   return (
@@ -87,7 +107,7 @@ function DropdownOption({ children, className, ...props }: DropdownOptionProps) 
       {...props}
       type="button"
       className={clsx(
-        { [styles.active]: children === selected },
+        { [styles.active]: value === selected },
         className,
       )}
       onClick={handleSelect}
