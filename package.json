@@ -10,7 +10,8 @@
     "check": "eslint --fix \"**/*.{js,ts,jsx,tsx,css,html,md,json}\"",
     "lint:css": "stylelint --fix \"**/*.css\"",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prepare": "husky"
   },
   "dependencies": {
     "clsx": "^2.1.1",
