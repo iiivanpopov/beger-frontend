@@ -49,7 +49,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx,css,html,md,json}": "eslint --fix",
-    "*.css": "stylelint --fix"
+    "*.{js,ts,jsx,tsx,css,html,md,json}": "pnpm eslint --fix",
+    "*.css": "pnpm stylelint --fix"
   }
 }

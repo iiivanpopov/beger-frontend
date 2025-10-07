@@ -1,7 +1,8 @@
+import type { LucideIcon } from 'lucide-react'
 import type { ComponentProps, Dispatch, ReactNode, SetStateAction } from 'react'
 import clsx from 'clsx'
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useControlledState } from '@/shared/hooks'
 import { buildContext, normalizeValue } from '@/shared/utils'
 import { Popover } from '../Popover/Popover'
@@ -9,10 +10,10 @@ import styles from './Dropdown.module.css'
 
 interface DropdownContextProps {
   selectedLabel: ReactNode
-  setSelectedLabel: Dispatch<SetStateAction<ReactNode>>
+  selectedIcon: LucideIcon | undefined
   selected: string
-  setSelected: Dispatch<SetStateAction<string>>
   isOpen: boolean
+  handleSelect: (value: string, label: ReactNode, icon?: LucideIcon) => void
 }
 
 const [DropdownContext, useDropdownContext] = buildContext<DropdownContextProps>()
@@ -23,6 +24,7 @@ interface DropdownProps {
   initial?: {
     value: string | string[] | number
     label: string
+    icon?: LucideIcon
   }
 }
 
@@ -32,17 +34,25 @@ function Dropdown({ children, external, initial }: DropdownProps) {
     external?.[0] ?? normalizeValue(initial?.value),
   )
   const [selectedLabel, setSelectedLabel] = useState<ReactNode>(initial?.label ?? '')
+  const [selectedIcon, setSelectedIcon] = useState<LucideIcon | undefined>(initial?.icon)
   const externalPopover = useState(false)
+
+  const handleSelect = useCallback((value: string, label: ReactNode, icon?: LucideIcon) => {
+    setSelected(value)
+    setSelectedLabel(label)
+    if (icon)
+      setSelectedIcon(icon)
+  }, [setSelected])
 
   const value = useMemo(
     () => ({
       selected,
-      setSelected,
       selectedLabel,
-      setSelectedLabel,
+      selectedIcon,
       isOpen: externalPopover[0],
+      handleSelect,
     }),
-    [externalPopover, selected, selectedLabel, setSelected, setSelectedLabel],
+    [selected, selectedLabel, selectedIcon, externalPopover, handleSelect],
   )
 
   return (
@@ -56,22 +66,28 @@ type Variant = 'contained'
 
 interface DropdownTriggerProps {
   variant?: Variant
-  icon?: boolean
 }
 
-function DropdownTrigger({ variant = 'contained', icon }: DropdownTriggerProps) {
-  const { isOpen, selectedLabel } = useDropdownContext()
+function DropdownTrigger({ variant = 'contained' }: DropdownTriggerProps) {
+  const { isOpen, selectedLabel, selectedIcon } = useDropdownContext()
+  const Icon = selectedIcon
+  const ChevronIcon = isOpen ? ChevronUpIcon : ChevronDownIcon
 
   return (
-    <Popover.Trigger className={clsx(
-      styles.trigger,
-      styles[variant],
-      { [styles.icon]: icon },
-    )}
+    <Popover.Trigger
+      className={clsx(
+        styles.trigger,
+        styles[variant],
+        Icon && styles.icon,
+      )}
     >
-      <span>{selectedLabel}</span>
-      {!isOpen && <ChevronDownIcon className={styles.arrow} />}
-      {isOpen && <ChevronUpIcon className={styles.arrow} />}
+      {Icon && <Icon />}
+      {!Icon && (
+        <>
+          <span>{selectedLabel}</span>
+          <ChevronIcon className={styles.arrow} />
+        </>
+      )}
     </Popover.Trigger>
   )
 }
@@ -88,31 +104,33 @@ function DropdownOptions({ children }: DropdownOptionsProps) {
   )
 }
 
-type DropdownOptionProps = ComponentProps<'button'> & {
+interface DropdownOptionProps extends ComponentProps<'button'> {
   children: ReactNode
   className?: string
   value: string
+  icon?: LucideIcon
 }
 
-function DropdownOption({ children, value, className, ...props }: DropdownOptionProps) {
-  const { setSelectedLabel, setSelected, selected } = useDropdownContext()
+function DropdownOption({ children, icon, value, className, ...props }: DropdownOptionProps) {
+  const { selected, handleSelect } = useDropdownContext()
+  const Icon = icon
 
-  const handleSelect = () => {
-    setSelected(value)
-    setSelectedLabel(children)
-  }
+  const onClick = useCallback(() => {
+    handleSelect(value, children, icon)
+  }, [handleSelect, value, children, icon])
 
   return (
     <button
       {...props}
       type="button"
       className={clsx(
-        { [styles.active]: value === selected },
+        value === selected && styles.active,
         className,
       )}
-      onClick={handleSelect}
+      onClick={onClick}
     >
-      {children}
+      {Icon && <Icon />}
+      <span>{children}</span>
     </button>
   )
 }
