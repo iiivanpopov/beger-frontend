@@ -3,9 +3,9 @@
   justify-content: center;
   align-items: center;
   margin: 0;
-  padding: 0;
+  padding: 0 16px;
   border: 2px solid transparent;
-  border-radius: 1000px;
+  border-radius: 999px;
   outline: none;
   font-family: var(--font-body);
   font-weight: 500;
@@ -21,55 +21,49 @@
   }
 
   &.large {
-    min-width: 150px;
-    min-height: 42px;
+    min-width: 160px;
+    min-height: 48px;
     font-size: 18px;
 
     &.icon {
-      width: 42px;
-      min-width: unset;
-      height: 42px;
-      min-height: unset;
+      width: 48px;
+      height: 48px;
 
       svg {
-        width: 21px;
-        height: 21px;
+        width: 24px;
+        height: 24px;
       }
     }
   }
 
   &.medium {
-    min-width: 127.5px;
-    min-height: 36px;
+    min-width: 140px;
+    min-height: 40px;
     font-size: 16px;
 
     &.icon {
-      width: 36px;
-      min-width: unset;
-      height: 36px;
-      min-height: unset;
+      width: 40px;
+      height: 40px;
 
       svg {
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
       }
     }
   }
 
   &.small {
-    min-width: 105px;
-    min-height: 30px;
+    min-width: 120px;
+    min-height: 32px;
     font-size: 14px;
 
     &.icon {
-      width: 30px;
-      min-width: unset;
-      height: 30px;
-      min-height: unset;
+      width: 32px;
+      height: 32px;
 
       svg {
-        width: 15px;
-        height: 15px;
+        width: 16px;
+        height: 16px;
       }
     }
   }
@@ -77,6 +71,7 @@
   &.icon {
     min-width: unset;
     min-height: unset;
+    padding: 0;
   }
 
   &.contained {
@@ -86,6 +81,7 @@
   &.underlined {
     min-width: unset;
     min-height: unset;
+    padding: 0;
     text-decoration: underline;
     color: var(--text-primary);
     background: none;
