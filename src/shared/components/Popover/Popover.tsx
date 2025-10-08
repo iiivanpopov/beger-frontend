@@ -7,7 +7,7 @@ import { useClickOutside, useControlledState, useFloatingPosition } from '@/shar
 import { buildContext, cloneMerged } from '@/shared/utils'
 import styles from './Popover.module.css'
 
-interface PopoverContextProps {
+export interface PopoverContextProps {
   isOpen: boolean
   toggle: () => void
   close: () => void
@@ -17,7 +17,7 @@ interface PopoverContextProps {
 
 const [PopoverContext, usePopoverContext] = buildContext<PopoverContextProps>()
 
-interface PopoverProps {
+export interface PopoverProps {
   external?: [
     boolean,
     Dispatch<SetStateAction<boolean>>,

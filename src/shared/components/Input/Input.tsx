@@ -4,15 +4,14 @@ import styles from './Input.module.css'
 
 type Variant = 'contained'
 
-type InputProps = {
+export interface InputProps extends ComponentProps<'input'> {
   variant?: Variant
-} & ComponentProps<'input'>
+}
 
-export function Input({ variant = 'contained', disabled, ...props }: InputProps) {
+export function Input({ variant = 'contained', ...props }: InputProps) {
   return (
     <input
       {...props}
-      disabled={disabled}
       className={clsx(
         styles.input,
         styles[variant],

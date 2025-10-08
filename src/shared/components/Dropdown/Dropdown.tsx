@@ -8,7 +8,7 @@ import { buildContext, normalizeValue } from '@/shared/utils'
 import { Popover } from '../Popover/Popover'
 import styles from './Dropdown.module.css'
 
-interface DropdownContextProps {
+export interface DropdownContextProps {
   selectedLabel: ReactNode
   selectedIcon: LucideIcon | undefined
   selected: string
@@ -18,7 +18,7 @@ interface DropdownContextProps {
 
 const [DropdownContext, useDropdownContext] = buildContext<DropdownContextProps>()
 
-interface DropdownProps {
+export interface DropdownProps {
   children: ReactNode
   external?: [string, Dispatch<SetStateAction<string>>]
   initial?: {
@@ -64,7 +64,7 @@ function Dropdown({ children, external, initial }: DropdownProps) {
 
 type Variant = 'contained'
 
-interface DropdownTriggerProps {
+export interface DropdownTriggerProps {
   variant?: Variant
 }
 
@@ -92,7 +92,7 @@ function DropdownTrigger({ variant = 'contained' }: DropdownTriggerProps) {
   )
 }
 
-interface DropdownOptionsProps {
+export interface DropdownOptionsProps {
   children: ReactNode
 }
 
@@ -104,7 +104,7 @@ function DropdownOptions({ children }: DropdownOptionsProps) {
   )
 }
 
-interface DropdownOptionProps extends ComponentProps<'button'> {
+export interface DropdownOptionProps extends ComponentProps<'button'> {
   children: ReactNode
   className?: string
   value: string

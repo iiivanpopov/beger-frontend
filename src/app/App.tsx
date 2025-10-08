@@ -1,5 +1,9 @@
+import { Textarea } from '@/shared/components'
+
 export function App() {
   return (
-    <>Application</>
+    <>
+      <Textarea placeholder="Hello world?" />
+    </>
   )
 }

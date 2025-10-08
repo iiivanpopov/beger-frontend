@@ -7,7 +7,7 @@ import { useClickOutside, useControlledState } from '@/shared/hooks'
 import { buildContext, cloneMerged } from '@/shared/utils'
 import styles from './Modal.module.css'
 
-interface ModalContextProps {
+export interface ModalContextProps {
   isOpen: boolean
   open: () => void
   close: () => void
@@ -16,7 +16,7 @@ interface ModalContextProps {
 
 const [ModalContext, useModalContext] = buildContext<ModalContextProps>()
 
-interface ModalProps {
+export interface ModalProps {
   children: ReactNode
   external?: [
     boolean,
@@ -42,7 +42,7 @@ function Modal({ children, external }: ModalProps) {
   )
 }
 
-type ModalTriggerProps = AsChildProps<
+export type ModalTriggerProps = AsChildProps<
   ComponentProps<'button'>,
   ButtonHTMLAttributes<HTMLButtonElement>
 >
@@ -70,7 +70,7 @@ function ModalTrigger({ asChild, children, className, ...props }: ModalTriggerPr
   )
 }
 
-type ModalContentProps = AsChildProps<
+export type ModalContentProps = AsChildProps<
   ComponentProps<'div'>,
   HTMLAttributes<HTMLDivElement>
 >

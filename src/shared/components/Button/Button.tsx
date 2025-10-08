@@ -6,7 +6,7 @@ type Variant = 'contained' | 'underlined'
 type Color = 'primary'
 type Size = 'large' | 'medium' | 'small'
 
-interface ButtonProps extends Omit<ComponentProps<'button'>, 'children'> {
+interface ButtonProps extends ComponentProps<'button'> {
   variant?: Variant
   color?: Color
   size?: Size
@@ -33,7 +33,7 @@ export function Button({
         styles[variant],
         styles[color],
         styles[size],
-        { [styles.icon]: icon },
+        icon && styles.icon,
         className,
       )}
     >

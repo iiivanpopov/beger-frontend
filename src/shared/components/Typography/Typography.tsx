@@ -5,17 +5,17 @@ import styles from './Typography.module.css'
 type Tag = 'h1' | 'h2' | 'div'
 type Variant = 'heading' | 'subheading' | 'body' | 'caption'
 
-export type TypographyProps<T extends Tag = 'div'> = {
+export type TypographyProps<T extends Tag = 'div'> = ComponentProps<T> & {
   tag?: T
-  variant: Variant
+  variant?: Variant
   children: ReactNode
-} & Omit<ComponentProps<T>, 'children'>
+}
 
 export function Typography<T extends Tag = 'div'>({
   tag,
   children,
   className,
-  variant,
+  variant = 'body',
   ...props
 }: TypographyProps<T>) {
   const Component = tag || 'div'

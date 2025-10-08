@@ -15,18 +15,13 @@ export default antfu({
     markdown: true,
   },
 }, storybook.configs['flat/recommended'])
-  .override('antfu/react/rules', {
-    rules: {
-      'react/no-comment-textnodes': 'off',
-      'react/jsx-no-comment-textnodes': 'warn',
-      'react-hooks-extra/no-unnecessary-use-prefix': 'off',
-      'react/no-unnecessary-use-prefix': 'warn',
-      'react-hooks-extra/prefer-use-state-lazy-initialization': 'off',
-      'react/prefer-use-state-lazy-initialization': 'warn',
-    },
-  })
-  .override('antfu/stylistic/rules', {
-    rules: {
-      'style/jsx-closing-tag-location': 'off',
-    },
+  .overrideRules({
+    'style/jsx-closing-tag-location': 'off',
+    'react/no-comment-textnodes': 'off',
+    'react/jsx-no-comment-textnodes': 'warn',
+    'react-hooks-extra/no-unnecessary-use-prefix': 'off',
+    'react/no-unnecessary-use-prefix': 'warn',
+    'react-hooks-extra/prefer-use-state-lazy-initialization': 'off',
+    'react/prefer-use-state-lazy-initialization': 'warn',
+    'storybook/default-exports': 'off',
   })
