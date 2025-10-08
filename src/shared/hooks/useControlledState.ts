@@ -4,11 +4,10 @@ import { useState } from 'react'
 export function useControlledState<T>(
   external: [T, Dispatch<SetStateAction<T>>] | undefined,
   defaultValue: T,
-) {
+): [T, Dispatch<SetStateAction<T>>] {
   const [internalState, setInternalState] = useState(defaultValue)
 
-  const state = external ? external[0] : internalState
-  const setState = external ? external[1] : setInternalState
-
-  return [state, setState] as const
+  if (external)
+    return external
+  return [internalState, setInternalState]
 }

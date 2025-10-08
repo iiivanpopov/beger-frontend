@@ -6,7 +6,7 @@
 
 - [x] Button
 - [x] Input
-- [ ] Textarea
+- [x] Textarea
 - [x] Dropdown
 - [ ] Autocomplete
 - [ ] Datepicker

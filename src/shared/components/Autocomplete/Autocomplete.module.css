@@ -18,22 +18,25 @@
     color: #808080;
   }
 
-  span {
+  input {
     flex: 1;
     overflow: hidden;
-    margin-right: 10px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    font-family: var(--font-body);
+    font-size: 16px;
     text-align: left;
     text-overflow: ellipsis;
     white-space: nowrap;
     color: var(--text-primary);
+    background: none;
   }
 
   &.contained {
     background: var(--background-primary);
-  }
-
-  svg {
-    color: var(--text-primary);
   }
 
   &.icon {

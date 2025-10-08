@@ -9,7 +9,7 @@ import styles from './Popover.module.css'
 
 export interface PopoverContextProps {
   isOpen: boolean
-  toggle: () => void
+  open: () => void
   close: () => void
   triggerRef: React.RefObject<HTMLButtonElement>
   contentRef: React.RefObject<HTMLDivElement>
@@ -33,7 +33,7 @@ function Popover({ children, external }: PopoverProps) {
   const value = useMemo(
     () => ({
       isOpen,
-      toggle: () => setOpen(!isOpen),
+      open: () => setOpen(true),
       close: () => setOpen(false),
       triggerRef,
       contentRef,
@@ -50,7 +50,7 @@ export type PopoverTriggerProps = AsChildProps<
 >
 
 function PopoverTrigger({ children, className, asChild, ...props }: PopoverTriggerProps) {
-  const { isOpen, toggle, triggerRef } = usePopoverContext()
+  const { isOpen, open, triggerRef } = usePopoverContext()
 
   if (asChild) {
     return cloneMerged(children, {
@@ -58,7 +58,7 @@ function PopoverTrigger({ children, className, asChild, ...props }: PopoverTrigg
       onClick: (e: React.MouseEvent) => {
         e.preventDefault()
         e.stopPropagation()
-        toggle()
+        open()
       },
     })
   }
@@ -72,7 +72,7 @@ function PopoverTrigger({ children, className, asChild, ...props }: PopoverTrigg
       onClick={(e) => {
         e.preventDefault()
         e.stopPropagation()
-        toggle()
+        open()
       }}
       aria-expanded={isOpen}
     >

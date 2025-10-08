@@ -2,18 +2,20 @@ import type { LucideIcon } from 'lucide-react'
 import type { ComponentProps, Dispatch, ReactNode, SetStateAction } from 'react'
 import clsx from 'clsx'
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useControlledState } from '@/shared/hooks'
-import { buildContext, normalizeValue } from '@/shared/utils'
+import { buildContext } from '@/shared/utils'
 import { Popover } from '../Popover/Popover'
 import styles from './Dropdown.module.css'
 
 export interface DropdownContextProps {
   selectedLabel: ReactNode
   selectedIcon: LucideIcon | undefined
-  selected: string
+  selectedValue: string
   isOpen: boolean
-  handleSelect: (value: string, label: ReactNode, icon?: LucideIcon) => void
+  setSelectedValue: Dispatch<SetStateAction<string>>
+  setSelectedLabel: Dispatch<SetStateAction<ReactNode>>
+  setSelectedIcon: Dispatch<SetStateAction<LucideIcon | undefined>>
 }
 
 const [DropdownContext, useDropdownContext] = buildContext<DropdownContextProps>()
@@ -21,43 +23,38 @@ const [DropdownContext, useDropdownContext] = buildContext<DropdownContextProps>
 export interface DropdownProps {
   children: ReactNode
   external?: [string, Dispatch<SetStateAction<string>>]
+  externalPopover?: [boolean, Dispatch<SetStateAction<boolean>>]
   initial?: {
-    value: string | string[] | number
+    value: string
     label: string
     icon?: LucideIcon
   }
 }
 
-function Dropdown({ children, external, initial }: DropdownProps) {
-  const [selected, setSelected] = useControlledState(
+function Dropdown({ children, external, externalPopover, initial }: DropdownProps) {
+  const [selectedValue, setSelectedValue] = useControlledState(
     external,
-    external?.[0] ?? normalizeValue(initial?.value),
+    initial?.value ?? external?.[0] ?? '',
   )
   const [selectedLabel, setSelectedLabel] = useState<ReactNode>(initial?.label ?? '')
   const [selectedIcon, setSelectedIcon] = useState<LucideIcon | undefined>(initial?.icon)
-  const externalPopover = useState(false)
+  const internalPopover = useControlledState(externalPopover, false)
 
-  const handleSelect = useCallback((value: string, label: ReactNode, icon?: LucideIcon) => {
-    setSelected(value)
-    setSelectedLabel(label)
-    if (icon)
-      setSelectedIcon(icon)
-  }, [setSelected])
-
-  const value = useMemo(
-    () => ({
-      selected,
-      selectedLabel,
-      selectedIcon,
-      isOpen: externalPopover[0],
-      handleSelect,
-    }),
-    [selected, selectedLabel, selectedIcon, externalPopover, handleSelect],
-  )
+  const contextValue = useMemo(() => ({
+    selectedValue,
+    selectedLabel,
+    selectedIcon,
+    isOpen: internalPopover[0],
+    setSelectedValue,
+    setSelectedLabel,
+    setSelectedIcon,
+  }), [internalPopover, selectedValue, selectedIcon, selectedLabel, setSelectedValue])
 
   return (
-    <Popover external={externalPopover}>
-      <DropdownContext value={value}>{children}</DropdownContext>
+    <Popover external={internalPopover}>
+      <DropdownContext value={contextValue}>
+        {children}
+      </DropdownContext>
     </Popover>
   )
 }
@@ -81,22 +78,23 @@ function DropdownTrigger({ variant = 'contained' }: DropdownTriggerProps) {
         Icon && styles.icon,
       )}
     >
-      {Icon && <Icon />}
-      {!Icon && (
-        <>
-          <span>{selectedLabel}</span>
-          <ChevronIcon className={styles.arrow} />
-        </>
-      )}
+      {Icon
+        ? (<Icon />)
+        : (
+            <>
+              <span>{selectedLabel}</span>
+              <ChevronIcon className={styles.arrow} />
+            </>
+          )}
     </Popover.Trigger>
   )
 }
 
-export interface DropdownOptionsProps {
+export interface DropdownItemsProps {
   children: ReactNode
 }
 
-function DropdownOptions({ children }: DropdownOptionsProps) {
+function DropdownItems({ children }: DropdownItemsProps) {
   return (
     <Popover.Content className={styles.options}>
       {children}
@@ -104,30 +102,32 @@ function DropdownOptions({ children }: DropdownOptionsProps) {
   )
 }
 
-export interface DropdownOptionProps extends ComponentProps<'button'> {
+export interface DropdownItemProps extends ComponentProps<'button'> {
   children: ReactNode
   className?: string
   value: string
   icon?: LucideIcon
 }
 
-function DropdownOption({ children, icon, value, className, ...props }: DropdownOptionProps) {
-  const { selected, handleSelect } = useDropdownContext()
+function DropdownItem({ children, icon, value, className, ...props }: DropdownItemProps) {
+  const { selectedValue, setSelectedValue, setSelectedLabel, setSelectedIcon } = useDropdownContext()
   const Icon = icon
 
-  const onClick = useCallback(() => {
-    handleSelect(value, children, icon)
-  }, [handleSelect, value, children, icon])
+  const handleSelect = () => {
+    setSelectedValue(value)
+    setSelectedLabel(children)
+    setSelectedIcon(icon)
+  }
 
   return (
     <button
       {...props}
       type="button"
       className={clsx(
-        value === selected && styles.active,
+        value === selectedValue && styles.active,
         className,
       )}
-      onClick={onClick}
+      onClick={handleSelect}
     >
       {Icon && <Icon />}
       <span>{children}</span>
@@ -136,7 +136,7 @@ function DropdownOption({ children, icon, value, className, ...props }: Dropdown
 }
 
 Dropdown.Trigger = DropdownTrigger
-Dropdown.Options = DropdownOptions
-Dropdown.Option = DropdownOption
+Dropdown.Items = DropdownItems
+Dropdown.Item = DropdownItem
 
 export { Dropdown }
