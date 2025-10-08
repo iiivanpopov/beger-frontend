@@ -8,7 +8,7 @@
 - [x] Input
 - [x] Textarea
 - [x] Dropdown
-- [ ] Autocomplete
+- [x] Autocomplete
 - [ ] Datepicker
 - [x] Modal (primitive)
 - [x] Popover (primitive)
