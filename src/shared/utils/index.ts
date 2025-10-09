@@ -1,4 +1,5 @@
 export * from './buildContext'
 export * from './cloneMerged'
+export * from './getDaysInMonth'
 export * from './matchesSearch'
 export * from './normalizeValue'

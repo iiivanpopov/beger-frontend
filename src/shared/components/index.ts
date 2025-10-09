@@ -1,5 +1,6 @@
 export * from './Autocomplete/Autocomplete'
 export * from './Button/Button'
+export * from './Datepicker/Datepicker'
 export * from './Dropdown/Dropdown'
 export * from './Input/Input'
 export * from './Modal/Modal'
