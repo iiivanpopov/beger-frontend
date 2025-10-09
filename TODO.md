@@ -9,7 +9,7 @@
 - [x] Textarea
 - [x] Dropdown
 - [x] Autocomplete
-- [ ] Datepicker
+- [x] Datepicker
 - [x] Modal (primitive)
 - [x] Popover (primitive)
 - [x] Typography
