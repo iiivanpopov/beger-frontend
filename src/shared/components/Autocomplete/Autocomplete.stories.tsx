@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { useState } from 'react'
 import { Autocomplete } from './Autocomplete'
 
 const meta: Meta<typeof Autocomplete> = {
@@ -8,46 +9,38 @@ const meta: Meta<typeof Autocomplete> = {
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {
-  render: () => (
-    <Autocomplete initial={{ label: 'Apple', value: 'apple' }}>
-      <Autocomplete.Trigger />
-      <Autocomplete.Items>
-        <Autocomplete.Item value="apple">Apple</Autocomplete.Item>
-        <Autocomplete.Item value="banana">Banana</Autocomplete.Item>
-        <Autocomplete.Item value="cherry">Cherry</Autocomplete.Item>
-      </Autocomplete.Items>
-    </Autocomplete>
-  ),
+export const Basic: Story = {
+  render: () => {
+    const [value, setValue] = useState('')
+
+    return (
+      <Autocomplete value={value} onChange={setValue} defaultLabel="Select an option">
+        <Autocomplete.Trigger />
+        <Autocomplete.Items>
+          <Autocomplete.Item value="1">Option 1</Autocomplete.Item>
+          <Autocomplete.Item value="2">Option 2</Autocomplete.Item>
+          <Autocomplete.Item value="3">Option 3</Autocomplete.Item>
+        </Autocomplete.Items>
+      </Autocomplete>
+    )
+  },
 }
 
-export const ManyOptions: Story = {
-  render: () => (
-    <Autocomplete initial={{ label: 'Item5', value: '5' }}>
-      <Autocomplete.Trigger />
-      <Autocomplete.Items>
-        {Array.from({ length: 15 }, (_, i) => (
-          <Autocomplete.Item key={i} value={String(i)}>
-            Item
-            {i + 1}
-          </Autocomplete.Item>
-        ))}
-      </Autocomplete.Items>
-    </Autocomplete>
-  ),
-}
+export const WithNumbers: Story = {
+  render: () => {
+    const [value, setValue] = useState('')
 
-export const EmptyInitial: Story = {
-  render: () => (
-    <Autocomplete>
-      <Autocomplete.Trigger />
-      <Autocomplete.Items>
-        <Autocomplete.Item value="js">JavaScript</Autocomplete.Item>
-        <Autocomplete.Item value="ts">TypeScript</Autocomplete.Item>
-        <Autocomplete.Item value="py">Python</Autocomplete.Item>
-      </Autocomplete.Items>
-    </Autocomplete>
-  ),
+    return (
+      <Autocomplete value={value.toString()} onChange={v => setValue(v)} defaultLabel="Pick a number">
+        <Autocomplete.Trigger />
+        <Autocomplete.Items>
+          <Autocomplete.Item value="10">Ten</Autocomplete.Item>
+          <Autocomplete.Item value="20">Twenty</Autocomplete.Item>
+          <Autocomplete.Item value="30">Thirty</Autocomplete.Item>
+        </Autocomplete.Items>
+      </Autocomplete>
+    )
+  },
 }
 
 export default meta

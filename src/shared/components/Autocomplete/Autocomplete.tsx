@@ -1,11 +1,9 @@
-import type { ChangeEvent, Dispatch, ReactNode, SetStateAction } from 'react'
+import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import clsx from 'clsx'
 import { ChevronsUpDownIcon } from 'lucide-react'
-import { useMemo, useState } from 'react'
-import { useControlledState } from '@/shared/hooks'
-import { buildContext } from '@/shared/utils'
-import { normalizeValue } from '@/shared/utils/normalizeValue'
-import { Popover } from '../Popover/Popover'
+import { useEffect, useMemo, useState } from 'react'
+import { Popover } from '@/shared/components'
+import { buildContext, matchesSearch, normalizeValue } from '@/shared/utils'
 import styles from './Autocomplete.module.css'
 
 export interface AutocompleteContextProps {
@@ -19,57 +17,53 @@ const [AutocompleteContext, useAutocompleteContext] = buildContext<AutocompleteC
 
 export interface AutocompleteProps {
   children: ReactNode
-  external?: [string, Dispatch<SetStateAction<string>>]
-  externalPopover?: [boolean, Dispatch<SetStateAction<boolean>>]
-  initial?: {
-    value: string
-    label: string
-  }
+  value: string
+  onChange: Dispatch<SetStateAction<string>>
+  defaultLabel?: ReactNode
 }
 
-function Autocomplete({ children, external, externalPopover, initial }: AutocompleteProps) {
-  const [selectedValue, setSelectedValue] = useControlledState(
-    external,
-    initial?.value ?? external?.[0] ?? '',
-  )
-  const [selectedLabel, setSelectedLabel] = useState<ReactNode>(initial?.label ?? '')
-  const internalPopover = useControlledState(externalPopover, false)
+function Autocomplete({ children, value, onChange, defaultLabel }: AutocompleteProps) {
+  const [selectedLabel, setSelectedLabel] = useState<ReactNode>(defaultLabel)
+  const [isOpen, setIsOpen] = useState(false)
 
-  const value = useMemo(() => ({
-    selectedValue,
-    setSelectedValue,
+  const contextValue = useMemo(() => ({
+    selectedValue: value,
+    setSelectedValue: onChange,
     selectedLabel,
     setSelectedLabel,
-  }), [selectedValue, selectedLabel, setSelectedValue])
+  }), [value, onChange, selectedLabel])
 
   return (
-    <Popover external={internalPopover}>
-      <AutocompleteContext value={value}>
+    <Popover isOpen={isOpen} setIsOpen={setIsOpen}>
+      <AutocompleteContext value={contextValue}>
         {children}
       </AutocompleteContext>
     </Popover>
   )
 }
 
-type Variant = 'contained'
-
 export interface AutocompleteTriggerProps {
   className?: string
-  variant?: Variant
+  variant?: 'contained'
 }
 
 function AutocompleteTrigger({ className, variant = 'contained' }: AutocompleteTriggerProps) {
-  const { selectedLabel, setSelectedValue: setSelected, setSelectedLabel } = useAutocompleteContext()
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value
-    setSelected(val)
-    setSelectedLabel(val)
-  }
+  const {
+    selectedLabel,
+    setSelectedValue,
+    setSelectedLabel,
+  } = useAutocompleteContext()
 
   return (
     <Popover.Trigger className={clsx(styles.trigger, styles[variant], className)}>
-      <input type="text" value={selectedLabel?.toString() ?? ''} onChange={handleChange} />
+      <input
+        type="text"
+        value={selectedLabel?.toString() ?? ''}
+        onChange={(e) => {
+          setSelectedValue(e.target.value)
+          setSelectedLabel(e.target.value)
+        }}
+      />
       <ChevronsUpDownIcon className={styles.arrow} />
     </Popover.Trigger>
   )
@@ -93,30 +87,34 @@ export interface AutocompleteItemProps {
 }
 
 function AutocompleteItem({ children, value }: AutocompleteItemProps) {
-  const { selectedValue, setSelectedValue, setSelectedLabel } = useAutocompleteContext()
+  const {
+    selectedValue,
+    setSelectedValue,
+    selectedLabel,
+    setSelectedLabel,
+  } = useAutocompleteContext()
 
   const label = normalizeValue(children)
 
-  const handleSelect = () => {
-    setSelectedValue(value.toString())
-    setSelectedLabel(label)
-  }
+  useEffect(() => {
+    if (label === selectedLabel)
+      setSelectedValue(value.toString())
+  }, [label, selectedLabel, setSelectedValue, value])
 
-  if (selectedValue) {
-    const search = selectedValue.toLowerCase().trim()
-    const normalizedValue = value.toString().toLowerCase()
-    const normalizedLabel = label.toLowerCase()
-
-    const matches = normalizedLabel.includes(search) || normalizedValue.includes(search)
-    if (!matches)
-      return null
-  }
+  if (selectedValue && !matchesSearch({ search: selectedValue, value, label }))
+    return null
 
   return (
     <button
       type="button"
-      className={clsx(styles.option, value === selectedValue && styles.active)}
-      onClick={handleSelect}
+      className={clsx(
+        styles.option,
+        value === selectedValue && styles.active,
+      )}
+      onClick={() => {
+        setSelectedValue(value.toString())
+        setSelectedLabel(label)
+      }}
     >
       {children}
     </button>

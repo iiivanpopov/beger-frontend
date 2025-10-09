@@ -3,40 +3,35 @@ import type { AsChildProps } from '@/shared/types'
 import clsx from 'clsx'
 import { useMemo, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { useClickOutside, useControlledState } from '@/shared/hooks'
+import { useClickOutside } from '@/shared/hooks'
 import { buildContext, cloneMerged } from '@/shared/utils'
 import styles from './Modal.module.css'
 
 export interface ModalContextProps {
   isOpen: boolean
-  open: () => void
-  close: () => void
+  setIsOpen: Dispatch<SetStateAction<boolean>>
   triggerRef: RefObject<HTMLButtonElement>
 }
 
 const [ModalContext, useModalContext] = buildContext<ModalContextProps>()
 
 export interface ModalProps {
+  isOpen: boolean
+  setIsOpen: Dispatch<SetStateAction<boolean>>
   children: ReactNode
-  external?: [
-    boolean,
-    Dispatch<SetStateAction<boolean>>,
-  ]
 }
 
-function Modal({ children, external }: ModalProps) {
-  const [isOpen, setIsOpen] = useControlledState(external, false)
+function Modal({ children, isOpen, setIsOpen }: ModalProps) {
   const triggerRef = useRef<HTMLButtonElement>(null!)
 
-  const value = useMemo(() => ({
+  const contextValue = useMemo(() => ({
     isOpen,
-    open: () => setIsOpen(true),
-    close: () => setIsOpen(false),
+    setIsOpen,
     triggerRef,
   }), [isOpen, setIsOpen])
 
   return (
-    <ModalContext value={value}>
+    <ModalContext value={contextValue}>
       {children}
     </ModalContext>
   )
@@ -48,12 +43,12 @@ export type ModalTriggerProps = AsChildProps<
 >
 
 function ModalTrigger({ asChild, children, className, ...props }: ModalTriggerProps) {
-  const { open, triggerRef } = useModalContext()
+  const { setIsOpen, triggerRef } = useModalContext()
 
   if (asChild) {
     return cloneMerged(children, {
       ref: triggerRef,
-      onClick: open,
+      onClick: () => setIsOpen(true),
     })
   }
 
@@ -63,7 +58,7 @@ function ModalTrigger({ asChild, children, className, ...props }: ModalTriggerPr
       ref={triggerRef}
       type="button"
       className={clsx(styles.trigger, className)}
-      onClick={open}
+      onClick={() => setIsOpen(true)}
     >
       {children}
     </button>
@@ -76,12 +71,11 @@ export type ModalContentProps = AsChildProps<
 >
 
 function ModalContent({ children, asChild, className, ...props }: ModalContentProps) {
-  const { isOpen, close, triggerRef } = useModalContext()
+  const { isOpen, setIsOpen, triggerRef } = useModalContext()
 
   const ref = useClickOutside<HTMLDivElement>((e) => {
-    const target = e.target as Node
-    if (target !== triggerRef.current)
-      close()
+    if (e.target !== triggerRef.current)
+      setIsOpen(false)
   })
 
   if (!isOpen)
@@ -89,7 +83,18 @@ function ModalContent({ children, asChild, className, ...props }: ModalContentPr
 
   const content = asChild
     ? cloneMerged(children, { ref })
-    : <div {...props} ref={ref} className={clsx(styles.content, className)}>{children}</div>
+    : (
+        <div
+          {...props}
+          ref={ref}
+          className={clsx(
+            styles.content,
+            className,
+          )}
+        >
+          {children}
+        </div>
+      )
 
   return createPortal(
     <div className={styles.backdrop}>

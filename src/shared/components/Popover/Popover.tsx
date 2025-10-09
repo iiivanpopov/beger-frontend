@@ -3,14 +3,13 @@ import type { AsChildProps } from '@/shared/types'
 import clsx from 'clsx'
 import { useMemo, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { useClickOutside, useControlledState, useFloatingPosition } from '@/shared/hooks'
+import { useClickOutside, useFloatingPosition } from '@/shared/hooks'
 import { buildContext, cloneMerged } from '@/shared/utils'
 import styles from './Popover.module.css'
 
 export interface PopoverContextProps {
   isOpen: boolean
-  open: () => void
-  close: () => void
+  setIsOpen: Dispatch<SetStateAction<boolean>>
   triggerRef: React.RefObject<HTMLButtonElement>
   contentRef: React.RefObject<HTMLDivElement>
 }
@@ -18,30 +17,26 @@ export interface PopoverContextProps {
 const [PopoverContext, usePopoverContext] = buildContext<PopoverContextProps>()
 
 export interface PopoverProps {
-  external?: [
-    boolean,
-    Dispatch<SetStateAction<boolean>>,
-  ]
+  isOpen: boolean
+  setIsOpen: Dispatch<SetStateAction<boolean>>
   children: ReactNode
 }
 
-function Popover({ children, external }: PopoverProps) {
-  const [isOpen, setOpen] = useControlledState(external, false)
+function Popover({ children, isOpen, setIsOpen }: PopoverProps) {
   const triggerRef = useRef<HTMLButtonElement>(null!)
   const contentRef = useRef<HTMLDivElement>(null!)
 
-  const value = useMemo(
+  const contextValue = useMemo(
     () => ({
       isOpen,
-      open: () => setOpen(true),
-      close: () => setOpen(false),
+      setIsOpen,
       triggerRef,
       contentRef,
     }),
-    [isOpen, setOpen],
+    [isOpen, setIsOpen],
   )
 
-  return <PopoverContext value={value}>{children}</PopoverContext>
+  return <PopoverContext value={contextValue}>{children}</PopoverContext>
 }
 
 export type PopoverTriggerProps = AsChildProps<
@@ -50,7 +45,7 @@ export type PopoverTriggerProps = AsChildProps<
 >
 
 function PopoverTrigger({ children, className, asChild, ...props }: PopoverTriggerProps) {
-  const { isOpen, open, triggerRef } = usePopoverContext()
+  const { isOpen, setIsOpen, triggerRef } = usePopoverContext()
 
   if (asChild) {
     return cloneMerged(children, {
@@ -58,7 +53,7 @@ function PopoverTrigger({ children, className, asChild, ...props }: PopoverTrigg
       onClick: (e: React.MouseEvent) => {
         e.preventDefault()
         e.stopPropagation()
-        open()
+        setIsOpen(true)
       },
     })
   }
@@ -72,7 +67,7 @@ function PopoverTrigger({ children, className, asChild, ...props }: PopoverTrigg
       onClick={(e) => {
         e.preventDefault()
         e.stopPropagation()
-        open()
+        setIsOpen(true)
       }}
       aria-expanded={isOpen}
     >
@@ -84,12 +79,12 @@ function PopoverTrigger({ children, className, asChild, ...props }: PopoverTrigg
 type PopoverContentProps = ComponentProps<'div'>
 
 function PopoverContent({ children, className, ...props }: PopoverContentProps) {
-  const { contentRef, triggerRef, close, isOpen } = usePopoverContext()
+  const { contentRef, triggerRef, setIsOpen, isOpen } = usePopoverContext()
 
   useClickOutside<HTMLDivElement>((e: MouseEvent) => {
     const target = e.target as Node
     if (!triggerRef.current?.contains(target)) {
-      close()
+      setIsOpen(false)
     }
   }, contentRef)
 
