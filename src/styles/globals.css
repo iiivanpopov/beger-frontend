@@ -19,6 +19,9 @@
   --background-body: #7990a7;
   --font-title: 'Playfair Display', serif;
   --font-body: 'Inter', sans-serif;
+  --error: #e42b2b;
+  --info: #3174fc;
+  --success: #2be472;
 }
 
 @font-face {

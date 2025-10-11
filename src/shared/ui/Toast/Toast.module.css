@@ -1,0 +1,52 @@
+.toast {
+  z-index: 160;
+  display: flex;
+  overflow: hidden;
+  min-width: 200px;
+  height: 80px;
+  min-height: 80px;
+  border: none;
+  border-radius: 15px;
+  outline: none;
+  text-align: left;
+  background: var(--background-primary);
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+  pointer-events: all;
+
+  &:hover {
+    box-shadow: 0 2px 4px rgb(0 0 0 /20%);
+    transform: translateY(-10px);
+  }
+}
+
+.level {
+  width: 20px;
+  height: 100%;
+}
+
+.error {
+  background: var(--error);
+}
+
+.info {
+  background: var(--info);
+}
+
+.success {
+  background: var(--success);
+}
+
+.title {
+  font-size: 18px !important;
+  font-weight: 500 !important;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  padding: 15px;
+}

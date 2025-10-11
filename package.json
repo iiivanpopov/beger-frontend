@@ -14,44 +14,50 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.90.2",
+    "@tanstack/react-router": "^1.132.47",
+    "@tanstack/router-plugin": "^1.132.51",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.544.0",
+    "ky": "^1.11.0",
+    "lucide-react": "^0.545.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-hook-form": "^7.64.0"
+    "react-hook-form": "^7.65.0",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^5.4.1",
     "@eslint-react/eslint-plugin": "^2.0.6",
     "@storybook/react-vite": "^9.1.10",
-    "@types/node": "^24.7.0",
+    "@types/node": "^24.7.1",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "@vitejs/plugin-react": "^5.0.4",
     "@yelaiii/stylelint": "^1.0.2",
-    "babel-plugin-react-compiler": "19.1.0-rc.3",
+    "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9.37.0",
     "eslint-plugin-format": "^1.0.2",
     "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-hooks": "^7.0.0",
     "eslint-plugin-react-refresh": "^0.4.23",
     "eslint-plugin-storybook": "9.1.10",
     "husky": "^9.1.7",
-    "lint-staged": "^16.2.3",
+    "lint-staged": "^16.2.4",
     "storybook": "9.1.10",
     "stylelint": "^16.25.0",
     "stylelint-config-standard": "^39.0.1",
     "stylelint-order": "^7.0.0",
     "typescript": "~5.9.3",
-    "vite": "npm:rolldown-vite@7.1.14"
+    "vite": "npm:rolldown-vite@7.1.16",
+    "vite-bundle-analyzer": "^1.2.3"
   },
   "pnpm": {
-    "overrides": {
-      "vite": "npm:rolldown-vite@7.1.14"
-    },
     "ignoredBuiltDependencies": [
       "esbuild"
     ]
+  },
+  "overrides": {
+    "vite": "npm:rolldown-vite@7.1.14"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx,css,html,md,json}": "pnpm eslint --fix",
