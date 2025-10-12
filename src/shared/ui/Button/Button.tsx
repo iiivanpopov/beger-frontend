@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import styles from './Button.module.css'
 
 type Variant = 'contained' | 'underlined'
-type Color = 'primary'
+type Color = 'primary' | 'white'
 type Size = 'large' | 'medium' | 'small'
 
 interface ButtonProps extends ComponentProps<'button'> {

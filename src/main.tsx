@@ -4,7 +4,13 @@ import { createRoot } from 'react-dom/client'
 import { routeTree } from './routeTree.gen'
 import './styles/globals.css'
 
-const router = createRouter({ routeTree })
+const router = createRouter({
+  routeTree,
+  context: {
+    isAuth: false,
+    user: null,
+  },
+})
 
 declare module '@tanstack/react-router' {
   interface Register {

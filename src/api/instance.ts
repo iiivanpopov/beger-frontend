@@ -5,7 +5,16 @@ export const $api = ky.create({
   prefixUrl: API.baseUrl,
   hooks: {
     beforeRequest: [
-      request => request.headers.set('Authorization', `Bearer ${LOCAL_STORAGE.accessToken}`),
+      (request) => {
+        request.headers.set(
+          API.headers.accessToken,
+          `Bearer ${localStorage.getItem(LOCAL_STORAGE.accessToken)}`,
+        )
+        request.headers.set(
+          API.headers.refreshToken,
+          `Bearer ${localStorage.getItem(LOCAL_STORAGE.refreshToken)}`,
+        )
+      },
     ],
   },
 })

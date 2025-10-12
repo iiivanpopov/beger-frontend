@@ -7,10 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "check": "eslint --fix \"**/*.{js,ts,jsx,tsx,css,html,md,json}\"",
-    "lint:css": "stylelint --fix \"**/*.css\"",
+    "stylelint": "stylelint --fix \"**/*.css\"",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
     "prepare": "husky"
   },
   "dependencies": {
@@ -48,19 +46,10 @@
     "stylelint-config-standard": "^39.0.1",
     "stylelint-order": "^7.0.0",
     "typescript": "~5.9.3",
-    "vite": "npm:rolldown-vite@7.1.16",
-    "vite-bundle-analyzer": "^1.2.3"
-  },
-  "pnpm": {
-    "ignoredBuiltDependencies": [
-      "esbuild"
-    ]
-  },
-  "overrides": {
-    "vite": "npm:rolldown-vite@7.1.14"
+    "vite": "npm:rolldown-vite@7.1.16"
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx,css,html,md,json}": "pnpm eslint --fix",
-    "*.css": "pnpm stylelint --fix"
+    "*": "eslint --fix",
+    "*.css": "stylelint --fix"
   }
 }

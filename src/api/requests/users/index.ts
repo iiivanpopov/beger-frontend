@@ -1,9 +1,9 @@
 import type { Options } from 'ky'
-import type { ApiResponse, User } from '@/api/types'
+import type { GetCurrentUserResponse } from '@/api/types'
 import { $api } from '@/api/instance'
 
 export async function getCurrentUser(config?: Options) {
-  return await $api.get<ApiResponse<User>>('/users/me', {
+  return await $api.get<GetCurrentUserResponse>('users/me', {
     ...config,
   }).json()
 }

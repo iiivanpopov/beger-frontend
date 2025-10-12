@@ -43,7 +43,14 @@ export interface User {
   createdAt: Date
 }
 
+export type GetCurrentUserResponse = ApiResponse<User>
+
 export interface LoginBody {
   userName: string
   password: string
 }
+
+export type LoginResponse = ApiResponse<{
+  tokens: { accessToken: string, refreshToken: string }
+  user: User
+}>

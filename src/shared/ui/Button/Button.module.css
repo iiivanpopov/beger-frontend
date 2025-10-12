@@ -121,4 +121,41 @@
       }
     }
   }
+
+  &.white {
+    color: var(--text-primary);
+
+    &:not(.underlined) {
+      background: var(--background-primary);
+
+      &:hover,
+      &:active {
+        background-color: var(--background-tertiary);
+      }
+
+      &:focus {
+        border-color: var(--text-primary);
+      }
+
+      &:disabled {
+        color: var(--background-quaternary);
+        background-color: var(--text-tertiary);
+      }
+    }
+
+    &.underlined {
+      &:hover,
+      &:focus {
+        color: var(--text-primary);
+      }
+
+      &:active {
+        color: var(--text-secondary);
+      }
+
+      &:disabled {
+        color: var(--background-quaternary);
+      }
+    }
+  }
 }
