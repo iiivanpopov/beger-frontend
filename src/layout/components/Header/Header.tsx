@@ -5,7 +5,7 @@ import styles from './Header.module.css'
 import { useHeader } from './hooks/useHeader'
 
 export function Header() {
-  const { handleLogout, isAuth, role } = useHeader()
+  const { handleLogout, user } = useHeader()
 
   return (
     <header className={styles.header}>
@@ -14,16 +14,12 @@ export function Header() {
         <Typography variant="heading" tag="h1">Beger</Typography>
       </div>
       <nav className={styles.tabs}>
-        {isAuth && (
-          <>
-            {role === 'admin' && <Tab path="/dashboard">Dashboard</Tab>}
-            {role === 'user' && <Tab path="/repairs">Repairs</Tab>}
-            {role === 'user' && <Tab path="/test-results">Test Results</Tab>}
-          </>
-        )}
+        {user?.role === 'admin' && <Tab path="/dashboard">Dashboard</Tab>}
+        {user?.role === 'user' && <Tab path="/repairs">Repairs</Tab>}
+        {user?.role === 'user' && <Tab path="/test-results">Test Results</Tab>}
       </nav>
       <div className={styles.actions}>
-        {isAuth && (
+        {user && (
           <Button color="white" icon onClick={handleLogout}>
             <DoorOpenIcon />
           </Button>

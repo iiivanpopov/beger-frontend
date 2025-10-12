@@ -7,7 +7,7 @@ interface ToastsStore {
   remove: (id: number) => void
 }
 
-export const useToastsStore = create<ToastsStore>(set => ({
+export const useToastsStore = create<ToastsStore>()(set => ({
   toasts: [],
   toast: ({ title, description, level }) => {
     set(state => ({

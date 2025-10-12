@@ -1,3 +1,0 @@
-## TODO
-
-- [ ] Improve toasts stack

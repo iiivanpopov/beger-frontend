@@ -12,8 +12,10 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@redux-devtools/extension": "^3.3.0",
     "@tanstack/react-query": "^5.90.2",
     "@tanstack/react-router": "^1.132.47",
+    "@tanstack/react-router-devtools": "^1.132.51",
     "@tanstack/router-plugin": "^1.132.51",
     "clsx": "^2.1.1",
     "ky": "^1.11.0",

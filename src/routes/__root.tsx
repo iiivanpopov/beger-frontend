@@ -1,6 +1,7 @@
 import type { QueryClient } from '@tanstack/react-query'
 import type { User } from '@/api'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import { getCurrentUser } from '@/api/requests/users'
 import { LOCAL_STORAGE } from '@/config'
 import { Layout } from '@/layout/Layout'
@@ -12,6 +13,7 @@ function RootLayout() {
     <Layout>
       <Outlet />
       <ToastContainer />
+      <TanStackRouterDevtools />
     </Layout>
   )
 }
@@ -25,8 +27,8 @@ interface RouterContext {
 export const Route = createRootRouteWithContext<RouterContext>()({
   beforeLoad: async ({ context }) => {
     const { queryClient } = context
+    const { setAuth } = useAuthStore.getState()
     const token = localStorage.getItem(LOCAL_STORAGE.accessToken)
-    const setAuth = useAuthStore.getState().setAuth
 
     if (!token) {
       setAuth(null, false)
@@ -38,13 +40,13 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         queryKey: ['user', 'self'],
         queryFn: async () => {
           const res = await getCurrentUser()
-          return res.data
+          return res
         },
         staleTime: 5 * 60 * 1000,
       })
 
-      setAuth(user, true)
-      return { user, isAuth: true }
+      setAuth(user.data, true)
+      return { user: user.data, isAuth: true }
     }
     catch {
       setAuth(null, false)
