@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLoginMutation } from '@/api/hooks/useLoginMutation'
 import { LOCAL_STORAGE } from '@/config'
-import { useToastsStore } from '@/shared/store/toasts'
+import { useAuthStore } from '@/store/auth'
+import { useToastsStore } from '@/store/toasts'
 
 export interface LoginInputs {
   userName: string
@@ -12,9 +13,10 @@ export interface LoginInputs {
 }
 
 export function useLoginPage() {
-  const toast = useToastsStore(state => state.toast)
-  const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
+  const [isOpen, setIsOpen] = useState(false)
+  const toast = useToastsStore(state => state.toast)
+  const setAuth = useAuthStore(state => state.setAuth)
 
   const { control, handleSubmit } = useForm<LoginInputs>({
     defaultValues: {
@@ -26,16 +28,12 @@ export function useLoginPage() {
   const loginMutation = useLoginMutation({
     options: {
       onSuccess: (data) => {
-        toast({
-          level: 'success',
-          title: 'Success',
-          description: 'Logged in successfully',
-        })
-
         localStorage.setItem(LOCAL_STORAGE.accessToken, data.data.tokens.accessToken)
         localStorage.setItem(LOCAL_STORAGE.refreshToken, data.data.tokens.refreshToken)
 
-        router.invalidate()
+        setAuth(data.data.user, true)
+
+        router.navigate({ to: data.data.user.role === 'admin' ? '/dashboard' : '/repairs' })
 
         setIsOpen(false)
       },

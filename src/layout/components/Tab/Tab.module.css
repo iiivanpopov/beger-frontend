@@ -1,0 +1,41 @@
+.tab {
+  position: relative;
+  padding-bottom: 2px;
+  border: none;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+  text-decoration: none;
+  color: var(--text-secondary);
+  background: none;
+  transition: color 0.2s ease;
+  cursor: pointer;
+
+  &::after {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    content: '';
+    background: var(--accent);
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+  }
+
+  &:hover {
+    color: var(--text-primary);
+
+    &::after {
+      width: 100%;
+    }
+  }
+
+  &.active {
+    color: var(--text-primary);
+
+    &::after {
+      width: 100%;
+    }
+  }
+}

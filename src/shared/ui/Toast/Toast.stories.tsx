@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import type { ToastConfig } from './Toast'
+import type { ToastOptions } from './Toast'
 import { useState } from 'react'
 import { Toast } from './Toast'
 
@@ -12,7 +12,7 @@ type Story = StoryObj<typeof meta>
 
 export const Basic: Story = {
   render: () => {
-    const [toasts, setToasts] = useState<ToastConfig[]>([
+    const [toasts, setToasts] = useState<ToastOptions[]>([
       { id: 1, title: 'Information', description: 'This is an info toast', level: 'info' },
       { id: 2, title: 'Success', description: 'Operation successful', level: 'success' },
       { id: 3, title: 'Error', description: 'Something went wrong', level: 'error' },

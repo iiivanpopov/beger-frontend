@@ -3,10 +3,9 @@ import { IndexPage } from '@/pages/Index/IndexPage'
 
 export const Route = createFileRoute('/')({
   beforeLoad: ({ context }) => {
-    const role = context.user?.role
-    if (role === 'user')
+    if (context.user?.role === 'user')
       throw redirect({ to: '/repairs' })
-    if (role === 'admin')
+    if (context.user?.role === 'admin')
       throw redirect({ to: '/dashboard' })
   },
   component: IndexPage,

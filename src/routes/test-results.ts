@@ -3,6 +3,6 @@ import { TestResultsPage } from '@/pages/TestResults/TestResultsPage'
 import { requireRole } from '@/shared/utils/routing'
 
 export const Route = createFileRoute('/test-results')({
-  beforeLoad: ({ context }) => requireRole(context.role!, ['user'], '/login'),
+  beforeLoad: ({ context }) => requireRole(context.user?.role, ['user'], '/login'),
   component: TestResultsPage,
 })

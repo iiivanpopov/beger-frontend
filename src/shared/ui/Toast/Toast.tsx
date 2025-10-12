@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { Typography } from '@/shared/ui'
 import styles from './Toast.module.css'
 
-export interface ToastConfig {
+export interface ToastOptions {
   id: number
   title: string
   description: string
@@ -11,7 +11,7 @@ export interface ToastConfig {
 }
 
 export interface ToastProps {
-  toast: ToastConfig
+  toast: ToastOptions
   remove: (id: number) => void
   disableAutoHide?: boolean
 }
