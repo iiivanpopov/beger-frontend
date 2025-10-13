@@ -1,22 +1,11 @@
 import type { QueryClient } from '@tanstack/react-query'
 import type { User } from '@/api'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import { getCurrentUser } from '@/api/requests/users'
 import { LOCAL_STORAGE } from '@/config'
-import { Layout } from '@/layout/Layout'
+import { Layout } from '@/shared/components'
 import { ToastContainer } from '@/shared/ui'
 import { useAuthStore } from '@/store/auth'
-
-function RootLayout() {
-  return (
-    <Layout>
-      <Outlet />
-      <ToastContainer />
-      <TanStackRouterDevtools />
-    </Layout>
-  )
-}
 
 interface RouterContext {
   user: User | null
@@ -54,3 +43,12 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   },
   component: RootLayout,
 })
+
+function RootLayout() {
+  return (
+    <Layout>
+      <Outlet />
+      <ToastContainer />
+    </Layout>
+  )
+}

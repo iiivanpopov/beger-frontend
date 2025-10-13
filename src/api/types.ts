@@ -54,3 +54,8 @@ export type LoginResponse = ApiResponse<{
   tokens: { accessToken: string, refreshToken: string }
   user: User
 }>
+
+export type RefreshResponse = ApiResponse<{
+  accessToken: string
+  refreshToken: string
+}>

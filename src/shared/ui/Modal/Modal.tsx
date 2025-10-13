@@ -13,7 +13,7 @@ export interface ModalContextProps {
   triggerRef: RefObject<HTMLButtonElement>
 }
 
-const [ModalContext, useModalContext] = buildContext<ModalContextProps>(null!)
+const [ModalContext, useModalContext] = buildContext<ModalContextProps>()
 
 export interface ModalProps {
   isOpen: boolean
@@ -88,7 +88,6 @@ function ModalContent({ children, asChild, className, ...props }: ModalContentPr
           {...props}
           ref={ref}
           className={clsx(
-            styles.content,
             className,
           )}
         >

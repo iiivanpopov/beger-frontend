@@ -6,24 +6,6 @@
   padding: 0;
 }
 
-:root {
-  --accent: #da4c32;
-  --accent-hover: #d43115;
-  --text-primary: #2b2b2b;
-  --text-secondary: #3d3c3c;
-  --text-tertiary: #666;
-  --background-primary: #fff;
-  --background-secondary: #f9f9f9;
-  --background-tertiary: #e6e6e6;
-  --background-quaternary: #e2e2e2;
-  --background-body: #7990a7;
-  --font-title: 'Playfair Display', serif;
-  --font-body: 'Inter', sans-serif;
-  --error: #e42b2b;
-  --info: #3174fc;
-  --success: #2be472;
-}
-
 @font-face {
   font-family: 'Playfair Display';
   font-style: normal;
@@ -54,6 +36,28 @@
   font-weight: 500;
   font-display: swap;
   src: url('/fonts/Inter-Medium.ttf') format('truetype');
+}
+
+:root {
+  --accent: #da4c32;
+  --accent-hover: #d43115;
+  --text-primary: #2b2b2b;
+  --text-secondary: #3d3c3c;
+  --text-tertiary: #666;
+  --background-primary: #fff;
+  --background-secondary: #f9f9f9;
+  --background-tertiary: #e6e6e6;
+  --background-quaternary: #e2e2e2;
+  --background-body: #7990a7;
+  --font-title: 'Playfair Display', 'Times New Roman', times, serif;
+  --font-body: 'Inter', -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, sans-serif;
+  --error: #e42b2b;
+  --info: #3174fc;
+  --success: #2be472;
+}
+
+a {
+  text-decoration: none;
 }
 
 html,

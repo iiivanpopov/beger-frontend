@@ -1,7 +1,7 @@
 import { Controller } from 'react-hook-form'
 import { Button, Form, Input, Modal, Typography } from '@/shared/ui'
-import { useLoginPage } from './hooks/useLoginPage'
 import styles from './LoginPage.module.css'
+import { useLoginPage } from './useLoginPage'
 
 export function LoginPage() {
   const { isOpen, setIsOpen, control, handleSubmit, onSubmit } = useLoginPage()
@@ -19,10 +19,6 @@ export function LoginPage() {
             <Controller
               control={control}
               name="userName"
-              rules={{
-                required: '* Required',
-                minLength: { value: 3, message: 'Too short (>2)' },
-              }}
               render={({ field, fieldState }) => (
                 <Form.Field fieldState={fieldState}>
                   <Input {...field} invalid={fieldState.invalid} placeholder="User Name" />
@@ -32,10 +28,6 @@ export function LoginPage() {
             <Controller
               control={control}
               name="password"
-              rules={{
-                required: '* Required',
-                minLength: { value: 6, message: 'Too short (>5)' },
-              }}
               render={({ field, fieldState }) => (
                 <Form.Field fieldState={fieldState}>
                   <Input {...field} type="password" invalid={fieldState.invalid} placeholder="Password" />

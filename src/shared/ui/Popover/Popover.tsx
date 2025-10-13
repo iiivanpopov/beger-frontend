@@ -14,7 +14,7 @@ export interface PopoverContextProps {
   contentRef: React.RefObject<HTMLDivElement>
 }
 
-const [PopoverContext, usePopoverContext] = buildContext<PopoverContextProps>(null!)
+const [PopoverContext, usePopoverContext] = buildContext<PopoverContextProps>()
 
 export interface PopoverProps {
   isOpen: boolean

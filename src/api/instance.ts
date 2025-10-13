@@ -1,3 +1,4 @@
+import type { RefreshResponse } from './types'
 import ky from 'ky'
 import { API, LOCAL_STORAGE } from '@/config'
 
@@ -30,7 +31,7 @@ export const $api = ky.create({
               headers: {
                 [API.headers.refreshToken]: `Bearer ${refreshToken}`,
               },
-            }).json<{ data: { accessToken: string, refreshToken: string } }>()
+            }).json<RefreshResponse>()
 
             localStorage.setItem(LOCAL_STORAGE.accessToken, refreshResponse.data.accessToken)
             localStorage.setItem(LOCAL_STORAGE.refreshToken, refreshResponse.data.refreshToken)

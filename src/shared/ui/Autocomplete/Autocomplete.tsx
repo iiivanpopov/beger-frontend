@@ -13,7 +13,7 @@ export interface AutocompleteContextProps {
   setSelectedLabel: Dispatch<SetStateAction<ReactNode>>
 }
 
-const [AutocompleteContext, useAutocompleteContext] = buildContext<AutocompleteContextProps>(null!)
+const [AutocompleteContext, useAutocompleteContext] = buildContext<AutocompleteContextProps>()
 
 export interface AutocompleteProps {
   children: ReactNode

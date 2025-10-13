@@ -17,7 +17,7 @@ export interface DropdownContextProps {
   isOpen: boolean
 }
 
-const [DropdownContext, useDropdownContext] = buildContext<DropdownContextProps>(null!)
+const [DropdownContext, useDropdownContext] = buildContext<DropdownContextProps>()
 
 export interface DropdownProps {
   children: ReactNode

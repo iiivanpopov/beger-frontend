@@ -4,7 +4,7 @@
   align-items: center;
   margin: 0;
   padding: 0 16px;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   border-radius: 999px;
   outline: none;
   font-family: var(--font-body);

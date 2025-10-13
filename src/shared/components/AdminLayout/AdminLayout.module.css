@@ -1,0 +1,9 @@
+.layout {
+  display: flex;
+  flex: 1;
+  gap: 30px;
+}
+
+.active {
+  color: var(--accent);
+}

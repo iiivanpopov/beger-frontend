@@ -7,3 +7,17 @@ export function requireRole(current: UserRole | undefined, allowed: UserRole[], 
   if (!allowed.includes(current))
     throw redirect({ to: redirectTo })
 }
+
+export function getRouteSegment(route: string, nth = 0) {
+  const segments = route.split('/').filter(Boolean)
+  const segment = segments[nth]
+  return segment ? `/${segment}` : '/'
+}
+
+export function resolveDefaultRoute(role: UserRole | undefined) {
+  if (role === 'user')
+    throw redirect({ to: '/repairs' })
+  if (role === 'admin')
+    throw redirect({ to: '/admin/users' })
+  throw redirect({ to: '/login' })
+}
