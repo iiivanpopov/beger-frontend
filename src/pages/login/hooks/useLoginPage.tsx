@@ -31,7 +31,7 @@ export function useLoginPage() {
         localStorage.setItem(LOCAL_STORAGE.accessToken, data.data.tokens.accessToken)
         localStorage.setItem(LOCAL_STORAGE.refreshToken, data.data.tokens.refreshToken)
 
-        setAuth(data.data.user, true)
+        setAuth(data.data.user)
 
         router.navigate({ to: data.data.user.role === 'admin' ? '/dashboard' : '/repairs' })
 

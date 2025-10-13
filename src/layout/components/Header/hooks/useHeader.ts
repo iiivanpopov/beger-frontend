@@ -11,7 +11,7 @@ export function useHeader() {
   const logoutMutation = useLogoutMutation({
     options: {
       onSuccess: () => {
-        setAuth(null, false)
+        setAuth(null)
         localStorage.removeItem(LOCAL_STORAGE.accessToken)
         localStorage.removeItem(LOCAL_STORAGE.refreshToken)
         queryClient.removeQueries({ queryKey: ['user', 'self'] })

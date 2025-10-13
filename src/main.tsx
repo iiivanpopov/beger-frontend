@@ -10,7 +10,6 @@ const queryClient = new QueryClient()
 const router = createRouter({
   routeTree,
   context: {
-    isAuth: false,
     user: null,
     queryClient,
   },

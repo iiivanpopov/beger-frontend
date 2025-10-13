@@ -4,14 +4,10 @@ import { devtools } from 'zustand/middleware'
 
 interface AuthStore {
   user: User | null
-  isAuth: boolean
-  setAuth: (user: User | null, isAuth: boolean) => void
+  setAuth: (user: User | null) => void
 }
 
-export const useAuthStore = create<AuthStore>()(
-  devtools(set => ({
-    user: null,
-    isAuth: false,
-    setAuth: (user, isAuth) => set({ user, isAuth }),
-  })),
-)
+export const useAuthStore = create<AuthStore>()(devtools(set => ({
+  user: null,
+  setAuth: user => set({ user }),
+})))

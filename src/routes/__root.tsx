@@ -20,19 +20,18 @@ function RootLayout() {
 
 interface RouterContext {
   user: User | null
-  isAuth: boolean
   queryClient: QueryClient
 }
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   beforeLoad: async ({ context }) => {
     const { queryClient } = context
-    const { setAuth } = useAuthStore.getState()
+    const setAuth = useAuthStore.getState().setAuth
     const token = localStorage.getItem(LOCAL_STORAGE.accessToken)
 
     if (!token) {
-      setAuth(null, false)
-      return { user: null, isAuth: false }
+      setAuth(null)
+      return { user: null }
     }
 
     try {
@@ -45,12 +44,12 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         staleTime: 5 * 60 * 1000,
       })
 
-      setAuth(user.data, true)
-      return { user: user.data, isAuth: true }
+      setAuth(user.data)
+      return { user: user.data }
     }
     catch {
-      setAuth(null, false)
-      return { user: null, isAuth: false }
+      setAuth(null)
+      return { user: null }
     }
   },
   component: RootLayout,
