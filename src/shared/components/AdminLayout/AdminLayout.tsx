@@ -21,9 +21,10 @@ export function AdminLayout({ children }: AdminLayoutProps) {
       <Sidebar isOpen={isOpen} setIsOpen={setIsOpen}>
         <Sidebar.Nav>
           {adminSubRoutes.map(({ to, label, icon }) => {
+            const isActive = getRouteSegment(to, 1) === routeSegment
             return (
               <Link to={to} key={to}>
-                <Sidebar.NavItem className={clsx(getRouteSegment(to, 1) === routeSegment && styles.active)}>
+                <Sidebar.NavItem className={clsx(isActive && styles.active)}>
                   <Sidebar.NavItemIcon icon={icon} />
                   <Sidebar.NavItemLabel>{label}</Sidebar.NavItemLabel>
                 </Sidebar.NavItem>

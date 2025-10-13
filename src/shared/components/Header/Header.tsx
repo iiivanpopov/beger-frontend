@@ -17,19 +17,25 @@ export function Header() {
         <Typography variant="heading" tag="h1">Beger</Typography>
       </div>
       <nav className={styles.tabs}>
-        {routes.map(({ to, role, label }) => (
-          <Link
-            key={to}
-            to={to}
-            className={clsx(
-              styles.tab,
-              routeSegment === getRouteSegment(to) && styles.active,
-              user?.role !== role && styles.hidden,
-            )}
-          >
-            {label}
-          </Link>
-        ))}
+        {routes.map(({ to, role, label }) => {
+          if (user?.role !== role)
+            return null
+
+          const isActive = routeSegment === getRouteSegment(to)
+
+          return (
+            <Link
+              key={to}
+              to={to}
+              className={clsx(
+                styles.tab,
+                isActive && styles.active,
+              )}
+            >
+              {label}
+            </Link>
+          )
+        })}
       </nav>
       <div className={styles.actions}>
         {user && (

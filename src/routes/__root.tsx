@@ -38,6 +38,8 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     }
     catch {
       setAuth(null)
+      localStorage.removeItem(LOCAL_STORAGE.accessToken)
+      localStorage.removeItem(LOCAL_STORAGE.refreshToken)
       return { user: null }
     }
   },
