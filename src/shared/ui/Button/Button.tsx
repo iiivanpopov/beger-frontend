@@ -1,5 +1,6 @@
 import type { ComponentProps, ReactNode } from 'react'
 import clsx from 'clsx'
+import { LoaderCircle } from 'lucide-react'
 import styles from './Button.module.css'
 
 type Variant = 'contained' | 'underlined'
@@ -12,6 +13,7 @@ interface ButtonProps extends ComponentProps<'button'> {
   size?: Size
   icon?: boolean
   children: ReactNode
+  loading?: boolean
 }
 
 export function Button({
@@ -20,7 +22,8 @@ export function Button({
   variant = 'contained',
   color = 'primary',
   size = 'medium',
-  icon = false,
+  loading,
+  icon,
   className,
   ...props
 }: ButtonProps) {
@@ -34,10 +37,12 @@ export function Button({
         styles[color],
         styles[size],
         icon && styles.icon,
+        loading && styles.loading,
         className,
       )}
     >
-      {children}
+      <LoaderCircle className={styles.spinner} />
+      <div className={styles.content}>{children}</div>
     </button>
   )
 }

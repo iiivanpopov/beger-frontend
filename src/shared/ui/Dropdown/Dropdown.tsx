@@ -1,9 +1,9 @@
 import type { LucideIcon } from 'lucide-react'
-import type { ComponentProps, Dispatch, ReactNode, SetStateAction } from 'react'
+import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import clsx from 'clsx'
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import { Popover } from '@/shared/ui'
+import { Popover, SelectList } from '@/shared/ui'
 import { buildContext } from '@/shared/utils'
 import styles from './Dropdown.module.css'
 
@@ -62,8 +62,7 @@ export interface DropdownTriggerProps {
 }
 
 function DropdownTrigger({ variant = 'contained' }: DropdownTriggerProps) {
-  const { isOpen, selectedLabel, selectedIcon } = useDropdownContext()
-  const Icon = selectedIcon
+  const { isOpen, selectedLabel, selectedIcon: Icon } = useDropdownContext()
   const ChevronIcon = isOpen ? ChevronUpIcon : ChevronDownIcon
 
   return (
@@ -92,45 +91,39 @@ export interface DropdownItemsProps {
 function DropdownItems({ children }: DropdownItemsProps) {
   return (
     <Popover.Content className={styles.items}>
-      {children}
+      <SelectList>
+        {children}
+      </SelectList>
     </Popover.Content>
   )
 }
 
-export interface DropdownItemProps extends ComponentProps<'button'> {
+export interface DropdownItemProps {
   children: ReactNode
-  className?: string
   value: string
   icon?: LucideIcon
 }
 
-function DropdownItem({ children, icon, value, className, ...props }: DropdownItemProps) {
+function DropdownItem({ children, icon, value }: DropdownItemProps) {
   const {
     selectedValue,
     setSelectedValue,
     setSelectedLabel,
     setSelectedIcon,
   } = useDropdownContext()
-  const Icon = icon
 
   return (
-    <button
-      {...props}
-      type="button"
-      className={clsx(
-        styles.item,
-        value === selectedValue && styles.active,
-        className,
-      )}
+    <SelectList.Item
+      icon={icon}
+      active={value === selectedValue}
       onClick={() => {
         setSelectedValue(value)
         setSelectedLabel(children)
         setSelectedIcon(icon)
       }}
     >
-      {Icon && <Icon />}
-      <span>{children}</span>
-    </button>
+      {children}
+    </SelectList.Item>
   )
 }
 

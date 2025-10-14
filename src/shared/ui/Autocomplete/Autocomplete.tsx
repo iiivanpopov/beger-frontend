@@ -2,7 +2,7 @@ import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import clsx from 'clsx'
 import { ChevronsUpDownIcon } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
-import { Popover } from '@/shared/ui'
+import { Popover, SelectList } from '@/shared/ui'
 import { buildContext, matchesSearch, normalizeValue } from '@/shared/utils'
 import styles from './Autocomplete.module.css'
 
@@ -45,9 +45,10 @@ function Autocomplete({ children, value, onChange, defaultLabel }: AutocompleteP
 export interface AutocompleteTriggerProps {
   className?: string
   variant?: 'contained'
+  placeholder?: string
 }
 
-function AutocompleteTrigger({ className, variant = 'contained' }: AutocompleteTriggerProps) {
+function AutocompleteTrigger({ className, variant = 'contained', placeholder }: AutocompleteTriggerProps) {
   const {
     selectedLabel,
     setSelectedValue,
@@ -59,6 +60,7 @@ function AutocompleteTrigger({ className, variant = 'contained' }: AutocompleteT
       <input
         type="text"
         value={selectedLabel?.toString() ?? ''}
+        placeholder={placeholder}
         onChange={(e) => {
           setSelectedValue(e.target.value)
           setSelectedLabel(e.target.value)
@@ -75,8 +77,10 @@ export interface AutocompleteItemsProps {
 
 function AutocompleteItems({ children }: AutocompleteItemsProps) {
   return (
-    <Popover.Content className={styles.options}>
-      {children}
+    <Popover.Content>
+      <SelectList>
+        {children}
+      </SelectList>
     </Popover.Content>
   )
 }
@@ -105,19 +109,15 @@ function AutocompleteItem({ children, value }: AutocompleteItemProps) {
     return null
 
   return (
-    <button
-      type="button"
-      className={clsx(
-        styles.option,
-        value === selectedValue && styles.active,
-      )}
+    <SelectList.Item
+      active={value === selectedValue}
       onClick={() => {
         setSelectedValue(value.toString())
         setSelectedLabel(label)
       }}
     >
       {children}
-    </button>
+    </SelectList.Item>
   )
 }
 

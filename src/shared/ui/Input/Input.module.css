@@ -1,7 +1,9 @@
 .input {
-  width: 180px;
-  min-height: 40px;
-  padding: 0 5px 0 20px;
+  width: 100%;
+  min-width: 160px;
+  max-width: 240px;
+  height: 40px;
+  padding: 5px 15px;
   border: 1px solid transparent;
   border-radius: 1000px;
   outline: none;
@@ -14,21 +16,14 @@
     color 0.2s ease-in-out;
 
   &::placeholder {
-    font-family: var(--font-title);
-    font-size: 17px;
-    font-weight: 500;
     color: var(--text-tertiary);
   }
 
   &.contained {
     background: var(--background-primary);
 
-    &:focus {
-      border-color: var(--text-primary);
-    }
-
     &.invalid {
-      border: 1px solid var(--error);
+      border-color: var(--error);
     }
 
     &:disabled {

@@ -7,9 +7,10 @@ const meta = {
   title: 'UI/Button',
   argTypes: {
     variant: { control: 'radio', options: ['contained', 'underlined'] },
-    color: { control: 'radio', options: ['primary'] },
+    color: { control: 'radio', options: ['primary', 'white'] },
     size: { control: 'radio', options: ['large', 'medium', 'small'] },
     icon: { control: 'boolean' },
+    loading: { control: 'boolean' },
     disabled: { control: 'boolean' },
   },
 } satisfies Meta<typeof Button>

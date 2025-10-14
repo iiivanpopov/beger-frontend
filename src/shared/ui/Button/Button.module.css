@@ -1,10 +1,9 @@
 .button {
-  display: inline-flex;
+  position: relative;
+  display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0;
-  padding: 0 16px;
-  border: 1px solid transparent;
+  border: none;
   border-radius: 999px;
   outline: none;
   font-family: var(--font-body);
@@ -12,24 +11,18 @@
   background: none;
   transition:
     background-color 0.2s ease-in-out,
-    border-color 0.2s ease-in-out,
     color 0.2s ease-in-out;
   cursor: pointer;
 
-  &:disabled {
-    cursor: not-allowed;
-  }
-
   &.large {
-    min-width: 160px;
-    min-height: 48px;
-    font-size: 18px;
+    padding: 8px 20px;
+    font-size: 20px;
 
     &.icon {
       width: 48px;
       height: 48px;
 
-      svg {
+      & svg {
         width: 24px;
         height: 24px;
       }
@@ -37,15 +30,14 @@
   }
 
   &.medium {
-    min-width: 140px;
-    min-height: 40px;
-    font-size: 16px;
+    padding: 8px 20px;
+    font-size: 17px;
 
     &.icon {
       width: 40px;
       height: 40px;
 
-      svg {
+      & svg {
         width: 20px;
         height: 20px;
       }
@@ -53,15 +45,14 @@
   }
 
   &.small {
-    min-width: 120px;
-    min-height: 32px;
+    padding: 8px 20px;
     font-size: 14px;
 
     &.icon {
       width: 32px;
       height: 32px;
 
-      svg {
+      & svg {
         width: 16px;
         height: 16px;
       }
@@ -69,55 +60,42 @@
   }
 
   &.icon {
-    min-width: unset;
-    min-height: unset;
     padding: 0;
-  }
-
-  &.contained {
-    color: var(--background-primary);
   }
 
   &.underlined {
-    min-width: unset;
-    min-height: unset;
     padding: 0;
     text-decoration: underline;
-    color: var(--text-primary);
-    background: none;
+  }
+
+  &:disabled,
+  &.loading {
+    cursor: not-allowed;
   }
 
   &.primary {
-    &:not(.underlined) {
+    &.contained {
+      color: var(--background-primary);
       background: var(--accent);
 
       &:hover,
       &:active {
-        background-color: var(--accent-hover);
+        background: var(--accent-hover);
       }
 
-      &:focus {
-        border-color: var(--accent-hover);
-      }
-
-      &:disabled {
+      &:disabled,
+      &.loading {
         color: var(--background-quaternary);
-        background-color: var(--text-tertiary);
+        background: var(--text-tertiary);
       }
     }
 
     &.underlined {
+      color: var(--text-primary);
+
       &:hover,
       &:focus {
         color: var(--accent-hover);
-      }
-
-      &:active {
-        color: var(--accent);
-      }
-
-      &:disabled {
-        color: var(--background-quaternary);
       }
     }
   }
@@ -125,37 +103,52 @@
   &.white {
     color: var(--text-primary);
 
-    &:not(.underlined) {
+    &.contained {
+      color: var(--text-primary);
       background: var(--background-primary);
 
       &:hover,
       &:active {
-        background-color: var(--background-tertiary);
+        background: var(--background-tertiary);
       }
 
-      &:focus {
-        border-color: var(--text-primary);
-      }
-
-      &:disabled {
+      &:disabled,
+      &.loading {
         color: var(--background-quaternary);
-        background-color: var(--text-tertiary);
+        background: var(--text-tertiary);
       }
     }
+  }
 
-    &.underlined {
-      &:hover,
-      &:focus {
-        color: var(--text-primary);
-      }
+  .spinner {
+    display: none;
+  }
 
-      &:active {
-        color: var(--text-secondary);
-      }
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-      &:disabled {
-        color: var(--background-quaternary);
-      }
+  &.loading {
+    .content {
+      visibility: hidden;
     }
+
+    .spinner {
+      position: absolute;
+      display: block;
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }

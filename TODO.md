@@ -2,10 +2,8 @@
 
 ## UI-kit
 
-- Create new variants
 - Improve `Datepicker`
 - Create `Tooltip`
-- Review design
 
 ## Styles
 
@@ -13,4 +11,5 @@
 
 # WIP
 
-- Lazy load components
+- Create new variants
+- Review design
