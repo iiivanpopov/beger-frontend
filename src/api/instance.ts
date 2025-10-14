@@ -1,10 +1,10 @@
 import type { RefreshResponse } from './types'
 import ky from 'ky'
-import { API } from '@/config'
+import { apiConfig } from '@/shared/config'
 import { authStorage } from '@/shared/utils'
 
 export const $api = ky.create({
-  prefixUrl: API.baseUrl,
+  prefixUrl: apiConfig.baseUrl,
   hooks: {
     beforeRequest: [
       (request) => {
@@ -12,10 +12,10 @@ export const $api = ky.create({
         const refresh = authStorage.getRefreshToken()
 
         if (access)
-          request.headers.set(API.headers.accessToken, `Bearer ${access}`)
+          request.headers.set(apiConfig.headers.accessToken, `Bearer ${access}`)
 
         if (refresh)
-          request.headers.set(API.headers.refreshToken, `Bearer ${refresh}`)
+          request.headers.set(apiConfig.headers.refreshToken, `Bearer ${refresh}`)
 
         return request
       },
@@ -28,9 +28,9 @@ export const $api = ky.create({
             return response
 
           try {
-            const refreshResponse = await ky.post(`${API.baseUrl}/auth/refresh`, {
+            const refreshResponse = await ky.post(`${apiConfig.baseUrl}/auth/refresh`, {
               headers: {
-                [API.headers.refreshToken]: `Bearer ${refreshToken}`,
+                [apiConfig.headers.refreshToken]: `Bearer ${refreshToken}`,
               },
             }).json<RefreshResponse>()
 
@@ -40,7 +40,7 @@ export const $api = ky.create({
               ...options,
               headers: {
                 ...Object.fromEntries(request.headers),
-                [API.headers.accessToken]: `Bearer ${refreshResponse.data.accessToken}`,
+                [apiConfig.headers.accessToken]: `Bearer ${refreshResponse.data.accessToken}`,
                 'X-Is-Retry': 'true',
               },
             })

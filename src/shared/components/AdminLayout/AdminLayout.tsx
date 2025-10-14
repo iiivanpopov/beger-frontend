@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { Link } from '@tanstack/react-router'
 import clsx from 'clsx'
 import { useState } from 'react'
-import { adminSubRoutes } from '@/data/routes'
+import { adminNavigationTabs } from '@/shared/config'
 import { useRouteSegment } from '@/shared/hooks'
 import { Sidebar } from '@/shared/ui'
 import { getRouteSegment } from '@/shared/utils/routing'
@@ -20,7 +20,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
     <div className={styles.layout}>
       <Sidebar isOpen={isOpen} setIsOpen={setIsOpen}>
         <Sidebar.Nav>
-          {adminSubRoutes.map(({ to, label, icon }) => {
+          {adminNavigationTabs.map(({ to, label, icon }) => {
             const isActive = getRouteSegment(to, 1) === routeSegment
             return (
               <Link to={to} key={to}>

@@ -11,14 +11,6 @@
 
 - Adapt for mobiles
 
-## Structure
-
-- Review `config/` and `data/`
-
-## Lazy loading
-
-- Lazy load components
-
 # WIP
 
-- Review stores
+- Lazy load components

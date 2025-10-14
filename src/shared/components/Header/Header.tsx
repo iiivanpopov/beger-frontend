@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import clsx from 'clsx'
 import { DoorOpenIcon } from 'lucide-react'
-import { routes } from '@/data/routes'
+import { navigationTabs } from '@/shared/config'
 import { Button, Typography } from '@/shared/ui'
 import { getRouteSegment } from '@/shared/utils/routing'
 import styles from './Header.module.css'
@@ -17,7 +17,7 @@ export function Header() {
         <Typography variant="heading" tag="h1">Beger</Typography>
       </div>
       <nav className={styles.tabs}>
-        {routes.map(({ to, role, label }) => {
+        {navigationTabs.map(({ to, role, label }) => {
           if (user?.role !== role)
             return null
 

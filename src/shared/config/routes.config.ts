@@ -3,7 +3,7 @@ import type { UserRole } from '@/api'
 import type { PathRoute } from '@/shared/types'
 import { FileIcon, UsersIcon } from 'lucide-react'
 
-export const routes: {
+export const navigationTabs: {
   to: PathRoute
   role?: UserRole
   label: string
@@ -14,7 +14,7 @@ export const routes: {
   { to: '/test-results', role: 'user', label: 'Test Results' },
 ]
 
-export const adminSubRoutes: {
+export const adminNavigationTabs: {
   to: PathRoute
   label: string
   icon: LucideIcon

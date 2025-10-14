@@ -1,7 +1,7 @@
 import { useRouteContext, useRouter } from '@tanstack/react-router'
 import { useLogoutMutation } from '@/api'
-import { LOCAL_STORAGE } from '@/config'
 import { useRouteSegment } from '@/shared/hooks'
+import { authStorage } from '@/shared/utils'
 import { useAuthStore } from '@/store/auth'
 
 export function useHeader() {
@@ -13,8 +13,7 @@ export function useHeader() {
   const logoutMutation = useLogoutMutation({
     options: {
       onSuccess: () => {
-        localStorage.removeItem(LOCAL_STORAGE.accessToken)
-        localStorage.removeItem(LOCAL_STORAGE.refreshToken)
+        authStorage.clearTokens()
         queryClient.removeQueries({ queryKey: ['user', 'self'] })
         router.navigate({ to: '/login', replace: true })
       },

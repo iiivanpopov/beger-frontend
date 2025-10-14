@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE } from '@/config'
+import { storageKeys } from '../config'
 
 export const storage = {
   get: (key: string): string | null => {
@@ -43,22 +43,22 @@ export const storage = {
 
 export const authStorage = {
   getAccessToken: (): string | null => {
-    return storage.get(LOCAL_STORAGE.accessToken)
+    return storage.get(storageKeys.accessToken)
   },
 
   getRefreshToken: (): string | null => {
-    return storage.get(LOCAL_STORAGE.refreshToken)
+    return storage.get(storageKeys.refreshToken)
   },
 
   setTokens: (accessToken: string, refreshToken: string): boolean => {
-    const accessSet = storage.set(LOCAL_STORAGE.accessToken, accessToken)
-    const refreshSet = storage.set(LOCAL_STORAGE.refreshToken, refreshToken)
+    const accessSet = storage.set(storageKeys.accessToken, accessToken)
+    const refreshSet = storage.set(storageKeys.refreshToken, refreshToken)
     return accessSet && refreshSet
   },
 
   clearTokens: (): boolean => {
-    const accessRemoved = storage.remove(LOCAL_STORAGE.accessToken)
-    const refreshRemoved = storage.remove(LOCAL_STORAGE.refreshToken)
+    const accessRemoved = storage.remove(storageKeys.accessToken)
+    const refreshRemoved = storage.remove(storageKeys.refreshToken)
     return accessRemoved && refreshRemoved
   },
 }
