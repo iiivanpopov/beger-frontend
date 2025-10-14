@@ -6,7 +6,11 @@ interface AuthStore {
   setAuth: (user: User | null) => void
 }
 
-export const useAuthStore = create<AuthStore>()(set => ({
+const initialState = {
   user: null,
+}
+
+export const useAuthStore = create<AuthStore>()(set => ({
+  ...initialState,
   setAuth: user => set({ user }),
 }))

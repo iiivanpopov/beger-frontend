@@ -19,22 +19,23 @@ interface ToastsStore {
   removeToast: (id: number) => void
 }
 
-export const useToastsStore = create<ToastsStore>()(set => ({
+const initialState = {
   toasts: [],
-  createToast: ({ content, level }) => {
-    set(state => ({
-      toasts: [
-        ...state.toasts,
-        {
-          id: generateNumericId(),
-          content,
-          level,
-        },
-      ],
-    }))
-  },
-  removeToast: id =>
-    set(state => ({
-      toasts: state.toasts.filter(t => t.id !== id),
-    })),
+}
+
+export const useToastsStore = create<ToastsStore>()(set => ({
+  ...initialState,
+  createToast: ({ content, level }) => set(state => ({
+    toasts: [
+      ...state.toasts,
+      {
+        id: generateNumericId(),
+        content,
+        level,
+      },
+    ],
+  })),
+  removeToast: id => set(state => ({
+    toasts: state.toasts.filter(t => t.id !== id),
+  })),
 }))
