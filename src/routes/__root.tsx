@@ -2,9 +2,8 @@ import type { QueryClient } from '@tanstack/react-query'
 import type { User } from '@/api'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import { getCurrentUser } from '@/api/requests/users'
-import { LOCAL_STORAGE } from '@/config'
 import { Layout } from '@/shared/components'
-import { ToastContainer } from '@/shared/ui'
+import { authStorage } from '@/shared/utils'
 import { useAuthStore } from '@/store/auth'
 
 interface RouterContext {
@@ -15,8 +14,8 @@ interface RouterContext {
 export const Route = createRootRouteWithContext<RouterContext>()({
   beforeLoad: async ({ context }) => {
     const { queryClient } = context
-    const setAuth = useAuthStore.getState().setAuth
-    const token = localStorage.getItem(LOCAL_STORAGE.accessToken)
+    const { setAuth } = useAuthStore.getState()
+    const token = authStorage.getAccessToken()
 
     if (!token) {
       setAuth(null)
@@ -38,8 +37,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     }
     catch {
       setAuth(null)
-      localStorage.removeItem(LOCAL_STORAGE.accessToken)
-      localStorage.removeItem(LOCAL_STORAGE.refreshToken)
+      authStorage.clearTokens()
       return { user: null }
     }
   },
@@ -50,7 +48,6 @@ function RootLayout() {
   return (
     <Layout>
       <Outlet />
-      <ToastContainer />
     </Layout>
   )
 }

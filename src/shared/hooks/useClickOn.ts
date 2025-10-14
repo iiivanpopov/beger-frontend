@@ -4,7 +4,7 @@ import { collectElements } from '@/shared/utils'
 import { useCallbackRef } from './useCallbackRef'
 import { useRegisterRefs } from './useRegisterRefs'
 
-export function useClickOutside(
+export function useClickOn(
   callback: (event: MouseEvent) => void,
   externalRef?: RefObject<HTMLElement> | RefObject<HTMLElement>[],
 ) {
@@ -16,7 +16,7 @@ export function useClickOutside(
       const target = e.target as HTMLElement
       const elements = collectElements(refs.current, externalRef)
 
-      if (!elements.some(el => el === target || el.contains(target)))
+      if (elements.includes(target))
         callbackRef.current(e)
     }
 

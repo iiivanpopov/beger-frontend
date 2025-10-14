@@ -6,16 +6,10 @@
 - Improve `Datepicker`
 - Create `Tooltip`
 - Review design
-- Review `Toast`
 
 ## Styles
 
-- Refactor css
 - Adapt for mobiles
-
-## Store
-
-- Review stores
 
 ## Structure
 
@@ -24,3 +18,7 @@
 ## Lazy loading
 
 - Lazy load components
+
+# WIP
+
+- Review stores

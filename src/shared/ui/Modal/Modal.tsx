@@ -1,9 +1,9 @@
-import type { ButtonHTMLAttributes, ComponentProps, Dispatch, HTMLAttributes, ReactNode, RefObject, SetStateAction } from 'react'
+import type { ButtonHTMLAttributes, ComponentProps, Dispatch, ReactNode, RefObject, SetStateAction } from 'react'
 import type { AsChildProps } from '@/shared/types'
 import clsx from 'clsx'
 import { useMemo, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { useClickOutside } from '@/shared/hooks'
+import { useClickOn } from '@/shared/hooks'
 import { buildContext, cloneMerged } from '@/shared/utils'
 import styles from './Modal.module.css'
 
@@ -65,39 +65,23 @@ function ModalTrigger({ asChild, children, className, ...props }: ModalTriggerPr
   )
 }
 
-export type ModalContentProps = AsChildProps<
-  ComponentProps<'div'>,
-  HTMLAttributes<HTMLDivElement>
->
+export interface ModalContentProps {
+  children: ReactNode
+}
 
-function ModalContent({ children, asChild, className, ...props }: ModalContentProps) {
-  const { isOpen, setIsOpen, triggerRef } = useModalContext()
-
-  const ref = useClickOutside<HTMLDivElement>((e) => {
-    if (e.target !== triggerRef.current)
-      setIsOpen(false)
-  })
+function ModalContent({ children }: ModalContentProps) {
+  const { isOpen, setIsOpen } = useModalContext()
+  const register = useClickOn(() => setIsOpen(false))
 
   if (!isOpen)
     return null
 
-  const content = asChild
-    ? cloneMerged(children, { ref })
-    : (
-        <div
-          {...props}
-          ref={ref}
-          className={clsx(
-            className,
-          )}
-        >
-          {children}
-        </div>
-      )
-
   return createPortal(
-    <div className={styles.backdrop}>
-      {content}
+    <div
+      className={styles.backdrop}
+      ref={register}
+    >
+      {children}
     </div>,
     document.body,
   )

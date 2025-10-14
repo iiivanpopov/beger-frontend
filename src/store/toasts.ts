@@ -1,28 +1,39 @@
-import type { ToastOptions } from '@/shared/ui'
+import type { ReactNode } from 'react'
 import { create } from 'zustand'
+import { generateNumericId } from '@/shared/utils'
+
+export type ToastLevel = 'info' | 'success' | 'error'
+
+export interface ToastConfig {
+  level: ToastLevel
+  content: ReactNode
+}
+
+export interface ToastEntity extends ToastConfig {
+  id: number
+}
 
 interface ToastsStore {
-  toasts: ToastOptions[]
-  toast: (toast: Omit<ToastOptions, 'id'>) => void
-  remove: (id: number) => void
+  toasts: ToastEntity[]
+  createToast: (toast: ToastConfig) => void
+  removeToast: (id: number) => void
 }
 
 export const useToastsStore = create<ToastsStore>()(set => ({
   toasts: [],
-  toast: ({ title, description, level }) => {
+  createToast: ({ content, level }) => {
     set(state => ({
       toasts: [
         ...state.toasts,
         {
-          id: Date.now() + Math.random(),
-          title,
-          description,
+          id: generateNumericId(),
+          content,
           level,
         },
       ],
     }))
   },
-  remove: id =>
+  removeToast: id =>
     set(state => ({
       toasts: state.toasts.filter(t => t.id !== id),
     })),

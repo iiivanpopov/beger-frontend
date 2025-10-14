@@ -1,14 +1,15 @@
 import type { RefreshResponse } from './types'
 import ky from 'ky'
-import { API, LOCAL_STORAGE } from '@/config'
+import { API } from '@/config'
+import { authStorage } from '@/shared/utils'
 
 export const $api = ky.create({
   prefixUrl: API.baseUrl,
   hooks: {
     beforeRequest: [
       (request) => {
-        const access = localStorage.getItem(LOCAL_STORAGE.accessToken)
-        const refresh = localStorage.getItem(LOCAL_STORAGE.refreshToken)
+        const access = authStorage.getAccessToken()
+        const refresh = authStorage.getRefreshToken()
 
         if (access)
           request.headers.set(API.headers.accessToken, `Bearer ${access}`)
@@ -22,7 +23,7 @@ export const $api = ky.create({
     afterResponse: [
       async (request, options, response) => {
         if (response.status === 401 && !new Headers(options.headers).has('X-Is-Retry')) {
-          const refreshToken = localStorage.getItem(LOCAL_STORAGE.refreshToken)
+          const refreshToken = authStorage.getRefreshToken()
           if (!refreshToken)
             return response
 
@@ -33,8 +34,7 @@ export const $api = ky.create({
               },
             }).json<RefreshResponse>()
 
-            localStorage.setItem(LOCAL_STORAGE.accessToken, refreshResponse.data.accessToken)
-            localStorage.setItem(LOCAL_STORAGE.refreshToken, refreshResponse.data.refreshToken)
+            authStorage.setTokens(refreshResponse.data.accessToken, refreshResponse.data.refreshToken)
 
             return ky(request.url, {
               ...options,
@@ -46,8 +46,7 @@ export const $api = ky.create({
             })
           }
           catch {
-            localStorage.removeItem(LOCAL_STORAGE.accessToken)
-            localStorage.removeItem(LOCAL_STORAGE.refreshToken)
+            authStorage.clearTokens()
             return response
           }
         }

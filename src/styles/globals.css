@@ -51,9 +51,9 @@
   --background-body: #7990a7;
   --font-title: 'Playfair Display', 'Times New Roman', times, serif;
   --font-body: 'Inter', -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, sans-serif;
-  --error: #e42b2b;
-  --info: #3174fc;
-  --success: #2be472;
+  --error: #dc3838;
+  --info: #3974ea;
+  --success: #47e684;
 }
 
 a {

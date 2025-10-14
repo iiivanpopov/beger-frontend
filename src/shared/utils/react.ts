@@ -1,4 +1,4 @@
-import type { MouseEvent, ReactNode } from 'react'
+import type { MouseEvent, ReactNode, RefObject } from 'react'
 import { cloneElement, createContext, isValidElement, use } from 'react'
 
 interface PropsWithOnClick {
@@ -43,4 +43,43 @@ export function buildContext<T>() {
   }
 
   return [Context, useMyContext] as const
+}
+
+export function collectElements<T extends HTMLElement>(
+  ...sources: (T | RefObject<T> | RefObject<T>[] | Set<T> | T[] | null | undefined)[]
+): T[] {
+  const elements: T[] = []
+
+  sources.forEach((source) => {
+    if (!source)
+      return
+
+    if (source instanceof HTMLElement) {
+      elements.push(source as T)
+      return
+    }
+
+    if (source instanceof Set) {
+      elements.push(...Array.from(source))
+      return
+    }
+
+    if (Array.isArray(source)) {
+      source.forEach((item) => {
+        if (item && 'current' in item && item.current) {
+          elements.push(item.current)
+        }
+        else if (item instanceof HTMLElement) {
+          elements.push(item as T)
+        }
+      })
+      return
+    }
+
+    if ('current' in source && source.current) {
+      elements.push(source.current)
+    }
+  })
+
+  return elements
 }
