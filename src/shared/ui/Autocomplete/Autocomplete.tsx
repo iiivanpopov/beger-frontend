@@ -46,9 +46,10 @@ export interface AutocompleteTriggerProps {
   className?: string
   variant?: 'contained'
   placeholder?: string
+  invalid?: boolean
 }
 
-function AutocompleteTrigger({ className, variant = 'contained', placeholder }: AutocompleteTriggerProps) {
+function AutocompleteTrigger({ className, invalid, variant = 'contained', placeholder }: AutocompleteTriggerProps) {
   const {
     selectedLabel,
     setSelectedValue,
@@ -56,7 +57,13 @@ function AutocompleteTrigger({ className, variant = 'contained', placeholder }: 
   } = useAutocompleteContext()
 
   return (
-    <Popover.Trigger className={clsx(styles.trigger, styles[variant], className)}>
+    <Popover.Trigger className={clsx(
+      styles.trigger,
+      styles[variant],
+      invalid && styles.invalid,
+      className,
+    )}
+    >
       <input
         type="text"
         value={selectedLabel?.toString() ?? ''}

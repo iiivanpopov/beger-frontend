@@ -81,7 +81,7 @@ type PopoverContentProps = ComponentProps<'div'>
 function PopoverContent({ children, className, ...props }: PopoverContentProps) {
   const { contentRef, triggerRef, setIsOpen, isOpen } = usePopoverContext()
 
-  useClickOutside<HTMLDivElement>((e: MouseEvent) => {
+  useClickOutside((e: MouseEvent) => {
     const target = e.target as Node
     if (!triggerRef.current?.contains(target)) {
       setIsOpen(false)

@@ -35,7 +35,7 @@ function SelectListItem({
       {...props}
     >
       {Icon && <Icon />}
-      <span>{children}</span>
+      {children}
     </button>
   )
 }

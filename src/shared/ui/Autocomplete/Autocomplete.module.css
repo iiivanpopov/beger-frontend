@@ -2,10 +2,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-width: 160px;
-  max-width: 240px;
+  width: 180px;
   height: 40px;
-  padding: 0 20px;
+  padding: 5px 15px;
   border: 1px solid transparent;
   border-radius: 999px;
   outline: none;
@@ -13,13 +12,8 @@
   font-size: 16px;
   cursor: pointer;
 
-  svg {
-    color: var(--text-tertiary);
-  }
-
   input {
     flex: 1;
-    overflow: hidden;
     width: 100%;
     border: none;
     outline: none;
@@ -35,7 +29,15 @@
     }
   }
 
+  .arrow {
+    color: var(--text-tertiary);
+  }
+
   &.contained {
     background: var(--background-primary);
+
+    &.invalid {
+      border-color: var(--error);
+    }
   }
 }

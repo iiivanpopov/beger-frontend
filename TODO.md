@@ -2,7 +2,6 @@
 
 ## UI-kit
 
-- Improve `Datepicker`
 - Create `Tooltip`
 
 ## Styles
@@ -11,5 +10,4 @@
 
 # WIP
 
-- Create new variants
-- Review design
+- Improve `Datepicker`
