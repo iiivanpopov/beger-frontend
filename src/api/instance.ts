@@ -38,6 +38,7 @@ export const $api = ky.create({
 
             return ky(request.url, {
               ...options,
+              prefixUrl: '', // fix double baseUrl
               headers: {
                 ...Object.fromEntries(request.headers),
                 [apiConfig.headers.accessToken]: `Bearer ${refreshResponse.data.accessToken}`,

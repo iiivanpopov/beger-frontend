@@ -33,6 +33,10 @@ export interface ApiResponse<T> {
   success: true
 }
 
+export interface ApiSuccess {
+  success: true
+}
+
 export type UserRole = 'admin' | 'user'
 
 export interface User {
@@ -43,7 +47,36 @@ export interface User {
   createdAt: Date
 }
 
-export type GetCurrentUserResponse = ApiResponse<User>
+export interface Repair {
+  id: number
+  userId: number | null
+  pcbName: string
+  defect: string
+  note: string | null
+  date: Date
+  createdAt: Date
+}
+
+export interface TestResult {
+  id: number
+  userId: number | null
+  pcbName: string
+  passedFirstTry: number
+  failed: number
+  total: number
+  date: Date
+  createdAt: Date
+}
+
+export interface Tokens {
+  accessToken: string
+  refreshToken: string
+}
+
+export interface PaginationQuery {
+  offset?: string
+  limit?: string
+}
 
 export interface LoginBody {
   userName: string
@@ -51,11 +84,64 @@ export interface LoginBody {
 }
 
 export type LoginResponse = ApiResponse<{
-  tokens: { accessToken: string, refreshToken: string }
+  tokens: Tokens
   user: User
 }>
 
-export type RefreshResponse = ApiResponse<{
-  accessToken: string
-  refreshToken: string
-}>
+export interface RegisterBody {
+  userName: string
+  password: string
+  fullName: string
+}
+
+export type RegisterResponse = ApiResponse<User>
+
+export type LogoutResponse = ApiSuccess
+
+export type RefreshResponse = ApiResponse<Tokens>
+
+export type GetCurrentUserResponse = ApiResponse<User>
+
+export type GetAllUsersResponse = ApiResponse<User[]>
+
+export interface UpdateUserBody {
+  userName: string
+  fullName: string
+}
+
+export type UpdateUserResponse = ApiResponse<User>
+
+export type DeleteUserResponse = ApiSuccess
+
+export type GetUserRepairsResponse = ApiResponse<Repair[]>
+
+export type GetAllRepairsResponse = ApiResponse<Repair[]>
+
+export interface CreateRepairBody {
+  pcbName: string
+  defect: string
+  note?: string | null
+  date: Date
+}
+
+export type CreateRepairResponse = ApiResponse<Repair>
+
+export type DeleteRepairResponse = ApiSuccess
+
+export type GetUserTestResultsResponse = ApiResponse<TestResult[]>
+
+export type GetAllTestResultsResponse = ApiResponse<TestResult[]>
+
+export interface CreateTestResultBody {
+  pcbName: string
+  passedFirstTry: number
+  failed: number
+  total: number
+  date: Date
+}
+
+export type CreateTestResultResponse = ApiResponse<TestResult>
+
+export type DeleteTestResultResponse = ApiSuccess
+
+export type GetOptionsResponse = ApiResponse<Record<string, unknown[]>>

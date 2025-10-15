@@ -67,9 +67,10 @@ function ModalTrigger({ asChild, children, className, ...props }: ModalTriggerPr
 
 export interface ModalContentProps {
   children: ReactNode
+  className?: string
 }
 
-function ModalContent({ children }: ModalContentProps) {
+function ModalContent({ children, className }: ModalContentProps) {
   const { isOpen, setIsOpen } = useModalContext()
   const register = useClickOn(() => setIsOpen(false))
 
@@ -78,7 +79,7 @@ function ModalContent({ children }: ModalContentProps) {
 
   return createPortal(
     <div
-      className={styles.backdrop}
+      className={clsx(styles.backdrop, className)}
       ref={register}
     >
       {children}

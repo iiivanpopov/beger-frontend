@@ -26,7 +26,7 @@ export const Basic: Story = {
           name="name"
           rules={{ required: 'Name is required' }}
           render={({ field, fieldState }) => (
-            <Form.Field fieldState={fieldState}>
+            <Form.Field {...fieldState}>
               <Input placeholder="Enter your name" {...field} />
             </Form.Field>
           )}

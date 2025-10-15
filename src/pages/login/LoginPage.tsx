@@ -21,7 +21,7 @@ export function LoginPage() {
                 control={control}
                 name="userName"
                 render={({ field, fieldState }) => (
-                  <Form.Field fieldState={fieldState}>
+                  <Form.Field {...fieldState}>
                     <Input {...field} invalid={fieldState.invalid} placeholder="User Name" />
                   </Form.Field>
                 )}
@@ -30,7 +30,7 @@ export function LoginPage() {
                 control={control}
                 name="password"
                 render={({ field, fieldState }) => (
-                  <Form.Field fieldState={fieldState}>
+                  <Form.Field {...fieldState}>
                     <Input {...field} type="password" invalid={fieldState.invalid} placeholder="Password" />
                   </Form.Field>
                 )}

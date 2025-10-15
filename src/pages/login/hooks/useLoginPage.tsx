@@ -32,7 +32,7 @@ export function useLoginPage() {
     },
   })
 
-  const onSubmit = handleSubmit((data: LoginFormData) => {
+  const onSubmit = handleSubmit((data) => {
     loginMutation.mutate({
       userName: data.userName,
       password: data.password,

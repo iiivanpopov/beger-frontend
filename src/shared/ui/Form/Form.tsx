@@ -1,5 +1,4 @@
 import type { ComponentProps, ReactNode } from 'react'
-import type { ControllerFieldState } from 'react-hook-form'
 import clsx from 'clsx'
 import styles from './Form.module.css'
 
@@ -15,14 +14,19 @@ function Form({ children, className, ...props }: FormProps) {
 export interface FormFieldProps {
   children: ReactNode
   className?: string
-  fieldState: ControllerFieldState
+  // fieldState: ControllerFieldState
+  label?: ReactNode
+  error?: {
+    message?: string
+  }
 }
 
-function FormField({ children, className, fieldState }: FormFieldProps) {
+function FormField({ children, className, label, error }: FormFieldProps) {
   return (
     <div className={clsx(styles.field, className)}>
+      {label && <span className={styles.label}>{label}</span>}
       {children}
-      {fieldState.error && <span className={styles.error}>{fieldState.error.message}</span>}
+      {error && <span className={styles.error}>{error.message}</span>}
     </div>
   )
 }
