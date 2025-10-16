@@ -1,5 +1,5 @@
 import type { RefObject } from 'react'
-import { useLayoutEffect } from 'react'
+import { useEffectEvent, useLayoutEffect } from 'react'
 import { calculateFloatingPosition, getElementRect } from '@/shared/utils'
 
 export function useFloatingPosition(
@@ -8,21 +8,21 @@ export function useFloatingPosition(
   offset: { x: number, y: number } = { x: 0, y: 0 },
   disabled?: boolean,
 ) {
+  const updatePosition = useEffectEvent(() => {
+    const anchor = anchorRef.current
+    const floating = floatingRef.current
+    if (!anchor || !floating)
+      return
+
+    const anchorRect = getElementRect(anchor)
+    const floatingRect = getElementRect(floating)
+    const { x, y } = calculateFloatingPosition(anchorRect, floatingRect, offset)
+    floating.style.transform = `translate(${x}px, ${y}px)`
+  })
+
   useLayoutEffect(() => {
     if (disabled)
       return
-
-    const updatePosition = () => {
-      const anchor = anchorRef.current
-      const floating = floatingRef.current
-      if (!anchor || !floating)
-        return
-
-      const anchorRect = getElementRect(anchor)
-      const floatingRect = getElementRect(floating)
-      const { x, y } = calculateFloatingPosition(anchorRect, floatingRect, offset)
-      floating.style.transform = `translate(${x}px, ${y}px)`
-    }
 
     updatePosition()
     window.addEventListener('resize', updatePosition)
@@ -32,5 +32,5 @@ export function useFloatingPosition(
       window.removeEventListener('resize', updatePosition)
       window.removeEventListener('scroll', updatePosition, true)
     }
-  }, [anchorRef, floatingRef, offset, disabled])
+  }, [disabled])
 }

@@ -1,8 +1,7 @@
 import type { RefObject } from 'react'
 import type { ClickEvent } from '@/shared/types'
-import { useEffect } from 'react'
+import { useEffect, useEffectEvent } from 'react'
 import { collectElements } from '@/shared/utils'
-import { useCallbackRef } from './useCallbackRef'
 import { useRegisterRefs } from './useRegisterRefs'
 
 export function useClickOutside(
@@ -10,7 +9,7 @@ export function useClickOutside(
   externalRef?: RefObject<HTMLElement> | RefObject<HTMLElement>[],
 ) {
   const { refs, registerRef } = useRegisterRefs<HTMLElement>()
-  const callbackRef = useCallbackRef(callback)
+  const onClickOutside = useEffectEvent(callback)
 
   useEffect(() => {
     const handleClick = (e: ClickEvent) => {
@@ -18,7 +17,7 @@ export function useClickOutside(
       const elements = collectElements(refs.current, externalRef)
 
       if (!elements.some(el => el === target || el.contains(target)))
-        callbackRef.current(e)
+        onClickOutside(e)
     }
 
     document.addEventListener('click', handleClick)
@@ -28,7 +27,6 @@ export function useClickOutside(
       document.removeEventListener('click', handleClick)
       document.removeEventListener('touchstart', handleClick)
     }
-  }, [callbackRef, externalRef, refs])
-
+  }, [refs, externalRef])
   return registerRef
 }
