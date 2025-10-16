@@ -14,19 +14,11 @@
   font-size: 16px;
   text-align: left;
   color: var(--text-primary);
+  background: var(--background-primary);
   cursor: pointer;
 
-  .datepickerIcon {
-    flex-shrink: 0;
+  svg {
     color: var(--text-tertiary);
-  }
-
-  .datepickerText {
-    flex: 1;
-  }
-
-  &.contained {
-    background: var(--background-primary);
   }
 }
 

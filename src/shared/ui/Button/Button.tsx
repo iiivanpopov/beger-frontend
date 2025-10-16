@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { LoaderCircle } from 'lucide-react'
 import styles from './Button.module.css'
 
-type Variant = 'contained' | 'underlined'
+type Variant = 'contained' | 'ghost'
 type Color = 'primary' | 'white'
 type Size = 'large' | 'medium' | 'small'
 

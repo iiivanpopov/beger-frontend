@@ -17,26 +17,9 @@ export const Basic: Story = {
       <Autocomplete value={value} onChange={setValue}>
         <Autocomplete.Trigger placeholder="Select option" />
         <Autocomplete.Items>
-          <Autocomplete.Item value="1">Option 1</Autocomplete.Item>
-          <Autocomplete.Item value="2">Option 2</Autocomplete.Item>
-          <Autocomplete.Item value="3">Option 3</Autocomplete.Item>
-        </Autocomplete.Items>
-      </Autocomplete>
-    )
-  },
-}
-
-export const WithNumbers: Story = {
-  render: () => {
-    const [value, setValue] = useState('')
-
-    return (
-      <Autocomplete value={value} onChange={setValue}>
-        <Autocomplete.Trigger placeholder="Select option" />
-        <Autocomplete.Items>
-          <Autocomplete.Item value="10">Ten</Autocomplete.Item>
-          <Autocomplete.Item value="20">Twenty</Autocomplete.Item>
-          <Autocomplete.Item value="30">Thirty</Autocomplete.Item>
+          <Autocomplete.Item value="Option 1">Option 1</Autocomplete.Item>
+          <Autocomplete.Item value="Option 2">Option 2</Autocomplete.Item>
+          <Autocomplete.Item value="Option 3">Option 3</Autocomplete.Item>
         </Autocomplete.Items>
       </Autocomplete>
     )

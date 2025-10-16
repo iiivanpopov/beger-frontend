@@ -7,13 +7,12 @@ import { getDaysInMonth } from '@/shared/utils'
 import styles from './Datepicker.module.css'
 
 export type DatepickerProps = {
-  variant?: 'contained'
   className?: string
   value: Date
 } & ({ onChange: Dispatch<SetStateAction<Date>>, setValue?: never }
   | { setValue: Dispatch<SetStateAction<Date>>, onChange?: never })
 
-export function Datepicker({ onChange, setValue, value, variant = 'contained', className }: DatepickerProps) {
+export function Datepicker({ onChange, setValue, value, className }: DatepickerProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [viewDate, setViewDate] = useState({
     year: value.getFullYear(),
@@ -49,14 +48,11 @@ export function Datepicker({ onChange, setValue, value, variant = 'contained', c
     <Popover isOpen={isOpen} setIsOpen={setIsOpen}>
       <Popover.Trigger className={clsx(
         styles.trigger,
-        variant && styles[variant],
         className,
       )}
       >
-        <span className={styles.datepickerText}>
-          {value.toLocaleDateString('uk-UA')}
-        </span>
-        <CalendarIcon className={styles.datepickerIcon} />
+        {value.toLocaleDateString('uk-UA')}
+        <CalendarIcon />
       </Popover.Trigger>
       <Popover.Content className={styles.datepickerContent}>
         <div className={styles.datepickerHeader}>

@@ -12,14 +12,14 @@ type Story = StoryObj<typeof Dropdown>
 
 export const Basic: Story = {
   render: () => {
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState('Option 1')
     return (
-      <Dropdown value={value} onChange={setValue} defaultLabel="Select an option">
+      <Dropdown value={value} onChange={setValue}>
         <Dropdown.Trigger />
         <Dropdown.Items>
-          <Dropdown.Item value="1">Option 1</Dropdown.Item>
-          <Dropdown.Item value="2">Option 2</Dropdown.Item>
-          <Dropdown.Item value="3">Option 3</Dropdown.Item>
+          <Dropdown.Item value="Option 1">Option 1</Dropdown.Item>
+          <Dropdown.Item value="Option 2">Option 2</Dropdown.Item>
+          <Dropdown.Item value="Option 3">Option 3</Dropdown.Item>
         </Dropdown.Items>
       </Dropdown>
     )
@@ -28,9 +28,9 @@ export const Basic: Story = {
 
 export const WithIcons: Story = {
   render: () => {
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState('user')
     return (
-      <Dropdown value={value} onChange={setValue} defaultLabel="Select user" defaultIcon={UserIcon}>
+      <Dropdown value={value} onChange={setValue} defaultIcon={UserIcon}>
         <Dropdown.Trigger />
         <Dropdown.Items>
           <Dropdown.Item value="user" icon={UserIcon}>User</Dropdown.Item>

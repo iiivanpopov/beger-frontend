@@ -5,7 +5,6 @@ const meta: Meta<typeof Input> = {
   title: 'UI/Input',
   component: Input,
   argTypes: {
-    variant: { control: 'radio', options: ['contained'] },
     disabled: { control: 'boolean' },
     placeholder: { control: 'text' },
     value: { control: 'text' },
@@ -16,7 +15,6 @@ type Story = StoryObj<typeof meta>
 
 export const Contained: Story = {
   args: {
-    variant: 'contained',
     placeholder: 'Enter text...',
     disabled: false,
   },
@@ -24,7 +22,6 @@ export const Contained: Story = {
 
 export const Disabled: Story = {
   args: {
-    variant: 'contained',
     placeholder: 'Disabled input',
     disabled: true,
   },
@@ -32,7 +29,6 @@ export const Disabled: Story = {
 
 export const WithValue: Story = {
   args: {
-    variant: 'contained',
     value: 'Hello World',
     disabled: false,
   },

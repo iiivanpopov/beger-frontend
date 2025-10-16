@@ -13,7 +13,7 @@ export function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.brand}>
-        <div />
+        <div className={styles.icon} />
         <Typography variant="heading" tag="h1">Beger</Typography>
       </div>
       <nav className={styles.tabs}>

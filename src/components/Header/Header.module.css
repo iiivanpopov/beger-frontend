@@ -8,16 +8,15 @@
 
 .brand {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   gap: var(--spacing-lg);
+}
 
-  > div {
-    width: var(--size-md);
-    height: var(--size-md);
-    border-radius: 100%;
-    background: var(--accent);
-  }
+.icon {
+  width: var(--size-md);
+  height: var(--size-md);
+  border-radius: 100%;
+  background: var(--accent);
 }
 
 .tabs {
@@ -37,7 +36,7 @@
   text-decoration: none;
   color: var(--text-secondary);
   background: none;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease-in-out;
   cursor: pointer;
 
   &::after {

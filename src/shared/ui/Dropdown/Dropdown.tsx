@@ -8,20 +8,17 @@ import { buildContext } from '@/shared/utils'
 import styles from './Dropdown.module.css'
 
 export interface DropdownContextProps {
-  selectedLabel: ReactNode
-  selectedIcon: LucideIcon | undefined
-  selectedValue: string
-  setSelectedValue: Dispatch<SetStateAction<string>>
-  setSelectedLabel: Dispatch<SetStateAction<ReactNode>>
-  setSelectedIcon: Dispatch<SetStateAction<LucideIcon | undefined>>
   isOpen: boolean
+  selectedIcon: LucideIcon | undefined
+  setSelectedIcon: Dispatch<SetStateAction<LucideIcon | undefined>>
+  selected: string
+  setSelected: Dispatch<SetStateAction<string>>
 }
 
 const [DropdownContext, useDropdownContext] = buildContext<DropdownContextProps>()
 
 export type DropdownProps = {
   children: ReactNode
-  defaultLabel?: ReactNode
   defaultIcon?: LucideIcon
   value: string
 } & ({ onChange: Dispatch<SetStateAction<string>>, setValue?: never }
@@ -32,22 +29,18 @@ export function Dropdown({
   value,
   onChange,
   setValue,
-  defaultLabel,
   defaultIcon,
 }: DropdownProps) {
-  const [selectedLabel, setSelectedLabel] = useState<ReactNode>(defaultLabel)
   const [selectedIcon, setSelectedIcon] = useState<LucideIcon | undefined>(defaultIcon)
   const [isOpen, setIsOpen] = useState(false)
 
   const contextValue = useMemo(() => ({
-    selectedValue: value,
-    selectedLabel,
-    selectedIcon,
     isOpen,
-    setSelectedValue: onChange ?? setValue,
-    setSelectedLabel,
+    selected: value,
+    setSelected: onChange ?? setValue,
+    selectedIcon,
     setSelectedIcon,
-  }), [value, selectedLabel, selectedIcon, isOpen, onChange, setValue])
+  }), [value, selectedIcon, isOpen, onChange, setValue])
 
   return (
     <Popover isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -63,7 +56,7 @@ export interface DropdownTriggerProps {
 }
 
 export function DropdownTrigger({ variant = 'contained' }: DropdownTriggerProps) {
-  const { isOpen, selectedLabel, selectedIcon: Icon } = useDropdownContext()
+  const { isOpen, selected, selectedIcon: Icon } = useDropdownContext()
   const ChevronIcon = isOpen ? ChevronUpIcon : ChevronDownIcon
 
   return (
@@ -77,7 +70,7 @@ export function DropdownTrigger({ variant = 'contained' }: DropdownTriggerProps)
       {Icon && <Icon />}
       {!Icon && (
         <>
-          <span>{selectedLabel}</span>
+          {selected}
           <ChevronIcon className={styles.dropdownArrow} />
         </>
       )}
@@ -106,20 +99,14 @@ export interface DropdownItemProps {
 }
 
 export function DropdownItem({ children, icon, value }: DropdownItemProps) {
-  const {
-    selectedValue,
-    setSelectedValue,
-    setSelectedLabel,
-    setSelectedIcon,
-  } = useDropdownContext()
+  const { selected, setSelectedIcon, setSelected } = useDropdownContext()
 
   return (
     <SelectList.Item
       icon={icon}
-      active={value === selectedValue}
+      active={value === selected}
       onClick={() => {
-        setSelectedValue(value)
-        setSelectedLabel(children)
+        setSelected(value)
         setSelectedIcon(icon)
       }}
     >

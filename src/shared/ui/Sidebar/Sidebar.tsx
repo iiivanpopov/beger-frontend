@@ -1,5 +1,4 @@
-import type { LucideIcon } from 'lucide-react'
-import type { Dispatch, ReactNode, RefObject, SetStateAction } from 'react'
+import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import clsx from 'clsx'
 import { ArrowLeftFromLineIcon, ArrowRightFromLineIcon } from 'lucide-react'
 import { useMemo } from 'react'
@@ -45,36 +44,19 @@ export function Sidebar({ children, isOpen, setIsOpen }: SidebarProps) {
         >
           <Icon />
         </button>
-        <hr />
+        <hr className={styles.divider} />
         {children}
       </div>
     </SidebarContext>
   )
 }
 
-export interface SidebarNavProps {
-  children: ReactNode
-}
-
-function SidebarNav({ children }: SidebarNavProps) {
-  return (
-    <div className={styles.nav}>
-      {children}
-    </div>
-  )
-}
-
-export interface SidebarNavItemContextProps {
-  iconRef: RefObject<SVGSVGElement>
-  labelRef: RefObject<ReactNode>
-}
-
-export interface SidebarNavItemProps {
+export interface SidebarItemProps {
   children: ReactNode
   className?: string
 }
 
-function SidebarNavItem({ children, className }: SidebarNavItemProps) {
+function SidebarItem({ children, className }: SidebarItemProps) {
   return (
     <div className={clsx(styles.item, className)}>
       {children}
@@ -82,28 +64,18 @@ function SidebarNavItem({ children, className }: SidebarNavItemProps) {
   )
 }
 
-export interface SidebarNavItemIconProps {
-  icon: LucideIcon
-}
-
-function SidebarNavItemIcon({ icon: Icon }: SidebarNavItemIconProps) {
-  return <Icon className={styles.icon} />
-}
-
-export interface SidebarNavItemLabelProps {
+export interface SidebarItemLabelProps {
   children: ReactNode
 }
 
-function SidebarNavItemLabel({ children }: SidebarNavItemLabelProps) {
+function SidebarItemLabel({ children }: SidebarItemLabelProps) {
   const { isOpen } = useSidebarContext()
 
   if (!isOpen)
     return null
 
-  return <span className={styles.label}>{children}</span>
+  return <div className={styles.label}>{children}</div>
 }
 
-Sidebar.Nav = SidebarNav
-Sidebar.NavItem = SidebarNavItem
-Sidebar.NavItemIcon = SidebarNavItemIcon
-Sidebar.NavItemLabel = SidebarNavItemLabel
+Sidebar.Item = SidebarItem
+Sidebar.ItemLabel = SidebarItemLabel

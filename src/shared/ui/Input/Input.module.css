@@ -8,10 +8,8 @@
   font-family: var(--font-body);
   font-size: 16px;
   color: var(--text-primary);
-  transition:
-    background-color 0.2s ease-in-out,
-    border-color 0.2s ease-in-out,
-    color 0.2s ease-in-out;
+  background: var(--background-primary);
+  transition: border-color 0.2s ease-in-out;
 
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {
@@ -22,24 +20,17 @@
     color: var(--text-tertiary);
   }
 
-  &.contained {
-    background: var(--background-primary);
-
-    &.invalid {
-      border-color: var(--error);
-    }
-
-    &:disabled {
-      color: var(--background-quaternary);
-      background-color: var(--text-tertiary);
-
-      &::placeholder {
-        color: var(--background-quaternary);
-      }
-    }
-  }
-
   &:disabled {
+    color: var(--background-quaternary);
+    background-color: var(--text-tertiary);
     cursor: not-allowed;
+
+    &::placeholder {
+      color: var(--background-quaternary);
+    }
   }
+}
+
+.invalid {
+  border-color: var(--error);
 }

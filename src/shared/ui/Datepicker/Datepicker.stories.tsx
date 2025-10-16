@@ -7,9 +7,10 @@ const meta: Meta<typeof Datepicker> = {
   component: Datepicker,
 }
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof Datepicker>
 
 export const Basic: Story = {
+  args: {},
   render: () => {
     const [date, setDate] = useState(new Date())
 

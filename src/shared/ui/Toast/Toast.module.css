@@ -9,7 +9,6 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-  overflow: hidden;
   padding: var(--spacing-sm);
   border: none;
   border-radius: var(--radius-lg);
@@ -18,7 +17,6 @@
   font-size: 16px;
   font-weight: 500;
   color: var(--background-primary);
-  box-shadow: 0 2px 4px rgb(0 0 0 /20%);
   transition: transform 0.2s ease-in-out;
   animation: appear 0.2s ease-in-out forwards;
   cursor: pointer;

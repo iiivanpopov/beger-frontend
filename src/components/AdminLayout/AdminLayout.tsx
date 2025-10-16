@@ -19,19 +19,17 @@ export function AdminLayout({ children }: AdminLayoutProps) {
   return (
     <div className={styles.layout}>
       <Sidebar isOpen={isOpen} setIsOpen={setIsOpen}>
-        <Sidebar.Nav>
-          {adminNavigationTabs.map(({ to, label, icon }) => {
-            const isActive = routeSegment === getRouteSegment(to, 1)
-            return (
-              <Link to={to} key={to}>
-                <Sidebar.NavItem className={clsx(isActive && styles.active)}>
-                  <Sidebar.NavItemIcon icon={icon} />
-                  <Sidebar.NavItemLabel>{label}</Sidebar.NavItemLabel>
-                </Sidebar.NavItem>
-              </Link>
-            )
-          })}
-        </Sidebar.Nav>
+        {adminNavigationTabs.map(({ to, label, icon: Icon }) => {
+          const isActive = routeSegment === getRouteSegment(to, 1)
+          return (
+            <Link to={to} key={to}>
+              <Sidebar.Item className={clsx(isActive && styles.active)}>
+                <Icon />
+                <Sidebar.ItemLabel>{label}</Sidebar.ItemLabel>
+              </Sidebar.Item>
+            </Link>
+          )
+        })}
       </Sidebar>
       {children}
     </div>

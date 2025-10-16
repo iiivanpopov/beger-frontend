@@ -1,12 +1,9 @@
 .items {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: var(--spacing-xs);
   overflow-y: auto;
   scrollbar-width: none;
-  scrollbar-color: transparent transparent;
-  width: fit-content;
   min-width: var(--width-sm);
   max-width: var(--width-lg);
   max-height: 300px;
@@ -18,7 +15,6 @@
 
 .item {
   display: flex;
-  align-items: center;
   gap: var(--spacing-sm);
   width: 100%;
   padding: var(--spacing-xs) var(--spacing-sm);
@@ -36,12 +32,12 @@
     background: var(--background-secondary);
   }
 
-  &.active {
-    color: var(--accent);
-  }
-
   svg {
     width: var(--size-xs);
     height: var(--size-xs);
   }
+}
+
+.active {
+  color: var(--accent);
 }

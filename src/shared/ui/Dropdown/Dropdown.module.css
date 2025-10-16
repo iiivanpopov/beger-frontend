@@ -2,7 +2,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: var(--spacing-sm);
   overflow: hidden;
   width: var(--width-sm);
   height: var(--size-md);

@@ -8,12 +8,11 @@
   border: 1px solid transparent;
   border-radius: var(--radius-full);
   outline: none;
-  font-family: var(--font-body);
   font-size: 16px;
+  background: var(--background-primary);
   cursor: pointer;
 
   input {
-    flex: 1;
     width: 100%;
     border: none;
     outline: none;
@@ -29,15 +28,11 @@
     }
   }
 
-  .autocompleteArrow {
+  svg {
     color: var(--text-tertiary);
   }
 
-  &.contained {
-    background: var(--background-primary);
-
-    &.invalid {
-      border-color: var(--error);
-    }
+  &.invalid {
+    border-color: var(--error);
   }
 }

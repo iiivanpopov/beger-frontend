@@ -13,7 +13,7 @@ export function TestResultsPage() {
         <Typography tag="h2" variant="subheading">Create new record</Typography>
         <Modal isOpen={modal.isOpen} setIsOpen={modal.setIsOpen}>
           <Modal.Trigger asChild>
-            <Button className={styles.open} variant="underlined">View last</Button>
+            <Button className={styles.open} variant="ghost">View last</Button>
           </Modal.Trigger>
           <Modal.Content className={styles.records}>
             {!queries.testResults.data?.data.length && (

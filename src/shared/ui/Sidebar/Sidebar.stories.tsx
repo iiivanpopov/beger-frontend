@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { Home, Settings, User } from 'lucide-react'
+import { HomeIcon, SettingsIcon, UserIcon } from 'lucide-react'
 import { useState } from 'react'
 import { Sidebar } from './Sidebar'
 
@@ -16,20 +16,18 @@ export const Closed: Story = {
     const [isOpen, setIsOpen] = useState(false)
     return (
       <Sidebar isOpen={isOpen} setIsOpen={setIsOpen}>
-        <Sidebar.Nav>
-          <Sidebar.NavItem>
-            <Sidebar.NavItemIcon icon={Home} />
-            <Sidebar.NavItemLabel>Home</Sidebar.NavItemLabel>
-          </Sidebar.NavItem>
-          <Sidebar.NavItem>
-            <Sidebar.NavItemIcon icon={User} />
-            <Sidebar.NavItemLabel>Profile</Sidebar.NavItemLabel>
-          </Sidebar.NavItem>
-          <Sidebar.NavItem>
-            <Sidebar.NavItemIcon icon={Settings} />
-            <Sidebar.NavItemLabel>Settings</Sidebar.NavItemLabel>
-          </Sidebar.NavItem>
-        </Sidebar.Nav>
+        <Sidebar.Item>
+          <HomeIcon />
+          <Sidebar.ItemLabel>Home</Sidebar.ItemLabel>
+        </Sidebar.Item>
+        <Sidebar.Item>
+          <UserIcon />
+          <Sidebar.ItemLabel>Profile</Sidebar.ItemLabel>
+        </Sidebar.Item>
+        <Sidebar.Item>
+          <SettingsIcon />
+          <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
+        </Sidebar.Item>
       </Sidebar>
     )
   },
@@ -40,20 +38,18 @@ export const Opened: Story = {
     const [isOpen, setIsOpen] = useState(true)
     return (
       <Sidebar isOpen={isOpen} setIsOpen={setIsOpen}>
-        <Sidebar.Nav>
-          <Sidebar.NavItem>
-            <Sidebar.NavItemIcon icon={Home} />
-            <Sidebar.NavItemLabel>Home</Sidebar.NavItemLabel>
-          </Sidebar.NavItem>
-          <Sidebar.NavItem>
-            <Sidebar.NavItemIcon icon={User} />
-            <Sidebar.NavItemLabel>Profile</Sidebar.NavItemLabel>
-          </Sidebar.NavItem>
-          <Sidebar.NavItem>
-            <Sidebar.NavItemIcon icon={Settings} />
-            <Sidebar.NavItemLabel>Settings</Sidebar.NavItemLabel>
-          </Sidebar.NavItem>
-        </Sidebar.Nav>
+        <Sidebar.Item>
+          <HomeIcon />
+          <Sidebar.ItemLabel>Home</Sidebar.ItemLabel>
+        </Sidebar.Item>
+        <Sidebar.Item>
+          <UserIcon />
+          <Sidebar.ItemLabel>Profile</Sidebar.ItemLabel>
+        </Sidebar.Item>
+        <Sidebar.Item>
+          <SettingsIcon />
+          <Sidebar.ItemLabel>Settings</Sidebar.ItemLabel>
+        </Sidebar.Item>
       </Sidebar>
     )
   },

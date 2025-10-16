@@ -6,7 +6,7 @@ const meta = {
   component: Button,
   title: 'UI/Button',
   argTypes: {
-    variant: { control: 'radio', options: ['contained', 'underlined'] },
+    variant: { control: 'radio', options: ['contained', 'ghost'] },
     color: { control: 'radio', options: ['primary', 'white'] },
     size: { control: 'radio', options: ['large', 'medium', 'small'] },
     icon: { control: 'boolean' },
@@ -26,9 +26,9 @@ export const Contained: Story = {
   },
 }
 
-export const Underlined: Story = {
+export const ghost: Story = {
   args: {
-    variant: 'underlined',
+    variant: 'ghost',
     color: 'primary',
     size: 'medium',
     children: 'Button',
