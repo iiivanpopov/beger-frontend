@@ -6,7 +6,6 @@
   padding: var(--spacing-2xl);
   border-radius: var(--spacing-xl);
   background: var(--background-secondary);
-  box-shadow: 0 2px 4px rgb(0 0 0 /20%);
 }
 
 .section {

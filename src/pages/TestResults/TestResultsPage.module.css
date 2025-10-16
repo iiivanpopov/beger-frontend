@@ -19,5 +19,4 @@
   padding: var(--spacing-lg);
   border-radius: var(--spacing-md);
   background: var(--background-secondary);
-  box-shadow: 0 2px 4px rgb(0 0 0 /20%);
 }
