@@ -1,4 +1,4 @@
-import type { ComponentProps, Dispatch, ReactNode, RefObject, SetStateAction } from 'react'
+import type { Dispatch, KeyboardEvent, ReactNode, RefObject, SetStateAction } from 'react'
 import clsx from 'clsx'
 import { useMemo, useRef } from 'react'
 import { createPortal } from 'react-dom'
@@ -9,7 +9,7 @@ import styles from './Modal.module.css'
 export interface ModalContextProps {
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
-  triggerRef: RefObject<HTMLButtonElement>
+  triggerRef: RefObject<HTMLDivElement>
 }
 
 const [ModalContext, useModalContext] = buildContext<ModalContextProps>()
@@ -21,7 +21,7 @@ export interface ModalProps {
 }
 
 export function Modal({ children, isOpen, setIsOpen }: ModalProps) {
-  const triggerRef = useRef<HTMLButtonElement>(null!)
+  const triggerRef = useRef<HTMLDivElement>(null!)
 
   const contextValue = useMemo(() => ({
     isOpen,
@@ -36,21 +36,34 @@ export function Modal({ children, isOpen, setIsOpen }: ModalProps) {
   )
 }
 
-export interface ModalTriggerProps extends ComponentProps<'button'> {}
+export interface ModalTriggerProps {
+  children: ReactNode
+  className?: string
+}
 
-export function ModalTrigger({ children, className, ...props }: ModalTriggerProps) {
+export function ModalTrigger({ children, className }: ModalTriggerProps) {
   const { setIsOpen, triggerRef } = useModalContext()
 
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      setIsOpen(true)
+    }
+    else if (e.key === 'Escape') {
+      setIsOpen(false)
+    }
+  }
+
   return (
-    <button
-      {...props}
+    <div
       ref={triggerRef}
-      type="button"
-      className={clsx(styles.trigger, className)}
+      className={className}
       onClick={() => setIsOpen(true)}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="button"
     >
       {children}
-    </button>
+    </div>
   )
 }
 

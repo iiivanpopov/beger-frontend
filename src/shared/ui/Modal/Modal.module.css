@@ -12,11 +12,3 @@
 .content {
   z-index: var(--z-modal);
 }
-
-.trigger {
-  width: fit-content;
-  height: fit-content;
-  border: none;
-  outline: none;
-  background: none;
-}

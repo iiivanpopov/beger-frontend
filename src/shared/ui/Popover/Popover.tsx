@@ -1,4 +1,4 @@
-import type { ComponentProps, Dispatch, ReactNode, RefObject, SetStateAction } from 'react'
+import type { ComponentProps, Dispatch, KeyboardEvent, ReactNode, RefObject, SetStateAction } from 'react'
 import type { ClickEvent } from '@/shared/types'
 import clsx from 'clsx'
 import { useMemo, useRef } from 'react'
@@ -10,7 +10,7 @@ import styles from './Popover.module.css'
 export interface PopoverContextProps {
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
-  triggerRef: RefObject<HTMLButtonElement>
+  triggerRef: RefObject<HTMLDivElement>
   contentRef: RefObject<HTMLDivElement>
 }
 
@@ -23,7 +23,7 @@ export interface PopoverProps {
 }
 
 export function Popover({ children, isOpen, setIsOpen }: PopoverProps) {
-  const triggerRef = useRef<HTMLButtonElement>(null!)
+  const triggerRef = useRef<HTMLDivElement>(null!)
   const contentRef = useRef<HTMLDivElement>(null!)
 
   const contextValue = useMemo(
@@ -41,24 +41,31 @@ export function Popover({ children, isOpen, setIsOpen }: PopoverProps) {
 
 export interface PopoverTriggerProps extends ComponentProps<'button'> {}
 
-export function PopoverTrigger({ children, className, ...props }: PopoverTriggerProps) {
+export function PopoverTrigger({ children, className }: PopoverTriggerProps) {
   const { isOpen, setIsOpen, triggerRef } = usePopoverContext()
 
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      setIsOpen(true)
+    }
+    else if (e.key === 'Escape') {
+      setIsOpen(false)
+    }
+  }
+
   return (
-    <button
-      {...props}
-      type="button"
-      className={clsx(styles.trigger, className)}
+    <div
+      className={className}
+      role="button"
       ref={triggerRef}
-      onClick={(e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        setIsOpen(true)
-      }}
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      onClick={() => setIsOpen(true)}
       aria-expanded={isOpen}
     >
       {children}
-    </button>
+    </div>
   )
 }
 
