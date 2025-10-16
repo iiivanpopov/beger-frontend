@@ -1,10 +1,9 @@
 import type { ComponentProps, Dispatch, ReactNode, RefObject, SetStateAction } from 'react'
-import type { AsChildProps } from '@/shared/types'
 import clsx from 'clsx'
 import { useMemo, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { useClickOn } from '@/shared/hooks'
-import { buildContext, cloneMerged } from '@/shared/utils'
+import { buildContext } from '@/shared/utils'
 import styles from './Modal.module.css'
 
 export interface ModalContextProps {
@@ -37,17 +36,10 @@ export function Modal({ children, isOpen, setIsOpen }: ModalProps) {
   )
 }
 
-export type ModalTriggerProps = AsChildProps<ComponentProps<'button'>>
+export interface ModalTriggerProps extends ComponentProps<'button'> {}
 
-export function ModalTrigger({ asChild, children, className, ...props }: ModalTriggerProps) {
+export function ModalTrigger({ children, className, ...props }: ModalTriggerProps) {
   const { setIsOpen, triggerRef } = useModalContext()
-
-  if (asChild) {
-    return cloneMerged(children, {
-      ref: triggerRef,
-      onClick: () => setIsOpen(true),
-    })
-  }
 
   return (
     <button

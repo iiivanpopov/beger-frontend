@@ -12,7 +12,7 @@ export function TestResultsPage() {
       <div className={styles.header}>
         <Typography tag="h2" variant="subheading">Create new record</Typography>
         <Modal isOpen={modal.isOpen} setIsOpen={modal.setIsOpen}>
-          <Modal.Trigger asChild>
+          <Modal.Trigger>
             <Button className={styles.open} variant="ghost">View last</Button>
           </Modal.Trigger>
           <Modal.Content className={styles.records}>

@@ -40,7 +40,7 @@ export const CustomContent: Story = {
 
     return (
       <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-        <Modal.Trigger asChild>
+        <Modal.Trigger>
           <Button>
             Open Custom Modal
           </Button>

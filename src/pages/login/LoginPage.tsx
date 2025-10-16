@@ -10,7 +10,7 @@ export function LoginPage() {
     <section className={styles.section}>
       <Typography variant="subheading" tag="h2">Unauthorized</Typography>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-        <Modal.Trigger asChild>
+        <Modal.Trigger>
           <Button>Login</Button>
         </Modal.Trigger>
         <Modal.Content>

@@ -1,10 +1,10 @@
 import type { ComponentProps, Dispatch, ReactNode, RefObject, SetStateAction } from 'react'
-import type { AsChildProps, ClickEvent } from '@/shared/types'
+import type { ClickEvent } from '@/shared/types'
 import clsx from 'clsx'
 import { useMemo, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { useClickOutside, useFloatingPosition } from '@/shared/hooks'
-import { buildContext, cloneMerged } from '@/shared/utils'
+import { buildContext } from '@/shared/utils'
 import styles from './Popover.module.css'
 
 export interface PopoverContextProps {
@@ -39,21 +39,10 @@ export function Popover({ children, isOpen, setIsOpen }: PopoverProps) {
   return <PopoverContext value={contextValue}>{children}</PopoverContext>
 }
 
-export type PopoverTriggerProps = AsChildProps<ComponentProps<'button'>>
+export interface PopoverTriggerProps extends ComponentProps<'button'> {}
 
-export function PopoverTrigger({ children, className, asChild, ...props }: PopoverTriggerProps) {
+export function PopoverTrigger({ children, className, ...props }: PopoverTriggerProps) {
   const { isOpen, setIsOpen, triggerRef } = usePopoverContext()
-
-  if (asChild) {
-    return cloneMerged(children, {
-      ref: triggerRef,
-      onClick: (e: ClickEvent) => {
-        e.preventDefault()
-        e.stopPropagation()
-        setIsOpen(true)
-      },
-    })
-  }
 
   return (
     <button

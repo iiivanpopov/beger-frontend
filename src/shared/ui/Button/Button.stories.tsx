@@ -26,7 +26,7 @@ export const Contained: Story = {
   },
 }
 
-export const ghost: Story = {
+export const Ghost: Story = {
   args: {
     variant: 'ghost',
     color: 'primary',

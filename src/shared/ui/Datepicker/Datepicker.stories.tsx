@@ -12,7 +12,7 @@ type Story = StoryObj<typeof Datepicker>
 export const Basic: Story = {
   args: {},
   render: () => {
-    const [date, setDate] = useState(new Date())
+    const [date, setDate] = useState(() => new Date())
 
     return <Datepicker value={date} onChange={setDate} />
   },

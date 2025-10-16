@@ -31,7 +31,7 @@ export const WithCustomTrigger: Story = {
 
     return (
       <Popover isOpen={isOpen} setIsOpen={setIsOpen}>
-        <Popover.Trigger asChild>
+        <Popover.Trigger>
           <Button>
             Custom Button
           </Button>
