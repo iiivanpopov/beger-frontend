@@ -19,18 +19,19 @@ export interface DropdownContextProps {
 
 const [DropdownContext, useDropdownContext] = buildContext<DropdownContextProps>()
 
-export interface DropdownProps {
+export type DropdownProps = {
   children: ReactNode
-  value: string
-  onChange: Dispatch<SetStateAction<string>>
   defaultLabel?: ReactNode
   defaultIcon?: LucideIcon
-}
+  value: string
+} & ({ onChange: Dispatch<SetStateAction<string>>, setValue?: never }
+  | { setValue: Dispatch<SetStateAction<string>>, onChange?: never })
 
-function Dropdown({
+export function Dropdown({
   children,
   value,
   onChange,
+  setValue,
   defaultLabel,
   defaultIcon,
 }: DropdownProps) {
@@ -43,10 +44,10 @@ function Dropdown({
     selectedLabel,
     selectedIcon,
     isOpen,
-    setSelectedValue: onChange,
+    setSelectedValue: onChange ?? setValue,
     setSelectedLabel,
     setSelectedIcon,
-  }), [isOpen, value, selectedIcon, selectedLabel, onChange])
+  }), [value, selectedLabel, selectedIcon, isOpen, onChange, setValue])
 
   return (
     <Popover isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -61,7 +62,7 @@ export interface DropdownTriggerProps {
   variant?: 'contained'
 }
 
-function DropdownTrigger({ variant = 'contained' }: DropdownTriggerProps) {
+export function DropdownTrigger({ variant = 'contained' }: DropdownTriggerProps) {
   const { isOpen, selectedLabel, selectedIcon: Icon } = useDropdownContext()
   const ChevronIcon = isOpen ? ChevronUpIcon : ChevronDownIcon
 
@@ -77,7 +78,7 @@ function DropdownTrigger({ variant = 'contained' }: DropdownTriggerProps) {
       {!Icon && (
         <>
           <span>{selectedLabel}</span>
-          <ChevronIcon className={styles.arrow} />
+          <ChevronIcon className={styles.dropdownArrow} />
         </>
       )}
     </Popover.Trigger>
@@ -88,7 +89,7 @@ export interface DropdownItemsProps {
   children: ReactNode
 }
 
-function DropdownItems({ children }: DropdownItemsProps) {
+export function DropdownItems({ children }: DropdownItemsProps) {
   return (
     <Popover.Content className={styles.items}>
       <SelectList>
@@ -104,7 +105,7 @@ export interface DropdownItemProps {
   icon?: LucideIcon
 }
 
-function DropdownItem({ children, icon, value }: DropdownItemProps) {
+export function DropdownItem({ children, icon, value }: DropdownItemProps) {
   const {
     selectedValue,
     setSelectedValue,
@@ -130,5 +131,3 @@ function DropdownItem({ children, icon, value }: DropdownItemProps) {
 Dropdown.Trigger = DropdownTrigger
 Dropdown.Items = DropdownItems
 Dropdown.Item = DropdownItem
-
-export { Dropdown }

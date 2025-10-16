@@ -2,7 +2,7 @@ import type { QueryClient } from '@tanstack/react-query'
 import type { User } from '@/api'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import { getCurrentUser } from '@/api/requests/users'
-import { Layout } from '@/shared/components'
+import { Layout } from '@/components/Layout'
 import { authStorage } from '@/shared/utils'
 import { useAuthStore } from '@/store/auth'
 

@@ -7,7 +7,7 @@ export function useDeleteTestResultMutation(
   settings?: MutationSettings<DeleteTestResultParams, typeof deleteTestResult>,
 ) {
   return useMutation({
-    mutationKey: ['test-results', 'delete'],
+    mutationKey: ['test-results'],
     mutationFn: params => deleteTestResult({ params }),
     ...settings?.options,
   })

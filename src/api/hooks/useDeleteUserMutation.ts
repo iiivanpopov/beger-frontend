@@ -7,7 +7,7 @@ export function useDeleteUserMutation(
   settings?: MutationSettings<DeleteUserParams, typeof deleteUser>,
 ) {
   return useMutation({
-    mutationKey: ['users', 'delete'],
+    mutationKey: ['users'],
     mutationFn: params => deleteUser({ params }),
     ...settings?.options,
   })

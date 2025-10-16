@@ -41,8 +41,8 @@ export function Button({
         className,
       )}
     >
-      <LoaderCircle className={styles.spinner} />
-      <div className={styles.content}>{children}</div>
+      <LoaderCircle className={styles.buttonSpinner} />
+      <div className={styles.buttonContent}>{children}</div>
     </button>
   )
 }

@@ -2,12 +2,15 @@ import type { UseMutationOptions, UseQueryOptions } from '@tanstack/react-query'
 import type { HTTPError } from 'ky'
 import type { AnyFunction } from '@/shared/types'
 
-export interface QuerySettings<Func extends AnyFunction = AnyFunction> {
+export interface QuerySettings<
+  Func extends AnyFunction = AnyFunction,
+  Select = Awaited<ReturnType<Func>>,
+> {
   options?: Omit<
     UseQueryOptions<
       Awaited<ReturnType<Func>>,
       HTTPError<ApiError>,
-      Awaited<ReturnType<Func>>,
+      Select,
       any
     >,
     'queryKey'
@@ -113,7 +116,7 @@ export type UpdateUserResponse = ApiResponse<User>
 
 export type DeleteUserResponse = ApiSuccess
 
-export type GetUserRepairsResponse = ApiResponse<Repair[]>
+export type GetSelfRepairsResponse = ApiResponse<Repair[]>
 
 export type GetAllRepairsResponse = ApiResponse<Repair[]>
 
@@ -128,7 +131,7 @@ export type CreateRepairResponse = ApiResponse<Repair>
 
 export type DeleteRepairResponse = ApiSuccess
 
-export type GetUserTestResultsResponse = ApiResponse<TestResult[]>
+export type GetSelfTestResults = ApiResponse<TestResult[]>
 
 export type GetAllTestResultsResponse = ApiResponse<TestResult[]>
 
@@ -144,4 +147,7 @@ export type CreateTestResultResponse = ApiResponse<TestResult>
 
 export type DeleteTestResultResponse = ApiSuccess
 
-export type GetOptionsResponse = ApiResponse<Record<string, unknown[]>>
+export type GetOptionsResponse = ApiResponse<{
+  pcbNames: string[]
+  defects: string[]
+}>

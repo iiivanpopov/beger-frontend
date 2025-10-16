@@ -1,41 +1,36 @@
-import { useEffect } from 'react'
+import type { RefObject } from 'react'
+import { useLayoutEffect } from 'react'
+import { calculateFloatingPosition, getElementRect } from '@/shared/utils'
 
 export function useFloatingPosition(
-  toRef: React.RefObject<HTMLElement>,
-  targetRef: React.RefObject<HTMLElement>,
+  anchorRef: RefObject<HTMLElement>,
+  floatingRef: RefObject<HTMLElement>,
   offset: { x: number, y: number } = { x: 0, y: 0 },
   disabled?: boolean,
 ) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (disabled)
       return
 
     const updatePosition = () => {
-      const to = toRef.current
-      const target = targetRef.current
-
-      if (!to || !target)
+      const anchor = anchorRef.current
+      const floating = floatingRef.current
+      if (!anchor || !floating)
         return
 
-      const targetRect = to.getBoundingClientRect()
-
-      let x = targetRect.left + targetRect.width / 2 - target.clientWidth / 2 + offset.x + window.scrollX
-      let y = targetRect.bottom + offset.y + window.scrollY
-      x = Math.max(window.scrollX, Math.min(x, window.scrollX + window.innerWidth - target.clientWidth))
-      y = Math.max(window.scrollY, Math.min(y, window.scrollY + window.innerHeight - target.clientHeight))
-
-      target.style.transform = `translate(${x}px, ${y}px)`
+      const anchorRect = getElementRect(anchor)
+      const floatingRect = getElementRect(floating)
+      const { x, y } = calculateFloatingPosition(anchorRect, floatingRect, offset)
+      floating.style.transform = `translate(${x}px, ${y}px)`
     }
 
-    const frame = requestAnimationFrame(updatePosition)
-
+    updatePosition()
     window.addEventListener('resize', updatePosition)
     window.addEventListener('scroll', updatePosition, true)
 
     return () => {
-      cancelAnimationFrame(frame)
       window.removeEventListener('resize', updatePosition)
       window.removeEventListener('scroll', updatePosition, true)
     }
-  }, [toRef, targetRef, offset, disabled])
+  }, [anchorRef, floatingRef, offset, disabled])
 }

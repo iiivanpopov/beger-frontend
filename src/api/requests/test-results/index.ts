@@ -1,11 +1,8 @@
 import type { Options } from 'ky'
-import type { CreateTestResultBody, CreateTestResultResponse, DeleteTestResultResponse, GetAllTestResultsResponse, GetUserTestResultsResponse, PaginationQuery } from '@/api/types'
+import type { CreateTestResultBody, CreateTestResultResponse, DeleteTestResultResponse, GetAllTestResultsResponse, GetSelfTestResults, PaginationQuery } from '@/api/types'
 import { $api } from '@/api/instance'
 
 export type GetAllTestResultsParams = PaginationQuery
-export interface GetUserTestResultsParams extends PaginationQuery {
-  id: string
-}
 export type CreateTestResultParams = CreateTestResultBody
 export interface DeleteTestResultParams {
   id: string
@@ -19,9 +16,8 @@ export async function getAllTestResults({ params, config }: { params?: GetAllTes
   }).json()
 }
 
-export async function getUserTestResults({ params, config }: { params: GetUserTestResultsParams, config?: Options }) {
-  return await $api.get<GetUserTestResultsResponse>(`users/${params.id}/test-results`, {
-    searchParams: { offset: params.offset, limit: params.limit },
+export async function getSelfTestResults({ config }: { config?: Options } = {}) {
+  return await $api.get<GetSelfTestResults>(`test-results/me`, {
     ...config,
   }).json()
 }

@@ -7,7 +7,7 @@ export function ToastsProvider() {
   const { removeToast: remove, toasts } = useToastsStore()
 
   return createPortal(
-    <Toast.Container className={styles.container}>
+    <Toast.Container className={styles.toastProvider}>
       {toasts.map(({ id, level, content }) => {
         return (
           <Toast

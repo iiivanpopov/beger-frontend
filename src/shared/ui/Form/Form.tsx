@@ -7,21 +7,33 @@ export interface FormProps extends ComponentProps<'form'> {
   className?: string
 }
 
-function Form({ children, className, ...props }: FormProps) {
+export function Form({ children, className, ...props }: FormProps) {
   return <form {...props} className={clsx(styles.form, className)}>{children}</form>
+}
+
+export interface FormRowProps {
+  children: ReactNode
+  className?: string
+}
+
+export function FormRow({ children, className }: FormRowProps) {
+  return (
+    <div className={clsx(styles.row, className)}>
+      {children}
+    </div>
+  )
 }
 
 export interface FormFieldProps {
   children: ReactNode
   className?: string
-  // fieldState: ControllerFieldState
   label?: ReactNode
   error?: {
     message?: string
   }
 }
 
-function FormField({ children, className, label, error }: FormFieldProps) {
+export function FormField({ children, className, label, error }: FormFieldProps) {
   return (
     <div className={clsx(styles.field, className)}>
       {label && <span className={styles.label}>{label}</span>}
@@ -31,6 +43,5 @@ function FormField({ children, className, label, error }: FormFieldProps) {
   )
 }
 
+Form.Row = FormRow
 Form.Field = FormField
-
-export { Form }

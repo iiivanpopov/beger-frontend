@@ -1,11 +1,11 @@
 .layout {
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  width: 1200px;
+  gap: var(--spacing-xl);
+  width: var(--width-2xl);
   height: 800px;
-  padding: 50px;
-  border-radius: 25px;
+  padding: var(--spacing-2xl);
+  border-radius: var(--radius-2xl);
   background: var(--background-secondary);
   box-shadow: 0 2px 12px rgb(0 0 0 / 30%);
 }

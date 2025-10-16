@@ -1,18 +1,18 @@
-.container {
-  z-index: 1000;
+.toastContainer {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--spacing-sm);
 }
 
 .toast {
+  z-index: var(--z-toast);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--spacing-sm);
   overflow: hidden;
-  padding: 10px;
+  padding: var(--spacing-sm);
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   outline: none;
   font-family: var(--font-body);
   font-size: 16px;

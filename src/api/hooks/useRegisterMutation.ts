@@ -7,7 +7,7 @@ export function useRegisterMutation(
   settings?: MutationSettings<RegisterParams, typeof register>,
 ) {
   return useMutation({
-    mutationKey: ['auth', 'register'],
+    mutationKey: ['register'],
     mutationFn: params => register({ params }),
     ...settings?.options,
   })

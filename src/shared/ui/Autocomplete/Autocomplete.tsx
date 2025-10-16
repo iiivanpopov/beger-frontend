@@ -1,37 +1,34 @@
 import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import clsx from 'clsx'
 import { ChevronsUpDownIcon } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Popover, SelectList } from '@/shared/ui'
-import { buildContext, matchesSearch, normalizeValue } from '@/shared/utils'
+import { buildContext, matchesSearch } from '@/shared/utils'
 import styles from './Autocomplete.module.css'
 
 export interface AutocompleteContextProps {
-  selectedValue: string
-  setSelectedValue: Dispatch<SetStateAction<string>>
-  selectedLabel: ReactNode
-  setSelectedLabel: Dispatch<SetStateAction<ReactNode>>
+  selected: string
+  setSelected: Dispatch<SetStateAction<string>>
 }
 
-const [AutocompleteContext, useAutocompleteContext] = buildContext<AutocompleteContextProps>()
+const [
+  AutocompleteContext,
+  useAutocompleteContext,
+] = buildContext<AutocompleteContextProps>()
 
-export interface AutocompleteProps {
+export type AutocompleteProps = {
   children: ReactNode
   value: string
-  onChange: Dispatch<SetStateAction<string>>
-  defaultLabel?: ReactNode
-}
+} & ({ onChange: Dispatch<SetStateAction<string>>, setValue?: never }
+  | { setValue: Dispatch<SetStateAction<string>>, onChange?: never })
 
-function Autocomplete({ children, value, onChange, defaultLabel }: AutocompleteProps) {
-  const [selectedLabel, setSelectedLabel] = useState<ReactNode>(defaultLabel)
+export function Autocomplete({ children, value, onChange, setValue }: AutocompleteProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   const contextValue = useMemo(() => ({
-    selectedValue: value,
-    setSelectedValue: onChange,
-    selectedLabel,
-    setSelectedLabel,
-  }), [value, onChange, selectedLabel])
+    selected: value,
+    setSelected: onChange ?? setValue,
+  }), [value, onChange, setValue])
 
   return (
     <Popover isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -49,31 +46,30 @@ export interface AutocompleteTriggerProps {
   invalid?: boolean
 }
 
-function AutocompleteTrigger({ className, invalid, variant = 'contained', placeholder }: AutocompleteTriggerProps) {
-  const {
-    selectedLabel,
-    setSelectedValue,
-    setSelectedLabel,
-  } = useAutocompleteContext()
+export function AutocompleteTrigger({
+  className,
+  invalid,
+  variant = 'contained',
+  placeholder,
+}: AutocompleteTriggerProps) {
+  const { selected, setSelected } = useAutocompleteContext()
 
   return (
-    <Popover.Trigger className={clsx(
-      styles.trigger,
-      styles[variant],
-      invalid && styles.invalid,
-      className,
-    )}
+    <Popover.Trigger
+      className={clsx(
+        styles.trigger,
+        styles[variant],
+        invalid && styles.invalid,
+        className,
+      )}
     >
       <input
         type="text"
-        value={selectedLabel?.toString() ?? ''}
+        value={selected?.toString() ?? ''}
         placeholder={placeholder}
-        onChange={(e) => {
-          setSelectedValue(e.target.value)
-          setSelectedLabel(e.target.value)
-        }}
+        onChange={e => setSelected(e.target.value)}
       />
-      <ChevronsUpDownIcon className={styles.arrow} />
+      <ChevronsUpDownIcon className={styles.autocompleteArrow} />
     </Popover.Trigger>
   )
 }
@@ -82,7 +78,7 @@ export interface AutocompleteItemsProps {
   children: ReactNode
 }
 
-function AutocompleteItems({ children }: AutocompleteItemsProps) {
+export function AutocompleteItems({ children }: AutocompleteItemsProps) {
   return (
     <Popover.Content>
       <SelectList>
@@ -93,35 +89,20 @@ function AutocompleteItems({ children }: AutocompleteItemsProps) {
 }
 
 export interface AutocompleteItemProps {
-  children: string | number | (string | number)[]
-  value: string | number
+  children: string
+  value: string
 }
 
 function AutocompleteItem({ children, value }: AutocompleteItemProps) {
-  const {
-    selectedValue,
-    setSelectedValue,
-    selectedLabel,
-    setSelectedLabel,
-  } = useAutocompleteContext()
+  const { selected, setSelected } = useAutocompleteContext()
 
-  const label = normalizeValue(children)
-
-  useEffect(() => {
-    if (label === selectedLabel)
-      setSelectedValue(value.toString())
-  }, [label, selectedLabel, setSelectedValue, value])
-
-  if (selectedValue && !matchesSearch({ search: selectedValue, value, label }))
+  if (selected && !matchesSearch(selected, [value]))
     return null
 
   return (
     <SelectList.Item
-      active={value === selectedValue}
-      onClick={() => {
-        setSelectedValue(value.toString())
-        setSelectedLabel(label)
-      }}
+      active={value === selected}
+      onClick={() => setSelected(value.toString())}
     >
       {children}
     </SelectList.Item>
@@ -131,5 +112,3 @@ function AutocompleteItem({ children, value }: AutocompleteItemProps) {
 Autocomplete.Trigger = AutocompleteTrigger
 Autocomplete.Items = AutocompleteItems
 Autocomplete.Item = AutocompleteItem
-
-export { Autocomplete }

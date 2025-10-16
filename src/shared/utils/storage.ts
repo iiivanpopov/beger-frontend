@@ -1,4 +1,4 @@
-import { storageKeys } from '../config'
+import { storageKeys } from '@/shared/config'
 
 export const storage = {
   get: (key: string): string | null => {

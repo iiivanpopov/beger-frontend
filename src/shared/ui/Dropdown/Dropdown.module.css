@@ -2,13 +2,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: var(--spacing-sm);
   overflow: hidden;
-  width: 180px;
-  height: 40px;
-  padding: 5px 15px;
+  width: var(--width-sm);
+  height: var(--size-md);
+  padding: var(--spacing-xs) var(--spacing-md);
   border: 1px solid transparent;
-  border-radius: 1000px;
+  border-radius: var(--radius-full);
   outline: none;
   font-family: var(--font-body);
   font-size: 16px;
@@ -30,7 +30,7 @@
     color: var(--text-primary);
   }
 
-  .arrow {
+  .dropdownArrow {
     flex-shrink: 0;
     color: #808080;
   }
@@ -38,9 +38,9 @@
   &.icon {
     display: flex;
     place-content: center center;
-    width: 40px;
+    width: var(--size-md);
     min-width: unset;
-    height: 40px;
+    height: var(--size-md);
     min-height: unset;
     padding: 0;
 

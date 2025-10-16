@@ -7,7 +7,7 @@ export function useCreateRepairMutation(
   settings?: MutationSettings<CreateRepairParams, typeof createRepair>,
 ) {
   return useMutation({
-    mutationKey: ['repairs', 'create'],
+    mutationKey: ['repairs'],
     mutationFn: params => createRepair({ params }),
     ...settings?.options,
   })

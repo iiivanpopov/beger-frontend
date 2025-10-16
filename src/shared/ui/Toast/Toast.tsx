@@ -9,9 +9,9 @@ export interface ToastContainerProps extends ComponentProps<'div'> {
   className?: string
 }
 
-function ToastContainer({ children, className, ...props }: ToastContainerProps) {
+export function ToastContainer({ children, className, ...props }: ToastContainerProps) {
   return (
-    <div className={clsx(styles.container, className)} {...props}>
+    <div className={clsx(styles.toastContainer, className)} {...props}>
       {children}
     </div>
   )
@@ -26,7 +26,7 @@ export interface ToastProps extends Omit<ComponentProps<'button'>, 'id'> {
   delay?: number
 }
 
-function Toast({
+export function Toast({
   children,
   level,
   id,
@@ -58,5 +58,3 @@ function Toast({
 }
 
 Toast.Container = ToastContainer
-
-export { Toast }

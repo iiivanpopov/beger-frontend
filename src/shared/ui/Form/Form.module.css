@@ -1,19 +1,24 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--spacing-lg);
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--spacing-sm);
 }
 
 .label {
   font-family: var(--font-body);
   font-size: 14px;
   color: var(--text-secondary);
+}
+
+.row {
+  display: flex;
+  gap: var(--spacing-lg);
 }
 
 .error {

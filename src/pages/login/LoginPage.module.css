@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  padding: 50px;
-  border-radius: 30px;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-2xl);
+  border-radius: var(--spacing-xl);
   background: var(--background-secondary);
   box-shadow: 0 2px 4px rgb(0 0 0 /20%);
 }
@@ -14,6 +14,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: var(--spacing-lg);
   height: 100%;
 }

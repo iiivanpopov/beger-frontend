@@ -5,7 +5,7 @@ import { navigationTabs } from '@/shared/config'
 import { Button, Typography } from '@/shared/ui'
 import { getRouteSegment } from '@/shared/utils/routing'
 import styles from './Header.module.css'
-import { useHeader } from './useHeader'
+import { useHeader } from './hooks/useHeader'
 
 export function Header() {
   const { handleLogout, user, routeSegment } = useHeader()
@@ -17,20 +17,13 @@ export function Header() {
         <Typography variant="heading" tag="h1">Beger</Typography>
       </div>
       <nav className={styles.tabs}>
-        {navigationTabs.map(({ to, role, label }) => {
-          if (user?.role !== role)
-            return null
-
+        {user?.role && navigationTabs[user.role].map(({ to, label }) => {
           const isActive = routeSegment === getRouteSegment(to)
-
           return (
             <Link
               key={to}
               to={to}
-              className={clsx(
-                styles.tab,
-                isActive && styles.active,
-              )}
+              className={clsx(styles.tab, isActive && styles.active)}
             >
               {label}
             </Link>

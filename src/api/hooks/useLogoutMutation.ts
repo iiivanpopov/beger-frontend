@@ -6,7 +6,7 @@ export function useLogoutMutation(
   settings?: MutationSettings<void, typeof logout>,
 ) {
   return useMutation({
-    mutationKey: ['user', 'self'],
+    mutationKey: ['logout'],
     mutationFn: () => logout(),
     ...settings?.options,
   })

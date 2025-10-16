@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   border: none;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   outline: none;
   font-family: var(--font-body);
   font-weight: 500;
@@ -15,46 +15,46 @@
   cursor: pointer;
 
   &.large {
-    padding: 8px 20px;
+    padding: var(--spacing-sm) var(--spacing-lg);
     font-size: 20px;
 
     &.icon {
-      width: 48px;
-      height: 48px;
+      width: var(--size-lg);
+      height: var(--size-lg);
 
       & svg {
-        width: 24px;
-        height: 24px;
+        width: var(--size-sm);
+        height: var(--size-sm);
       }
     }
   }
 
   &.medium {
-    padding: 8px 20px;
+    padding: var(--spacing-sm) var(--spacing-lg);
     font-size: 17px;
 
     &.icon {
-      width: 40px;
-      height: 40px;
+      width: var(--size-md);
+      height: var(--size-md);
 
       & svg {
-        width: 20px;
-        height: 20px;
+        width: var(--size-2xs);
+        height: var(--size-2xs);
       }
     }
   }
 
   &.small {
-    padding: 8px 20px;
+    padding: var(--spacing-sm) var(--spacing-lg);
     font-size: 14px;
 
     &.icon {
-      width: 32px;
-      height: 32px;
+      width: var(--size-sm);
+      height: var(--size-sm);
 
       & svg {
-        width: 16px;
-        height: 16px;
+        width: var(--size-xs);
+        height: var(--size-xs);
       }
     }
   }
@@ -120,22 +120,22 @@
     }
   }
 
-  .spinner {
+  .buttonSpinner {
     display: none;
   }
 
-  .content {
+  .buttonContent {
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
   &.loading {
-    .content {
+    .buttonContent {
       visibility: hidden;
     }
 
-    .spinner {
+    .buttonSpinner {
       position: absolute;
       display: block;
       animation: spin 1s linear infinite;

@@ -83,3 +83,40 @@ export function collectElements<T extends HTMLElement>(
 
   return elements
 }
+
+export function getElementRect(el: HTMLElement) {
+  const rect = el.getBoundingClientRect()
+  return {
+    top: rect.top + window.scrollY,
+    left: rect.left + window.scrollX,
+    right: rect.right + window.scrollX,
+    bottom: rect.bottom + window.scrollY,
+    width: rect.width,
+    height: rect.height,
+  }
+}
+
+export function calculateFloatingPosition(
+  anchorRect: DOMRect | ReturnType<typeof getElementRect>,
+  targetSize: { width: number, height: number },
+  offset = { x: 0, y: 0 },
+) {
+  let x
+    = anchorRect.left
+      + anchorRect.width / 2
+      - targetSize.width / 2
+      + offset.x
+
+  let y = anchorRect.bottom + offset.y
+
+  x = Math.max(
+    window.scrollX,
+    Math.min(x, window.scrollX + window.innerWidth - targetSize.width),
+  )
+  y = Math.max(
+    window.scrollY,
+    Math.min(y, window.scrollY + window.innerHeight - targetSize.height),
+  )
+
+  return { x, y }
+}

@@ -3,9 +3,8 @@ import type { ReactNode } from 'react'
 import type { ApiError } from '@/api'
 
 export async function extractErrorMessage(error: HTTPError<ApiError>): Promise<string> {
-  if (!error.response) {
+  if (!error.response)
     return error.message
-  }
 
   try {
     const response = await error.response.json()

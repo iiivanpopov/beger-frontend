@@ -7,7 +7,7 @@ export function useUpdateUserMutation(
   settings?: MutationSettings<UpdateUserParams, typeof updateUser>,
 ) {
   return useMutation({
-    mutationKey: ['users', 'update'],
+    mutationKey: ['updateUser'],
     mutationFn: params => updateUser({ params }),
     ...settings?.options,
   })

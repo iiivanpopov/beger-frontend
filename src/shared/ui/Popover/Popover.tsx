@@ -1,5 +1,5 @@
-import type { ComponentProps, Dispatch, HTMLAttributes, ReactNode, SetStateAction } from 'react'
-import type { AsChildProps } from '@/shared/types'
+import type { ComponentProps, Dispatch, ReactNode, RefObject, SetStateAction } from 'react'
+import type { AsChildProps, ClickEvent } from '@/shared/types'
 import clsx from 'clsx'
 import { useMemo, useRef } from 'react'
 import { createPortal } from 'react-dom'
@@ -10,8 +10,8 @@ import styles from './Popover.module.css'
 export interface PopoverContextProps {
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
-  triggerRef: React.RefObject<HTMLButtonElement>
-  contentRef: React.RefObject<HTMLDivElement>
+  triggerRef: RefObject<HTMLButtonElement>
+  contentRef: RefObject<HTMLDivElement>
 }
 
 const [PopoverContext, usePopoverContext] = buildContext<PopoverContextProps>()
@@ -22,7 +22,7 @@ export interface PopoverProps {
   children: ReactNode
 }
 
-function Popover({ children, isOpen, setIsOpen }: PopoverProps) {
+export function Popover({ children, isOpen, setIsOpen }: PopoverProps) {
   const triggerRef = useRef<HTMLButtonElement>(null!)
   const contentRef = useRef<HTMLDivElement>(null!)
 
@@ -39,18 +39,15 @@ function Popover({ children, isOpen, setIsOpen }: PopoverProps) {
   return <PopoverContext value={contextValue}>{children}</PopoverContext>
 }
 
-export type PopoverTriggerProps = AsChildProps<
-  ComponentProps<'button'>,
-  HTMLAttributes<HTMLElement>
->
+export type PopoverTriggerProps = AsChildProps<ComponentProps<'button'>>
 
-function PopoverTrigger({ children, className, asChild, ...props }: PopoverTriggerProps) {
+export function PopoverTrigger({ children, className, asChild, ...props }: PopoverTriggerProps) {
   const { isOpen, setIsOpen, triggerRef } = usePopoverContext()
 
   if (asChild) {
     return cloneMerged(children, {
       ref: triggerRef,
-      onClick: (e: React.MouseEvent) => {
+      onClick: (e: ClickEvent) => {
         e.preventDefault()
         e.stopPropagation()
         setIsOpen(true)
@@ -78,10 +75,10 @@ function PopoverTrigger({ children, className, asChild, ...props }: PopoverTrigg
 
 type PopoverContentProps = ComponentProps<'div'>
 
-function PopoverContent({ children, className, ...props }: PopoverContentProps) {
+export function PopoverContent({ children, className, ...props }: PopoverContentProps) {
   const { contentRef, triggerRef, setIsOpen, isOpen } = usePopoverContext()
 
-  useClickOutside((e: MouseEvent) => {
+  useClickOutside((e: ClickEvent) => {
     const target = e.target as Node
     if (!triggerRef.current?.contains(target)) {
       setIsOpen(false)
@@ -106,5 +103,3 @@ function PopoverContent({ children, className, ...props }: PopoverContentProps) 
 
 Popover.Trigger = PopoverTrigger
 Popover.Content = PopoverContent
-
-export { Popover }

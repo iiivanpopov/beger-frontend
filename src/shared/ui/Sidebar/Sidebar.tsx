@@ -19,7 +19,7 @@ export interface SidebarProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
-function Sidebar({ children, isOpen, setIsOpen }: SidebarProps) {
+export function Sidebar({ children, isOpen, setIsOpen }: SidebarProps) {
   const contextValue = useMemo(() => ({
     isOpen,
     setIsOpen,
@@ -107,5 +107,3 @@ Sidebar.Nav = SidebarNav
 Sidebar.NavItem = SidebarNavItem
 Sidebar.NavItemIcon = SidebarNavItemIcon
 Sidebar.NavItemLabel = SidebarNavItemLabel
-
-export { Sidebar }

@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, ComponentProps, Dispatch, ReactNode, RefObject, SetStateAction } from 'react'
+import type { ComponentProps, Dispatch, ReactNode, RefObject, SetStateAction } from 'react'
 import type { AsChildProps } from '@/shared/types'
 import clsx from 'clsx'
 import { useMemo, useRef } from 'react'
@@ -21,7 +21,7 @@ export interface ModalProps {
   children: ReactNode
 }
 
-function Modal({ children, isOpen, setIsOpen }: ModalProps) {
+export function Modal({ children, isOpen, setIsOpen }: ModalProps) {
   const triggerRef = useRef<HTMLButtonElement>(null!)
 
   const contextValue = useMemo(() => ({
@@ -37,12 +37,9 @@ function Modal({ children, isOpen, setIsOpen }: ModalProps) {
   )
 }
 
-export type ModalTriggerProps = AsChildProps<
-  ComponentProps<'button'>,
-  ButtonHTMLAttributes<HTMLButtonElement>
->
+export type ModalTriggerProps = AsChildProps<ComponentProps<'button'>>
 
-function ModalTrigger({ asChild, children, className, ...props }: ModalTriggerProps) {
+export function ModalTrigger({ asChild, children, className, ...props }: ModalTriggerProps) {
   const { setIsOpen, triggerRef } = useModalContext()
 
   if (asChild) {
@@ -70,7 +67,7 @@ export interface ModalContentProps {
   className?: string
 }
 
-function ModalContent({ children, className }: ModalContentProps) {
+export function ModalContent({ children, className }: ModalContentProps) {
   const { isOpen, setIsOpen } = useModalContext()
   const register = useClickOn(() => setIsOpen(false))
 
@@ -79,10 +76,12 @@ function ModalContent({ children, className }: ModalContentProps) {
 
   return createPortal(
     <div
-      className={clsx(styles.backdrop, className)}
+      className={styles.backdrop}
       ref={register}
     >
-      {children}
+      <div className={clsx(styles.content, className)}>
+        {children}
+      </div>
     </div>,
     document.body,
   )
@@ -90,5 +89,3 @@ function ModalContent({ children, className }: ModalContentProps) {
 
 Modal.Trigger = ModalTrigger
 Modal.Content = ModalContent
-
-export { Modal }

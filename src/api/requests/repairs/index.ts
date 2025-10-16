@@ -1,11 +1,8 @@
 import type { Options } from 'ky'
-import type { CreateRepairBody, CreateRepairResponse, DeleteRepairResponse, GetAllRepairsResponse, GetUserRepairsResponse, PaginationQuery } from '@/api/types'
+import type { CreateRepairBody, CreateRepairResponse, DeleteRepairResponse, GetAllRepairsResponse, GetSelfRepairsResponse, PaginationQuery } from '@/api/types'
 import { $api } from '@/api/instance'
 
 export type GetAllRepairsParams = PaginationQuery
-export interface GetUserRepairsParams extends PaginationQuery {
-  id: string
-}
 export type CreateRepairParams = CreateRepairBody
 export interface DeleteRepairParams {
   id: string
@@ -18,9 +15,8 @@ export async function getAllRepairs({ params, config }: { params?: GetAllRepairs
   }).json()
 }
 
-export async function getUserRepairs({ params, config }: { params: GetUserRepairsParams, config?: Options }) {
-  return await $api.get<GetUserRepairsResponse>(`users/${params.id}/repairs`, {
-    searchParams: { offset: params.offset, limit: params.limit },
+export async function getSelfRepairs({ config }: { config?: Options } = {}) {
+  return await $api.get<GetSelfRepairsResponse>(`repairs/me`, {
     ...config,
   }).json()
 }

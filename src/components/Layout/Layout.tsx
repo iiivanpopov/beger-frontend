@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Header } from '@/shared/components'
+import { Header } from '@/components/Header'
 import styles from './Layout.module.css'
 
 export interface LayoutProps {

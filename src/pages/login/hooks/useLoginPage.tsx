@@ -1,12 +1,12 @@
-import type { LoginFormData } from '../schemas/login.schema'
+import type { LoginFormData } from '@/pages/Login/schemas/login.schema'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { useRouter } from '@tanstack/react-router'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLoginMutation } from '@/api'
+import { loginSchema } from '@/pages/Login/schemas/login.schema'
 import { useToast } from '@/shared/hooks'
 import { authStorage, createErrorHandler } from '@/shared/utils'
-import { loginSchema } from '../schemas/login.schema'
 
 export function useLoginPage() {
   const router = useRouter()

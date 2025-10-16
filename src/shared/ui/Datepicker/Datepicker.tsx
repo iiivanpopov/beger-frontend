@@ -6,14 +6,14 @@ import { Popover } from '@/shared/ui'
 import { getDaysInMonth } from '@/shared/utils'
 import styles from './Datepicker.module.css'
 
-export interface DatepickerProps {
-  value: Date
-  onChange: Dispatch<SetStateAction<Date>>
+export type DatepickerProps = {
   variant?: 'contained'
   className?: string
-}
+  value: Date
+} & ({ onChange: Dispatch<SetStateAction<Date>>, setValue?: never }
+  | { setValue: Dispatch<SetStateAction<Date>>, onChange?: never })
 
-function Datepicker({ onChange, value, variant = 'contained', className }: DatepickerProps) {
+export function Datepicker({ onChange, setValue, value, variant = 'contained', className }: DatepickerProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [viewDate, setViewDate] = useState({
     year: value.getFullYear(),
@@ -30,7 +30,10 @@ function Datepicker({ onChange, value, variant = 'contained', className }: Datep
 
     if ('day' in updates || 'month' in updates || 'year' in updates) {
       const newDate = new Date(Date.UTC(newViewDate.year, newViewDate.month, newViewDate.day))
-      onChange(newDate)
+      if (onChange)
+        onChange(newDate)
+      else
+        setValue(newDate)
     }
   }
 
@@ -50,17 +53,17 @@ function Datepicker({ onChange, value, variant = 'contained', className }: Datep
         className,
       )}
       >
-        <span className={styles.date}>
+        <span className={styles.datepickerText}>
           {value.toLocaleDateString('uk-UA')}
         </span>
-        <CalendarIcon />
+        <CalendarIcon className={styles.datepickerIcon} />
       </Popover.Trigger>
-      <Popover.Content className={styles.content}>
-        <div className={styles.header}>
+      <Popover.Content className={styles.datepickerContent}>
+        <div className={styles.datepickerHeader}>
           <select
             value={viewDate.year}
             onChange={e => handleChange({ year: Number(e.target.value) })}
-            className={styles.select}
+            className={styles.datepickerSelect}
           >
             {Array.from({ length: 6 }, (_, i) => viewDate.year - 2 + i).map(y => (
               <option key={y} value={y}>
@@ -71,7 +74,7 @@ function Datepicker({ onChange, value, variant = 'contained', className }: Datep
           <select
             value={viewDate.month}
             onChange={e => handleChange({ month: Number(e.target.value) })}
-            className={styles.select}
+            className={styles.datepickerSelect}
           >
             {Array.from({ length: 12 }, (_, i) => i).map(m => (
               <option key={m} value={m}>
@@ -80,13 +83,13 @@ function Datepicker({ onChange, value, variant = 'contained', className }: Datep
             ))}
           </select>
         </div>
-        <div className={styles.grid}>
+        <div className={styles.datepickerGrid}>
           {days.map(day => (
             <button
               key={day}
               type="button"
               onClick={() => handleChange({ day })}
-              className={clsx(styles.day, isSelectedDay(day) && styles.selected)}
+              className={clsx(styles.datepickerDay, isSelectedDay(day) && styles.selected)}
             >
               {day}
             </button>
@@ -96,5 +99,3 @@ function Datepicker({ onChange, value, variant = 'contained', className }: Datep
     </Popover>
   )
 }
-
-export { Datepicker }

@@ -1,7 +1,7 @@
 .textarea {
-  padding: 15px;
+  padding: var(--spacing-md);
   border: 1px solid transparent;
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   outline: none;
   font-family: var(--font-body);
   font-size: 16px;

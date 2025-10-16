@@ -7,7 +7,7 @@ export function useDeleteRepairMutation(
   settings?: MutationSettings<DeleteRepairParams, typeof deleteRepair>,
 ) {
   return useMutation({
-    mutationKey: ['repairs', 'delete'],
+    mutationKey: ['repairs'],
     mutationFn: params => deleteRepair({ params }),
     ...settings?.options,
   })

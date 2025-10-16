@@ -7,7 +7,7 @@ export function useRefreshMutation(
   settings?: MutationSettings<RefreshParams, typeof refresh>,
 ) {
   return useMutation({
-    mutationKey: ['auth', 'refresh'],
+    mutationKey: ['refresh'],
     mutationFn: params => refresh({ params }),
     ...settings?.options,
   })

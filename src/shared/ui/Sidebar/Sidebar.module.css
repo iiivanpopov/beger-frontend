@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: var(--spacing-sm);
   overflow: hidden;
-  width: 48px;
-  padding: 8px;
-  border-radius: 8px;
+  width: var(--size-lg);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
   background: var(--background-primary);
   box-shadow: 0 2px 4px rgb(0 0 0 /10%);
   transition: width 0.2s ease-in-out;
@@ -25,8 +25,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 24px;
-  height: 24px;
+  width: var(--size-xs);
+  height: var(--size-xs);
   border: none;
   outline: none;
   color: var(--text-tertiary);
@@ -37,15 +37,15 @@
 .nav {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--spacing-xs);
 }
 
 .item {
   display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 5px;
-  border-radius: 8px;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-md);
   white-space: nowrap;
   color: var(--text-secondary);
   transition: background-color 0.2s ease-in-out;

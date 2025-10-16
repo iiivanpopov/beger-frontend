@@ -29,9 +29,5 @@ export function useToast() {
     </>,
   })
 
-  return {
-    showInfo,
-    showSuccess,
-    showError,
-  }
+  return { showInfo, showSuccess, showError }
 }

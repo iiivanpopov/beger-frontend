@@ -7,7 +7,7 @@ const meta: Meta<typeof Autocomplete> = {
   component: Autocomplete,
 }
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof Autocomplete>
 
 export const Basic: Story = {
   render: () => {

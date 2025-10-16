@@ -7,7 +7,7 @@ export function useLoginMutation(
   settings?: MutationSettings<LoginParams, typeof login>,
 ) {
   return useMutation({
-    mutationKey: ['user', 'self'],
+    mutationKey: ['login'],
     mutationFn: params => login({ params }),
     ...settings?.options,
   })

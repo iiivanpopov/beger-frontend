@@ -1,10 +1,17 @@
 import type { RedirectOptions } from '@tanstack/react-router'
-import type { ReactElement } from 'react'
+import type { ReactNode } from 'react'
 import type { AppRouter } from '@/main'
 
-export type AsChildProps<TDefault, TElement = HTMLElement> = (TDefault & { asChild?: false })
-  | { asChild: true, children: ReactElement<TElement>, className?: never }
+export type AsChildProps<T>
+  = ({ asChild?: false } & T)
+    | {
+      asChild: true
+      className?: never
+      children: ReactNode
+    }
 
-export type AnyFunction = (...args: any) => any
+export type AnyFunction = (...args: any[]) => any
 
-export type PathRoute = RedirectOptions<AppRouter>['to']
+export type RouterPath = RedirectOptions<AppRouter>['to']
+
+export type ClickEvent = MouseEvent | TouchEvent

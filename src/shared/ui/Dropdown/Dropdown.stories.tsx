@@ -8,7 +8,7 @@ const meta: Meta<typeof Dropdown> = {
   component: Dropdown,
 }
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof Dropdown>
 
 export const Basic: Story = {
   render: () => {

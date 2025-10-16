@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-sm);
+}
+
+.open {
+  color: var(--text-tertiary) !important;
+}
+
+.submit {
+  width: fit-content;
+}
+
+.records {
+  display: grid;
+  gap: var(--spacing-lg);
+  grid-template-columns: 1fr 1fr;
+  padding: var(--spacing-lg);
+  border-radius: var(--spacing-md);
+  background: var(--background-secondary);
+  box-shadow: 0 2px 4px rgb(0 0 0 /20%);
+}
