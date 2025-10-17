@@ -7,7 +7,6 @@
 
 .index {
   display: flex;
-  flex-grow: 1;
   flex-shrink: 0;
   justify-content: center;
   align-items: center;
@@ -21,6 +20,7 @@
 .content {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   gap: 4px;
   padding: 10px;
 }
