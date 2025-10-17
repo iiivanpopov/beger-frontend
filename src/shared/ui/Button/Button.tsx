@@ -10,8 +10,8 @@ interface ButtonProps extends ComponentProps<'button'> {
   variant?: Variant
   color?: Color
   icon?: boolean
-  children: ReactNode
   loading?: boolean
+  children: ReactNode
 }
 
 export function Button({

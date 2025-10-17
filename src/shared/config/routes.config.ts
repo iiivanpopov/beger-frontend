@@ -11,6 +11,9 @@ export const navigationTabs: Record<UserRole, { to: RouterPath, label: string }[
     { to: '/repairs', label: 'Repairs' },
     { to: '/test-results', label: 'Test Results' },
   ],
+  guest: [
+    { to: '/login', label: 'Login' },
+  ],
 }
 
 export const adminNavigationTabs: {

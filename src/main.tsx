@@ -9,14 +9,12 @@ import './styles/globals.css'
 
 const queryClient = new QueryClient()
 
-const initialContextState = {
-  user: null,
-  queryClient,
-}
-
 const router = createRouter({
   routeTree,
-  context: initialContextState,
+  context: {
+    role: 'guest',
+    queryClient,
+  },
 })
 
 export type AppRouter = RegisteredRouter<{

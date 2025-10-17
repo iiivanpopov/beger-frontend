@@ -4,7 +4,7 @@ import { useToastsStore } from '@/store/toasts'
 import styles from './ToastsProvider.module.css'
 
 export function ToastsProvider() {
-  const { removeToast, toasts } = useToastsStore()
+  const { deleteToast, toasts } = useToastsStore()
 
   return createPortal(
     <Toast.Container className={styles.toastProvider}>
@@ -14,7 +14,7 @@ export function ToastsProvider() {
             key={id}
             id={id}
             level={level}
-            onDelete={() => removeToast(id)}
+            onDelete={() => deleteToast(id)}
           >
             {content}
           </Toast>

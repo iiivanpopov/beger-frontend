@@ -3,7 +3,7 @@ import { AdminLayout } from '@/components/AdminLayout'
 import { requireRole } from '@/shared/utils/routing'
 
 export const Route = createFileRoute('/admin')({
-  beforeLoad: ({ context }) => requireRole(context.user?.role, ['admin'], '/login'),
+  beforeLoad: ({ context }) => requireRole(context.role, ['admin'], '/login'),
   component: Layout,
 })
 

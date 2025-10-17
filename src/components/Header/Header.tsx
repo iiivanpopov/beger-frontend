@@ -17,7 +17,7 @@ export function Header() {
         <Typography variant="heading" tag="h1">Beger</Typography>
       </div>
       <nav className={styles.tabs}>
-        {user?.role && navigationTabs[user.role].map(({ to, label }) => {
+        {navigationTabs[user?.role ?? 'guest'].map(({ to, label }) => {
           const isActive = routeSegment === getRouteSegment(to)
           return (
             <Link

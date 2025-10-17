@@ -1,8 +1,8 @@
 import type { UserRole } from '@/api'
 import { redirect } from '@tanstack/react-router'
 
-export function requireRole(current: UserRole | undefined, allowed: UserRole[], redirectTo: string) {
-  if (!current)
+export function requireRole(current: UserRole, allowed: UserRole[], redirectTo: string) {
+  if (current === 'guest')
     throw redirect({ to: '/login' })
   if (!allowed.includes(current))
     throw redirect({ to: redirectTo })
@@ -14,7 +14,7 @@ export function getRouteSegment(route: string, nth = 0) {
   return segment ? `/${segment}` : '/'
 }
 
-export function resolveDefaultRoute(role: UserRole | undefined) {
+export function redirectDefaultRoute(role: UserRole) {
   if (role === 'user')
     throw redirect({ to: '/repairs' })
   if (role === 'admin')

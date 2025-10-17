@@ -40,7 +40,7 @@ export interface ApiSuccess {
   success: true
 }
 
-export type UserRole = 'admin' | 'user'
+export type UserRole = 'admin' | 'user' | 'guest'
 
 export interface User {
   id: number

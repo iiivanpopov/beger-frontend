@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 import { create } from 'zustand'
-import { generateNumericId } from '@/shared/utils'
 
 export type ToastLevel = 'info' | 'success' | 'error'
 
@@ -16,26 +15,22 @@ export interface ToastEntity extends ToastConfig {
 interface ToastsStore {
   toasts: ToastEntity[]
   createToast: (toast: ToastConfig) => void
-  removeToast: (id: number) => void
-}
-
-const initialState = {
-  toasts: [],
+  deleteToast: (id: number) => void
 }
 
 export const useToastsStore = create<ToastsStore>()(set => ({
-  ...initialState,
+  toasts: [],
   createToast: ({ content, level }) => set(state => ({
     toasts: [
       ...state.toasts,
       {
-        id: generateNumericId(),
+        id: Date.now() + Math.random(),
         content,
         level,
       },
     ],
   })),
-  removeToast: id => set(state => ({
+  deleteToast: id => set(state => ({
     toasts: state.toasts.filter(t => t.id !== id),
   })),
 }))

@@ -1,25 +1,26 @@
 import type { QueryClient } from '@tanstack/react-query'
-import type { User } from '@/api'
+import type { UserRole } from '@/api'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import { getCurrentUser } from '@/api/requests/users'
 import { Layout } from '@/components/Layout'
+import { NotFound } from '@/pages/NotFound/NotFound'
 import { authStorage } from '@/shared/utils'
-import { useAuthStore } from '@/store/auth'
+import { useUserStore } from '@/store/user'
 
 interface RouterContext {
-  user: User | null
+  role: UserRole
   queryClient: QueryClient
 }
 
 export const Route = createRootRouteWithContext<RouterContext>()({
-  beforeLoad: async ({ context }) => {
+  beforeLoad: async ({ context }): Promise<{ role: UserRole }> => {
     const { queryClient } = context
-    const { setAuth } = useAuthStore.getState()
+    const setUser = useUserStore.getState().setUser
     const token = authStorage.getAccessToken()
 
     if (!token) {
-      setAuth(null)
-      return { user: null }
+      setUser(null)
+      return { role: 'guest' }
     }
 
     try {
@@ -32,16 +33,17 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         staleTime: 5 * 60 * 1000,
       })
 
-      setAuth(user.data)
-      return { user: user.data }
+      setUser(user.data)
+      return { role: user.data.role }
     }
     catch {
-      setAuth(null)
+      setUser(null)
       authStorage.clearTokens()
-      return { user: null }
+      return { role: 'guest' }
     }
   },
   component: RootLayout,
+  notFoundComponent: NotFound,
 })
 
 function RootLayout() {
