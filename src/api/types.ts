@@ -77,8 +77,8 @@ export interface Tokens {
 }
 
 export interface PaginationQuery {
-  offset?: string
-  limit?: string
+  offset?: number
+  limit?: number
 }
 
 export interface LoginBody {

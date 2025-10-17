@@ -9,7 +9,9 @@ import { useToast } from '@/shared/hooks'
 import { createErrorHandler } from '@/shared/utils'
 
 export function useUsersPage() {
-  const getUsersQuery = useGetUsersQuery()
+  const getUsersQuery = useGetUsersQuery({
+    limit: 5,
+  })
   const { queryClient } = useRouteContext({ from: '__root__' })
   const { showError, showSuccess } = useToast()
 

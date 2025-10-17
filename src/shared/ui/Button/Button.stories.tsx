@@ -8,7 +8,6 @@ const meta = {
   argTypes: {
     variant: { control: 'radio', options: ['contained', 'ghost'] },
     color: { control: 'radio', options: ['primary', 'white'] },
-    size: { control: 'radio', options: ['large', 'medium', 'small'] },
     icon: { control: 'boolean' },
     loading: { control: 'boolean' },
     disabled: { control: 'boolean' },
@@ -21,7 +20,6 @@ export const Contained: Story = {
   args: {
     variant: 'contained',
     color: 'primary',
-    size: 'medium',
     children: 'Button',
   },
 }
@@ -30,7 +28,6 @@ export const Ghost: Story = {
   args: {
     variant: 'ghost',
     color: 'primary',
-    size: 'medium',
     children: 'Button',
   },
 }
@@ -39,7 +36,6 @@ export const Icon: Story = {
   args: {
     'variant': 'contained',
     'color': 'primary',
-    'size': 'medium',
     'children': <SearchIcon />,
     'icon': true,
     'aria-label': 'Search',

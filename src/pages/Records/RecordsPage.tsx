@@ -1,3 +1,3 @@
 export function RecordsPage() {
-  return <div></div>
+  return <div>Not implemented.</div>
 }

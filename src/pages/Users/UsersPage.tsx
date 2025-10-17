@@ -1,6 +1,6 @@
 import { Controller } from 'react-hook-form'
+import { UserCard } from '@/components/UserCard'
 import { Button, Form, Input, Typography } from '@/shared/ui'
-import { UserCard } from './components'
 import { useUsersPage } from './hooks/useUsersPage'
 import styles from './UsersPage.module.css'
 
