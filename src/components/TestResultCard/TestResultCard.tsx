@@ -35,15 +35,13 @@ export function TestResultCard({ testResult, i, onDelete }: TestResultCardProps)
         <span>{testResult.pcbName}</span>
         <Tooltip>
           <Tooltip.Trigger className={styles.tip}>
-            <span className={styles.stats}>
-              {testResult.passedFirstTry}
-              /
-              {testResult.total - (testResult.passedFirstTry + testResult.failed)}
-              /
-              {testResult.failed}
-              /
-              {testResult.total}
-            </span>
+            {testResult.passedFirstTry}
+            /
+            {testResult.total - (testResult.passedFirstTry + testResult.failed)}
+            /
+            {testResult.failed}
+            /
+            {testResult.total}
           </Tooltip.Trigger>
           <Tooltip.Content className={styles.hint}>
             first try/passed/failed/total

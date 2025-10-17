@@ -19,12 +19,6 @@
   padding: var(--spacing-sm);
 }
 
-.stats {
-  overflow: hidden;
-  width: 100%;
-  text-wrap: nowrap;
-}
-
 .side {
   display: flex;
   flex-shrink: 0;
@@ -60,6 +54,6 @@
   }
 }
 
-.tip {
-  width: fit-content;
+.hint {
+  z-index: var(--z-tooltip);
 }
