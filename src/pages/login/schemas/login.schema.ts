@@ -1,9 +1,9 @@
 import * as v from 'valibot'
 import { passwordValidator, userNameValidator } from '@/shared/utils/validators'
 
-export const loginSchema = v.object({
+export const LoginSchema = v.object({
   userName: userNameValidator,
   password: passwordValidator,
 })
 
-export type LoginFormData = v.InferOutput<typeof loginSchema>
+export type LoginData = v.InferOutput<typeof LoginSchema>

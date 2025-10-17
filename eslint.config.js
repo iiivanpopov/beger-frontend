@@ -19,4 +19,5 @@ export default antfu({
 }, storybook.configs['flat/recommended'])
   .overrideRules({
     'style/jsx-closing-tag-location': 'off',
+    'ts/no-redeclare': 'off',
   })

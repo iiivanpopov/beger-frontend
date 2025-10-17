@@ -5,7 +5,7 @@ import { useRouteContext } from '@tanstack/react-router'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useCreateTestResultMutation, useDeleteTestResultMutation, useGetOptionsQuery, useGetSelfTestResultsQuery } from '@/api'
-import { createTestResultSchema } from '@/pages/TestResults/schemas/createTestResult.schema'
+import { CreateTestResultSchema } from '@/pages/TestResults/schemas/createTestResult.schema'
 import { useToast } from '@/shared/hooks'
 import { createErrorHandler } from '@/shared/utils'
 
@@ -26,7 +26,7 @@ export function useTestResultsPage() {
       firstTry: '',
       total: '',
     },
-    resolver: valibotResolver(createTestResultSchema),
+    resolver: valibotResolver(CreateTestResultSchema),
   })
 
   const deleteTestResultMutation = useDeleteTestResultMutation({

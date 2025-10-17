@@ -4,7 +4,7 @@ import { valibotResolver } from '@hookform/resolvers/valibot'
 import { useRouteContext } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 import { useDeleteUserMutation, useGetUsersQuery, useRegisterMutation } from '@/api'
-import { createUserSchema } from '@/pages/Users/schemas/createUser.schema'
+import { CreateUserSchema } from '@/pages/Users/schemas/createUser.schema'
 import { useToast } from '@/shared/hooks'
 import { createErrorHandler } from '@/shared/utils'
 
@@ -21,7 +21,7 @@ export function useUsersPage() {
       userName: '',
       password: '',
     },
-    resolver: valibotResolver(createUserSchema),
+    resolver: valibotResolver(CreateUserSchema),
   })
 
   const registerMutation = useRegisterMutation({

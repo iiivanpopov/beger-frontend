@@ -1,10 +1,10 @@
-import type { LoginFormData } from '@/pages/Login/schemas/login.schema'
+import type { LoginData } from '@/pages/Login/schemas/login.schema'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { useRouter } from '@tanstack/react-router'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLoginMutation } from '@/api'
-import { loginSchema } from '@/pages/Login/schemas/login.schema'
+import { LoginSchema } from '@/pages/Login/schemas/login.schema'
 import { useToast } from '@/shared/hooks'
 import { authStorage, createErrorHandler } from '@/shared/utils'
 
@@ -13,12 +13,12 @@ export function useLoginPage() {
   const [isOpen, setIsOpen] = useState(false)
   const { showError } = useToast()
 
-  const { control, handleSubmit } = useForm<LoginFormData>({
+  const { control, handleSubmit } = useForm<LoginData>({
     defaultValues: {
       password: '',
       userName: '',
     },
-    resolver: valibotResolver(loginSchema),
+    resolver: valibotResolver(LoginSchema),
   })
 
   const loginMutation = useLoginMutation({

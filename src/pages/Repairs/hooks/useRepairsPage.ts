@@ -5,7 +5,7 @@ import { useRouteContext } from '@tanstack/react-router'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useCreateRepairMutation, useDeleteRepairMutation, useGetOptionsQuery, useGetSelfRepairsQuery } from '@/api'
-import { createRepairSchema } from '@/pages/Repairs/schemas/createRepair.schema'
+import { CreateRepairSchema } from '@/pages/Repairs/schemas/createRepair.schema'
 import { useToast } from '@/shared/hooks'
 import { createErrorHandler } from '@/shared/utils'
 
@@ -25,7 +25,7 @@ export function useRepairsPage() {
       defect: '',
       note: '',
     },
-    resolver: valibotResolver(createRepairSchema),
+    resolver: valibotResolver(CreateRepairSchema),
   })
 
   const deleteRepairMutation = useDeleteRepairMutation({
