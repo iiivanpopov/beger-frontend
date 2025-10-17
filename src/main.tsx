@@ -11,6 +11,7 @@ const queryClient = new QueryClient()
 
 const router = createRouter({
   routeTree,
+  notFoundMode: 'root',
   context: {
     role: 'guest',
     queryClient,

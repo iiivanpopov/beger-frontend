@@ -1,6 +1,6 @@
 import type { RefObject } from 'react'
 import { useEffectEvent, useLayoutEffect } from 'react'
-import { calculateFloatingPosition, getElementRect } from '@/shared/utils'
+import { getElementRect } from '@/shared/utils'
 
 export function useFloatingPosition(
   anchorRef: RefObject<HTMLElement>,
@@ -16,7 +16,19 @@ export function useFloatingPosition(
 
     const anchorRect = getElementRect(anchor)
     const floatingRect = getElementRect(floating)
-    const { x, y } = calculateFloatingPosition(anchorRect, floatingRect, offset)
+
+    let x = anchorRect.left + anchorRect.width / 2 - floatingRect.width / 2 + offset.x
+    let y = anchorRect.bottom + offset.y
+
+    x = Math.max(
+      window.scrollX,
+      Math.min(x, window.scrollX + window.innerWidth - floatingRect.width),
+    )
+    y = Math.max(
+      window.scrollY,
+      Math.min(y, window.scrollY + window.innerHeight - floatingRect.height),
+    )
+
     floating.style.transform = `translate(${x}px, ${y}px)`
   })
 
@@ -25,6 +37,7 @@ export function useFloatingPosition(
       return
 
     updatePosition()
+
     window.addEventListener('resize', updatePosition)
     window.addEventListener('scroll', updatePosition, true)
 

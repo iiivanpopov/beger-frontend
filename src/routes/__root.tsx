@@ -3,7 +3,7 @@ import type { UserRole } from '@/api'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import { getCurrentUser } from '@/api/requests/users'
 import { Layout } from '@/components/Layout'
-import { NotFound } from '@/pages/NotFound/NotFound'
+import { NotFoundPage } from '@/pages/NotFound/NotFound'
 import { authStorage } from '@/shared/utils'
 import { useUserStore } from '@/store/user'
 
@@ -43,7 +43,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     }
   },
   component: RootLayout,
-  notFoundComponent: NotFound,
+  notFoundComponent: NotFoundPage,
 })
 
 function RootLayout() {

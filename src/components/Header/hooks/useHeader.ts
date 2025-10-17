@@ -1,6 +1,5 @@
-import { useRouteContext, useRouter } from '@tanstack/react-router'
+import { useLocation, useRouteContext, useRouter } from '@tanstack/react-router'
 import { useLogoutMutation } from '@/api'
-import { useRouteSegment } from '@/shared/hooks'
 import { authStorage } from '@/shared/utils'
 import { useUserStore } from '@/store/user'
 
@@ -8,7 +7,7 @@ export function useHeader() {
   const router = useRouter()
   const user = useUserStore(state => state.user)
   const { queryClient } = useRouteContext({ from: '__root__' })
-  const routeSegment = useRouteSegment()
+  const pathname = useLocation({ select: state => state.pathname })
 
   const logoutMutation = useLogoutMutation({
     options: {
@@ -24,5 +23,5 @@ export function useHeader() {
     logoutMutation.mutate()
   }
 
-  return { handleLogout, user, routeSegment }
+  return { handleLogout, user, pathname }
 }

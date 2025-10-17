@@ -1,6 +1,6 @@
-import styles from './NotFound.module.css'
+import styles from './NotFoundPage.module.css'
 
-export function NotFound() {
+export function NotFoundPage() {
   return (
     <section className={styles.section}>
       <span className={styles.code}>404</span>

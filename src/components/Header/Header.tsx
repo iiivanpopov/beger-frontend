@@ -8,7 +8,7 @@ import styles from './Header.module.css'
 import { useHeader } from './hooks/useHeader'
 
 export function Header() {
-  const { handleLogout, user, routeSegment } = useHeader()
+  const { handleLogout, user, pathname } = useHeader()
 
   return (
     <header className={styles.header}>
@@ -17,13 +17,15 @@ export function Header() {
         <Typography variant="heading" tag="h1">Beger</Typography>
       </div>
       <nav className={styles.tabs}>
-        {navigationTabs[user?.role ?? 'guest'].map(({ to, label }) => {
-          const isActive = routeSegment === getRouteSegment(to)
+        {navigationTabs[user?.role ?? 'guest'].map(({ to, label, isActive }) => {
           return (
             <Link
               key={to}
               to={to}
-              className={clsx(styles.tab, isActive && styles.active)}
+              className={clsx(
+                styles.tab,
+                (isActive?.(pathname) ?? getRouteSegment(pathname) === getRouteSegment(to)) && styles.active,
+              )}
             >
               {label}
             </Link>
