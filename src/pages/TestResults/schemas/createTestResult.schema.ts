@@ -1,6 +1,6 @@
 import * as v from 'valibot'
 
-export const createTestResult = v.object({
+export const createTestResultSchema = v.object({
   pcbName: v.pipe(v.string(), v.nonEmpty('* Required')),
   date: v.date(),
   firstTry: v.pipe(v.string(), v.nonEmpty('* Required')),
@@ -8,4 +8,4 @@ export const createTestResult = v.object({
   total: v.pipe(v.string(), v.nonEmpty('* Required')),
 })
 
-export type CreateTestResultData = v.InferOutput<typeof createTestResult>
+export type CreateTestResultData = v.InferOutput<typeof createTestResultSchema>

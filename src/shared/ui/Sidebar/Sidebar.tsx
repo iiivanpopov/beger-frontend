@@ -38,7 +38,7 @@ export function Sidebar({ children, isOpen, setIsOpen }: SidebarProps) {
       )}
       >
         <button
-          className={styles.toggle}
+          className={styles.item}
           onClick={handleClick}
           type="button"
         >

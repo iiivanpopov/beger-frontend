@@ -1,6 +1,6 @@
 .textarea {
   padding: var(--spacing-md);
-  border: 1px solid transparent;
+  border: none;
   border-radius: var(--radius-lg);
   outline: none;
   font-family: var(--font-body);
@@ -8,10 +8,6 @@
   color: var(--text-primary);
   background: var(--background-primary);
   transition: border-color 0.2s ease-in-out;
-
-  &:focus {
-    border-color: var(--text-primary);
-  }
 
   &:disabled {
     color: var(--background-quaternary);

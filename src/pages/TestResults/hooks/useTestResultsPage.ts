@@ -5,7 +5,7 @@ import { useRouteContext } from '@tanstack/react-router'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useCreateTestResultMutation, useDeleteTestResultMutation, useGetOptionsQuery, useGetSelfTestResultsQuery } from '@/api'
-import { createTestResult } from '@/pages/TestResults/schemas/createTestResult.schema'
+import { createTestResultSchema } from '@/pages/TestResults/schemas/createTestResult.schema'
 import { useToast } from '@/shared/hooks'
 import { createErrorHandler } from '@/shared/utils'
 
@@ -26,7 +26,7 @@ export function useTestResultsPage() {
       firstTry: '',
       total: '',
     },
-    resolver: valibotResolver(createTestResult),
+    resolver: valibotResolver(createTestResultSchema),
   })
 
   const deleteTestResultMutation = useDeleteTestResultMutation({
@@ -51,6 +51,13 @@ export function useTestResultsPage() {
   })
 
   const onSubmit: SubmitHandler<CreateTestResultData> = (data) => {
+    if (!optionsQuery.data?.data.pcbNames.includes(data.pcbName)) {
+      return form.setError('pcbName', {
+        type: 'manual',
+        message: 'Invalid board name',
+      })
+    }
+
     createTestResultMutation.mutate({
       date: data.date,
       pcbName: data.pcbName,

@@ -3,7 +3,6 @@
   flex-direction: column;
   gap: var(--spacing-xs);
   overflow-y: auto;
-  scrollbar-width: none;
   min-width: var(--width-sm);
   max-width: var(--width-lg);
   max-height: 300px;
@@ -11,6 +10,10 @@
   border-radius: var(--radius-md);
   background: var(--background-primary);
   box-shadow: 0 2px 2px rgb(0 0 0 /20%);
+
+  &:empty {
+    display: none;
+  }
 }
 
 .item {

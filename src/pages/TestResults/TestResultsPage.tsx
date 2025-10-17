@@ -1,34 +1,45 @@
+import clsx from 'clsx'
 import { Controller } from 'react-hook-form'
-import { TestResultCard } from '@/components/TestResultCard/TestResultCard'
-import { Autocomplete, Button, Datepicker, Form, Input, Modal, Typography } from '@/shared/ui'
+import { Autocomplete, Button, Card, Datepicker, Form, Input, Modal, Typography } from '@/shared/ui'
 import { useTestResultsPage } from './hooks/useTestResultsPage'
 import styles from './TestResultsPage.module.css'
 
 export function TestResultsPage() {
   const { form, modal, handlers, queries, mutations } = useTestResultsPage()
+  const testResults = queries.testResults.data?.data
+  const options = queries.options.data?.data
 
   return (
     <>
       <div className={styles.header}>
-        <Typography tag="h2" variant="subheading">Create new record</Typography>
+        <Typography tag="h2" variant="subheading">Create new test result</Typography>
         <Modal isOpen={modal.isOpen} setIsOpen={modal.setIsOpen}>
           <Modal.Trigger>
             <Button className={styles.open} variant="ghost">View last</Button>
           </Modal.Trigger>
-          <Modal.Content className={styles.records}>
-            {!queries.testResults.data?.data.length && (
-              <Typography>No records found.</Typography>
-            )}
-            {queries.testResults.data?.data.map((testResult, i) => {
-              return (
-                <TestResultCard
+          <Modal.Content>
+            <Card.List className={clsx(!testResults?.length && styles.noRecords)}>
+              {!testResults?.length && <Typography>No records found.</Typography>}
+              {testResults?.map(testResult => (
+                <Card
                   key={testResult.id}
-                  i={i + 1}
+                  id={testResult.id}
+                  date={testResult.date}
                   onDelete={handlers.onDelete}
-                  testResult={testResult}
-                />
-              )
-            })}
+                >
+                  <Card.Property hint="pcb">{testResult.pcbName}</Card.Property>
+                  <Card.Property hint="first try/passed/failed/total">
+                    {testResult.passedFirstTry}
+                    /
+                    {testResult.total - (testResult.passedFirstTry + testResult.failed)}
+                    /
+                    {testResult.failed}
+                    /
+                    {testResult.total}
+                  </Card.Property>
+                </Card>
+              ))}
+            </Card.List>
           </Modal.Content>
         </Modal>
       </div>
@@ -38,19 +49,18 @@ export function TestResultsPage() {
             name="pcbName"
             control={form.control}
             render={({ field, fieldState }) => (
-              <Form.Field {...fieldState}>
+              <Form.Field>
                 <Autocomplete {...field}>
                   <Autocomplete.Trigger placeholder="PCB name" />
                   <Autocomplete.Items>
-                    {queries.options.data?.data.pcbNames.map((pcb) => {
-                      return (
-                        <Autocomplete.Item key={pcb} value={pcb}>
-                          {pcb}
-                        </Autocomplete.Item>
-                      )
-                    })}
+                    {options?.pcbNames.map(pcb => (
+                      <Autocomplete.Item key={pcb} value={pcb}>
+                        {pcb}
+                      </Autocomplete.Item>
+                    ))}
                   </Autocomplete.Items>
                 </Autocomplete>
+                <Form.Error>{fieldState.error?.message}</Form.Error>
               </Form.Field>
             )}
           />
@@ -69,8 +79,10 @@ export function TestResultsPage() {
             name="firstTry"
             control={form.control}
             render={({ field, fieldState }) => (
-              <Form.Field {...fieldState} label="First Try">
+              <Form.Field>
+                <Form.Label>First Try</Form.Label>
                 <Input {...field} placeholder="123..." type="number" />
+                <Form.Error>{fieldState.error?.message}</Form.Error>
               </Form.Field>
             )}
           />
@@ -78,8 +90,10 @@ export function TestResultsPage() {
             name="failed"
             control={form.control}
             render={({ field, fieldState }) => (
-              <Form.Field {...fieldState} label="Failed">
+              <Form.Field>
+                <Form.Label>Failed</Form.Label>
                 <Input {...field} placeholder="456..." type="number" />
+                <Form.Error>{fieldState.error?.message}</Form.Error>
               </Form.Field>
             )}
           />
@@ -87,20 +101,23 @@ export function TestResultsPage() {
             name="total"
             control={form.control}
             render={({ field, fieldState }) => (
-              <Form.Field {...fieldState} label="Total">
+              <Form.Field>
+                <Form.Label>Total</Form.Label>
                 <Input {...field} placeholder="789..." type="number" />
+                <Form.Error>{fieldState.error?.message}</Form.Error>
               </Form.Field>
             )}
           />
         </Form.Row>
-        <Button
-          type="submit"
-          size="large"
-          className={styles.submit}
-          loading={mutations.createTestResult.isPending}
-        >
-          Submit
-        </Button>
+        <Form.Row>
+          <Button
+            type="submit"
+            size="large"
+            loading={mutations.createTestResult.isPending}
+          >
+            Submit
+          </Button>
+        </Form.Row>
       </Form>
     </>
   )

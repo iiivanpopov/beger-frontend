@@ -27,21 +27,45 @@ export function FormRow({ children, className }: FormRowProps) {
 export interface FormFieldProps {
   children: ReactNode
   className?: string
+}
+
+export function FormField({ children, className }: FormFieldProps) {
+  return (
+    <div className={clsx(styles.field, className)}>
+      {children}
+    </div>
+  )
+}
+
+export interface FormFieldProps {
+  children: ReactNode
+  className?: string
   label?: ReactNode
   error?: {
     message?: string
   }
 }
 
-export function FormField({ children, className, label, error }: FormFieldProps) {
+export function FormLabel({ children, className }: FormFieldProps) {
   return (
-    <div className={clsx(styles.field, className)}>
-      {label && <span className={styles.label}>{label}</span>}
+    <div className={clsx(styles.label, className)}>
       {children}
-      {error && <span className={styles.error}>{error.message}</span>}
+    </div>
+  )
+}
+
+export function FormError({ children, className }: FormFieldProps) {
+  if (!children)
+    return null
+
+  return (
+    <div className={clsx(styles.error, className)}>
+      {children}
     </div>
   )
 }
 
 Form.Row = FormRow
 Form.Field = FormField
+Form.Label = FormLabel
+Form.Error = FormError
