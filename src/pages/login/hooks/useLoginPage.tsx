@@ -1,3 +1,4 @@
+import type { SubmitHandler } from 'react-hook-form'
 import type { LoginData } from '@/pages/Login/schemas/login.schema'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { useRouter } from '@tanstack/react-router'
@@ -13,7 +14,7 @@ export function useLoginPage() {
   const [isOpen, setIsOpen] = useState(false)
   const { showError } = useToast()
 
-  const { control, handleSubmit } = useForm<LoginData>({
+  const form = useForm<LoginData>({
     defaultValues: {
       password: '',
       userName: '',
@@ -32,17 +33,21 @@ export function useLoginPage() {
     },
   })
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit: SubmitHandler<LoginData> = (data) => {
     loginMutation.mutate({
       userName: data.userName,
       password: data.password,
     })
-  })
+  }
 
   return {
-    isOpen,
-    setIsOpen,
-    control,
-    onSubmit,
+    modal: {
+      isOpen,
+      setIsOpen,
+    },
+    form,
+    handlers: {
+      onSubmit,
+    },
   }
 }

@@ -4,21 +4,21 @@ import { useLoginPage } from './hooks/useLoginPage'
 import styles from './LoginPage.module.css'
 
 export function LoginPage() {
-  const { isOpen, setIsOpen, control, onSubmit } = useLoginPage()
+  const { form, handlers, modal } = useLoginPage()
 
   return (
     <section className={styles.section}>
       <Typography variant="subheading" tag="h2">Unauthorized</Typography>
-      <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+      <Modal isOpen={modal.isOpen} setIsOpen={modal.setIsOpen}>
         <Modal.Trigger>
           <Button>Login</Button>
         </Modal.Trigger>
         <Modal.Content>
           <div className={styles.modal}>
             <Typography variant="heading" tag="h1">Login</Typography>
-            <Form onSubmit={onSubmit}>
+            <Form onSubmit={form.handleSubmit(handlers.onSubmit)}>
               <Controller
-                control={control}
+                control={form.control}
                 name="userName"
                 render={({ field, fieldState }) => (
                   <Form.Field {...fieldState}>
@@ -27,7 +27,7 @@ export function LoginPage() {
                 )}
               />
               <Controller
-                control={control}
+                control={form.control}
                 name="password"
                 render={({ field, fieldState }) => (
                   <Form.Field {...fieldState}>
