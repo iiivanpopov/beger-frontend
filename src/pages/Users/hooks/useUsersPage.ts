@@ -1,4 +1,3 @@
-import type { SubmitHandler } from 'react-hook-form'
 import type { CreateUserData } from '@/pages/Users/schemas/createUser.schema'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { useRouteContext } from '@tanstack/react-router'
@@ -45,13 +44,13 @@ export function useUsersPage() {
     },
   })
 
-  const onSubmit: SubmitHandler<CreateUserData> = (data) => {
+  const onSubmit = form.handleSubmit((data) => {
     registerMutation.mutate({
       userName: data.userName,
       password: data.password,
       fullName: data.fullName,
     })
-  }
+  })
 
   const onDelete = (id: number) => deleteUserMutation.mutate({ id })
 

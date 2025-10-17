@@ -12,7 +12,7 @@ export function UsersPage() {
     <>
       <section className={styles.section}>
         <Typography tag="h2" variant="subheading">New user</Typography>
-        <Form onSubmit={form.handleSubmit(handlers.onSubmit)}>
+        <Form onSubmit={handlers.onSubmit}>
           <Form.Row>
             <Controller
               name="fullName"

@@ -22,9 +22,8 @@ export const Basic: Story = {
       { id: 1, level: 'info', message: 'Info message' },
     ])
 
-    const handleDelete = (id: number) => {
+    const onDelete = (id: number) =>
       setToasts(prev => prev.filter(t => t.id !== id))
-    }
 
     return (
       <Toast.Container>
@@ -33,7 +32,7 @@ export const Basic: Story = {
             key={toast.id}
             id={toast.id}
             level={toast.level}
-            onDelete={() => handleDelete(toast.id)}
+            onDelete={() => onDelete(toast.id)}
           >
             {toast.message}
           </Toast>
@@ -51,9 +50,8 @@ export const MultipleToasts: Story = {
       { id: 3, level: 'error', message: 'Something went wrong' },
     ])
 
-    const handleDelete = (id: number) => {
+    const onDelete = (id: number) =>
       setToasts(prev => prev.filter(t => t.id !== id))
-    }
 
     return (
       <Toast.Container>
@@ -62,7 +60,7 @@ export const MultipleToasts: Story = {
             key={toast.id}
             id={toast.id}
             level={toast.level}
-            onDelete={() => handleDelete(toast.id)}
+            onDelete={() => onDelete(toast.id)}
           >
             {toast.message}
           </Toast>

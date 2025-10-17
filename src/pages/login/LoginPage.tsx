@@ -16,7 +16,7 @@ export function LoginPage() {
         <Modal.Content>
           <div className={styles.modal}>
             <Typography variant="heading" tag="h1">Login</Typography>
-            <Form onSubmit={form.handleSubmit(handlers.onSubmit)}>
+            <Form onSubmit={handlers.onSubmit}>
               <Controller
                 control={form.control}
                 name="userName"

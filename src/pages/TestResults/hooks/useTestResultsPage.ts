@@ -1,4 +1,3 @@
-import type { SubmitHandler } from 'react-hook-form'
 import type { CreateTestResultData } from '@/pages/TestResults/schemas/createTestResult.schema'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { useRouteContext } from '@tanstack/react-router'
@@ -50,7 +49,7 @@ export function useTestResultsPage() {
     },
   })
 
-  const onSubmit: SubmitHandler<CreateTestResultData> = (data) => {
+  const onSubmit = form.handleSubmit((data) => {
     if (!optionsQuery.data?.data.pcbNames.includes(data.pcbName)) {
       return form.setError('pcbName', {
         type: 'manual',
@@ -65,7 +64,7 @@ export function useTestResultsPage() {
       failed: Number(data.failed),
       total: Number(data.total),
     })
-  }
+  })
 
   const onDelete = (id: number) => deleteTestResultMutation.mutate({ id })
 

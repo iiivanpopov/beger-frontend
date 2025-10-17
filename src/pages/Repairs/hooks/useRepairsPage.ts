@@ -1,4 +1,3 @@
-import type { SubmitHandler } from 'react-hook-form'
 import type { CreateRepairData } from '@/pages/Repairs/schemas/createRepair.schema'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { useRouteContext } from '@tanstack/react-router'
@@ -49,7 +48,7 @@ export function useRepairsPage() {
     },
   })
 
-  const onSubmit: SubmitHandler<CreateRepairData> = (data) => {
+  const onSubmit = form.handleSubmit((data) => {
     if (!optionsQuery.data?.data.pcbNames.includes(data.pcbName)) {
       return form.setError('pcbName', {
         type: 'manual',
@@ -70,7 +69,7 @@ export function useRepairsPage() {
       defect: data.defect,
       note: data.note,
     })
-  }
+  })
 
   const onDelete = (id: number) => deleteRepairMutation.mutate({ id })
 

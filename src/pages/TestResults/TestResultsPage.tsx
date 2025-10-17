@@ -21,7 +21,7 @@ export function TestResultsPage() {
           </Modal.Content>
         </Modal>
       </div>
-      <Form onSubmit={form.handleSubmit(handlers.onSubmit)}>
+      <Form onSubmit={handlers.onSubmit}>
         <Form.Row className={styles.row}>
           <Controller
             name="pcbName"
