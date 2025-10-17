@@ -1,63 +1,106 @@
-import type { ReactNode } from 'react'
+import type { ComponentProps, ReactNode } from 'react'
 import clsx from 'clsx'
-import { TrashIcon } from 'lucide-react'
-import { Tooltip } from '@/shared/ui'
 import styles from './Card.module.css'
 
-interface CardListProps {
+export interface CardProps {
   children: ReactNode
   className?: string
 }
 
-function CardList({ children, className }: CardListProps) {
-  return <div className={clsx(styles.list, className)}>{children}</div>
-}
-
-interface CardBaseProps {
-  id: number
-  date?: string | Date
-  onDelete?: (id: number) => void
-  children?: ReactNode
-}
-
-export function Card({ id, date, onDelete, children }: CardBaseProps) {
-  const formattedDate = date ? new Date(date).toLocaleDateString() : undefined
-
+export function Card({ children, className }: CardProps) {
   return (
-    <div className={styles.box}>
-      <div className={styles.side}>
-        {id}
-      </div>
-      <div className={styles.body}>
-        <div className={styles.top}>
-          {formattedDate && <span className={styles.date}>{formattedDate}</span>}
-          <button
-            onClick={() => onDelete?.(id)}
-            type="button"
-            className={styles.delete}
-          >
-            <TrashIcon />
-          </button>
-        </div>
-        {children}
-      </div>
+    <div className={clsx(styles.card, className)}>
+      {children}
     </div>
   )
 }
 
-interface CardPropertyProps {
-  hint: string
+export interface CardIndexProps {
   children: ReactNode
+  className?: string
 }
 
-function CardProperty({ children, hint }: CardPropertyProps) {
+export function CardIndex({ children, className }: CardIndexProps) {
   return (
-    <Tooltip>
-      <Tooltip.Trigger className={styles.tip}>{children}</Tooltip.Trigger>
-      <Tooltip.Content className={styles.hint}>{hint}</Tooltip.Content>
-    </Tooltip>
+    <div className={clsx(styles.index, className)}>
+      #
+      {children}
+    </div>
   )
 }
 
-Card.Property = CardProperty
-Card.List = CardList
+export interface CardTitleProps {
+  children: ReactNode
+  className?: string
+}
+
+export function CardTitle({ children, className }: CardTitleProps) {
+  return (
+    <div className={clsx(styles.title, className)}>
+      {children}
+    </div>
+  )
+}
+
+export interface CardDescriptionProps {
+  children: ReactNode
+  className?: string
+}
+
+export function CardDescription({ children, className }: CardDescriptionProps) {
+  return (
+    <div className={clsx(styles.description, className)}>
+      {children}
+    </div>
+  )
+}
+
+export interface CardActionProps extends ComponentProps<'button'> {
+  children: ReactNode
+  className?: string
+}
+
+export function CardAction({ children, className, ...props }: CardActionProps) {
+  return (
+    <button
+      {...props}
+      type="button"
+      className={clsx(styles.action, className)}
+    >
+      {children}
+    </button>
+  )
+}
+
+export interface CardContentProps {
+  children: ReactNode
+  className?: string
+}
+
+export function CardContent({ children, className }: CardContentProps) {
+  return (
+    <div className={clsx(styles.content, className)}>
+      {children}
+    </div>
+  )
+}
+
+export interface CardRowProps {
+  children: ReactNode
+  className?: string
+}
+
+export function CardRow({ children, className }: CardRowProps) {
+  return (
+    <div className={clsx(styles.row, className)}>
+      {children}
+    </div>
+  )
+}
+
+Card.Title = CardTitle
+Card.Content = CardContent
+Card.Index = CardIndex
+Card.Row = CardRow
+Card.Description = CardDescription
+Card.Action = CardAction

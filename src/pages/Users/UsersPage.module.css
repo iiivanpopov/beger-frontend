@@ -1,0 +1,11 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.list {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+}

@@ -67,7 +67,7 @@ export function useTestResultsPage() {
     })
   }
 
-  const onDelete = (id: number) => deleteTestResultMutation.mutate({ id: String(id) })
+  const onDelete = (id: number) => deleteTestResultMutation.mutate({ id })
 
   return {
     form,
@@ -78,9 +78,6 @@ export function useTestResultsPage() {
     queries: {
       options: optionsQuery,
       testResults: testResultsQuery,
-    },
-    mutations: {
-      createTestResult: createTestResultMutation,
     },
     modal: {
       isOpen,

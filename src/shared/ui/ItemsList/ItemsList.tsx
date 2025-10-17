@@ -1,13 +1,13 @@
 import type { ComponentProps, ElementType, ReactNode } from 'react'
 import clsx from 'clsx'
-import styles from './SelectList.module.css'
+import styles from './ItemsList.module.css'
 
-export interface SelectListProps {
+export interface ItemsListProps {
   children: ReactNode
   className?: string
 }
 
-export function SelectList({ children, className }: SelectListProps) {
+export function ItemsList({ children, className }: ItemsListProps) {
   return (
     <div className={clsx(styles.items, className)}>
       {children}
@@ -15,19 +15,19 @@ export function SelectList({ children, className }: SelectListProps) {
   )
 }
 
-export interface SelectListItemProps extends ComponentProps<'button'> {
+export interface ItemsListItemProps extends ComponentProps<'button'> {
   children: ReactNode
   active?: boolean
   icon?: ElementType
 }
 
-export function SelectListItem({
+export function ItemsListItem({
   children,
   icon: Icon,
   active,
   className,
   ...props
-}: SelectListItemProps) {
+}: ItemsListItemProps) {
   if (!children)
     return null
 
@@ -43,4 +43,4 @@ export function SelectListItem({
   )
 }
 
-SelectList.Item = SelectListItem
+ItemsList.Item = ItemsListItem

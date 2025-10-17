@@ -7,10 +7,14 @@
   padding: var(--spacing-sm);
   border-radius: var(--radius-md);
   background: var(--background-primary);
+
+  > a {
+    width: 100%;
+  }
 }
 
 .divider {
-  width: 90%;
+  width: 100%;
   border: 1px solid var(--background-quaternary);
 }
 

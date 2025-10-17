@@ -3,7 +3,7 @@ import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import clsx from 'clsx'
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import { Popover, SelectList } from '@/shared/ui'
+import { ItemsList, Popover } from '@/shared/ui'
 import { buildContext } from '@/shared/utils'
 import styles from './Dropdown.module.css'
 
@@ -85,9 +85,9 @@ export interface DropdownItemsProps {
 export function DropdownItems({ children }: DropdownItemsProps) {
   return (
     <Popover.Content className={styles.items}>
-      <SelectList>
+      <ItemsList>
         {children}
-      </SelectList>
+      </ItemsList>
     </Popover.Content>
   )
 }
@@ -102,7 +102,7 @@ export function DropdownItem({ children, icon, value }: DropdownItemProps) {
   const { selected, setSelectedIcon, setSelected } = useDropdownContext()
 
   return (
-    <SelectList.Item
+    <ItemsList.Item
       icon={icon}
       active={value === selected}
       onClick={() => {
@@ -111,7 +111,7 @@ export function DropdownItem({ children, icon, value }: DropdownItemProps) {
       }}
     >
       {children}
-    </SelectList.Item>
+    </ItemsList.Item>
   )
 }
 

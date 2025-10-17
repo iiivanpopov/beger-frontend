@@ -1,11 +1,10 @@
-import clsx from 'clsx'
 import { Controller } from 'react-hook-form'
-import { Autocomplete, Button, Card, Datepicker, Form, Input, Modal, Typography } from '@/shared/ui'
+import { Autocomplete, Button, Datepicker, Form, Input, Modal, Typography } from '@/shared/ui'
 import { useTestResultsPage } from './hooks/useTestResultsPage'
 import styles from './TestResultsPage.module.css'
 
 export function TestResultsPage() {
-  const { form, modal, handlers, queries, mutations } = useTestResultsPage()
+  const { form, modal, handlers, queries } = useTestResultsPage()
   const testResults = queries.testResults.data?.data
   const options = queries.options.data?.data
 
@@ -18,28 +17,7 @@ export function TestResultsPage() {
             <Button className={styles.open} variant="ghost">View last</Button>
           </Modal.Trigger>
           <Modal.Content>
-            <Card.List className={clsx(!testResults?.length && styles.noRecords)}>
-              {!testResults?.length && <Typography>No records found.</Typography>}
-              {testResults?.map(testResult => (
-                <Card
-                  key={testResult.id}
-                  id={testResult.id}
-                  date={testResult.date}
-                  onDelete={handlers.onDelete}
-                >
-                  <Card.Property hint="pcb">{testResult.pcbName}</Card.Property>
-                  <Card.Property hint="first try/passed/failed/total">
-                    {testResult.passedFirstTry}
-                    /
-                    {testResult.total - (testResult.passedFirstTry + testResult.failed)}
-                    /
-                    {testResult.failed}
-                    /
-                    {testResult.total}
-                  </Card.Property>
-                </Card>
-              ))}
-            </Card.List>
+            {!testResults?.length && <Typography>No records found.</Typography>}
           </Modal.Content>
         </Modal>
       </div>
@@ -110,13 +88,7 @@ export function TestResultsPage() {
           />
         </Form.Row>
         <Form.Row>
-          <Button
-            type="submit"
-            size="large"
-            loading={mutations.createTestResult.isPending}
-          >
-            Submit
-          </Button>
+          <Button type="submit">Submit</Button>
         </Form.Row>
       </Form>
     </>

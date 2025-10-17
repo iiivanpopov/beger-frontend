@@ -9,27 +9,27 @@ export interface RefreshParams {
 }
 
 export async function login({ params, config }: { params: LoginParams, config?: Options }) {
-  return await $api.post<LoginResponse>('auth/login', {
+  return $api.post<LoginResponse>('auth/login', {
     json: params,
     ...config,
   }).json()
 }
 
 export async function register({ params, config }: { params: RegisterParams, config?: Options }) {
-  return await $api.post<RegisterResponse>('auth/register', {
+  return $api.post<RegisterResponse>('auth/register', {
     json: params,
     ...config,
   }).json()
 }
 
 export async function logout({ config }: { config?: Options } = {}) {
-  return await $api.post<LogoutResponse>('auth/logout', {
+  return $api.post<LogoutResponse>('auth/logout', {
     ...config,
   }).json()
 }
 
 export async function refresh({ params, config }: { params: RefreshParams, config?: Options }) {
-  return await $api.post<RefreshResponse>('auth/refresh', {
+  return $api.post<RefreshResponse>('auth/refresh', {
     json: params,
     ...config,
   }).json()

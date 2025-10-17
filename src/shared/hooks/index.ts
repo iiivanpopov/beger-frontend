@@ -1,6 +1,7 @@
 export * from './useClickOn'
 export * from './useClickOutside'
 export * from './useControlledState'
+export * from './useCopy'
 export * from './useFloatingPosition'
 export * from './useRegisterRefs'
 export * from './useRouteSegment'

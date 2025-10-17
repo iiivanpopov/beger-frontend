@@ -2,7 +2,7 @@ import type { Dispatch, ReactNode, SetStateAction } from 'react'
 import clsx from 'clsx'
 import { ChevronsUpDownIcon } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import { Popover, SelectList } from '@/shared/ui'
+import { ItemsList, Popover } from '@/shared/ui'
 import { buildContext, matchesSearch } from '@/shared/utils'
 import styles from './Autocomplete.module.css'
 
@@ -78,9 +78,9 @@ export interface AutocompleteItemsProps {
 export function AutocompleteItems({ children }: AutocompleteItemsProps) {
   return (
     <Popover.Content>
-      <SelectList>
+      <ItemsList>
         {children}
-      </SelectList>
+      </ItemsList>
     </Popover.Content>
   )
 }
@@ -97,12 +97,12 @@ function AutocompleteItem({ children, value }: AutocompleteItemProps) {
     return null
 
   return (
-    <SelectList.Item
+    <ItemsList.Item
       active={value === selected}
       onClick={() => setSelected(value.toString())}
     >
       {children}
-    </SelectList.Item>
+    </ItemsList.Item>
   )
 }
 

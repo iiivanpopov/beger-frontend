@@ -4,34 +4,34 @@ import { $api } from '@/api/instance'
 
 export type GetAllUsersParams = PaginationQuery
 export interface UpdateUserParams extends UpdateUserBody {
-  id: string
+  id: number
 }
 export interface DeleteUserParams {
-  id: string
+  id: number
 }
 
 export async function getCurrentUser(config?: Options) {
-  return await $api.get<GetCurrentUserResponse>('users/me', {
+  return $api.get<GetCurrentUserResponse>('users/me', {
     ...config,
   }).json()
 }
 
 export async function getAllUsers({ params, config }: { params?: GetAllUsersParams, config?: Options } = {}) {
-  return await $api.get<GetAllUsersResponse>(`users`, {
-    searchParams: { offset: params?.offset, limit: params?.limit },
+  return $api.get<GetAllUsersResponse>(`users`, {
+    searchParams: { offset: params?.offset ?? 0, limit: params?.limit ?? 10 },
     ...config,
   }).json()
 }
 
 export async function updateUser({ params, config }: { params: UpdateUserParams, config?: Options }) {
-  return await $api.put<UpdateUserResponse>(`users/${params.id}`, {
+  return $api.put<UpdateUserResponse>(`users/${params.id}`, {
     json: params,
     ...config,
   }).json()
 }
 
 export async function deleteUser({ params, config }: { params: DeleteUserParams, config?: Options }) {
-  return await $api.delete<DeleteUserResponse>(`users/${params.id}`, {
+  return $api.delete<DeleteUserResponse>(`users/${params.id}`, {
     ...config,
   }).json()
 }

@@ -1,11 +1,10 @@
-import clsx from 'clsx'
 import { Controller } from 'react-hook-form'
-import { Autocomplete, Button, Card, Datepicker, Form, Modal, Textarea, Typography } from '@/shared/ui'
+import { Autocomplete, Button, Datepicker, Form, Modal, Textarea, Typography } from '@/shared/ui'
 import { useRepairsPage } from './hooks/useRepairsPage'
 import styles from './RepairsPage.module.css'
 
 export function RepairsPage() {
-  const { form, modal, handlers, queries, mutations } = useRepairsPage()
+  const { form, modal, handlers, queries } = useRepairsPage()
   const repairs = queries.repairs.data?.data
   const options = queries.options.data?.data
 
@@ -18,23 +17,7 @@ export function RepairsPage() {
             <Button variant="ghost">View last</Button>
           </Modal.Trigger>
           <Modal.Content>
-            <Card.List className={clsx(!repairs?.length && styles.noRecords)}>
-              {!repairs?.length && <Typography>No repair records found.</Typography>}
-              {repairs?.map((repair) => {
-                return (
-                  <Card
-                    key={repair.id}
-                    id={repair.id}
-                    date={repair.date}
-                    onDelete={handlers.onDelete}
-                  >
-                    <Card.Property hint="pcb">{repair.pcbName}</Card.Property>
-                    <Card.Property hint="defect">{repair.defect}</Card.Property>
-                    {repair.note && <Card.Property hint="note">{repair.note}</Card.Property>}
-                  </Card>
-                )
-              })}
-            </Card.List>
+            {!repairs?.length && <Typography>No records found.</Typography>}
           </Modal.Content>
         </Modal>
       </div>
@@ -100,14 +83,7 @@ export function RepairsPage() {
           />
         </Form.Row>
         <Form.Row>
-          <Button
-            type="submit"
-            size="large"
-            className={styles.submit}
-            loading={mutations.createRepair.isPending}
-          >
-            Submit
-          </Button>
+          <Button type="submit">Submit</Button>
         </Form.Row>
       </Form>
     </>

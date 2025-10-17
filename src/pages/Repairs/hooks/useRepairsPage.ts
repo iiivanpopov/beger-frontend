@@ -72,16 +72,12 @@ export function useRepairsPage() {
     })
   }
 
-  const onDelete = (id: number) => deleteRepairMutation.mutate({ id: String(id) })
+  const onDelete = (id: number) => deleteRepairMutation.mutate({ id })
 
   return {
     queries: {
       options: optionsQuery,
       repairs: repairsQuery,
-    },
-    mutations: {
-      createRepair: createRepairMutation,
-      deleteRepair: deleteRepairMutation,
     },
     handlers: {
       onDelete,

@@ -1,0 +1,8 @@
+.delete {
+  color: var(--accent);
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: var(--accent-hover);
+  }
+}
