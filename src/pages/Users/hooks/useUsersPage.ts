@@ -9,7 +9,7 @@ import { useMutationErrorHandler, usePagination } from '@/shared/hooks'
 
 export function useUsersPage() {
   const [isOpen, setIsOpen] = useState(false)
-  const search = useSearch({ strict: false })
+  const search = useSearch({ from: '/users' })
 
   const form = useForm<CreateUserData>({
     defaultValues: { fullName: '', userName: '', password: '' },

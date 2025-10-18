@@ -74,3 +74,28 @@
   align-items: center;
   gap: var(--spacing-sm);
 }
+
+@media (width <= 767px) {
+  .header {
+    gap: var(--spacing-sm);
+  }
+
+  .brand {
+    justify-content: center;
+  }
+
+  .tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .actions {
+    justify-content: center;
+  }
+}
+
+@media (width >= 768px) and (width <= 1023px) {
+  .header {
+    gap: var(--spacing-md);
+  }
+}

@@ -6,7 +6,12 @@
 
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: var(--spacing-lg);
+}
+
+@media (width >= 768px) and (width <= 1023px) {
+  .header {
+    flex-direction: row;
+  }
 }

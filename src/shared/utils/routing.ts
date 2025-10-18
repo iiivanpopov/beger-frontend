@@ -18,6 +18,6 @@ export function redirectDefaultRoute(role: UserRole) {
   if (role === 'user')
     throw redirect({ to: '/repairs' })
   if (role === 'admin')
-    throw redirect({ to: '/admin/users' })
+    throw redirect({ to: '/users' })
   throw redirect({ to: '/login' })
 }

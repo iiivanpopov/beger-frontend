@@ -26,7 +26,7 @@ export function useLoginPage() {
       onSuccess: (data) => {
         setIsOpen(false)
         authStorage.setTokens(data.data.tokens.accessToken, data.data.tokens.refreshToken)
-        router.navigate({ to: data.data.user.role === 'admin' ? '/admin/users' : '/repairs', replace: true })
+        router.navigate({ to: data.data.user.role === 'admin' ? '/users' : '/repairs', replace: true })
       },
       onError: createErrorHandler(showError),
     },

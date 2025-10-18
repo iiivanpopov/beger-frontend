@@ -16,9 +16,10 @@ export interface SidebarProps {
   children: ReactNode
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
+  className?: string
 }
 
-export function Sidebar({ children, isOpen, setIsOpen }: SidebarProps) {
+export function Sidebar({ children, isOpen, setIsOpen, className }: SidebarProps) {
   const contextValue = useMemo(() => ({
     isOpen,
     setIsOpen,
@@ -35,6 +36,7 @@ export function Sidebar({ children, isOpen, setIsOpen }: SidebarProps) {
       <div className={clsx(
         styles.sidebar,
         isOpen && styles.open,
+        className,
       )}
       >
         <button

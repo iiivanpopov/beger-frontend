@@ -4,6 +4,7 @@
   align-items: center;
   gap: var(--spacing-sm);
   overflow: hidden;
+  width: fit-content;
   padding: var(--spacing-sm);
   border-radius: var(--radius-md);
   background: var(--background-primary);

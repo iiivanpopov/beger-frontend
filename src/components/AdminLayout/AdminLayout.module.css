@@ -1,9 +1,0 @@
-.layout {
-  display: flex;
-  flex: 1;
-  gap: var(--spacing-xl);
-}
-
-.active {
-  color: var(--accent);
-}

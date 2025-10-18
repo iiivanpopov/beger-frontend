@@ -1,5 +1,6 @@
 import type { Dispatch, KeyboardEvent, ReactNode, RefObject, SetStateAction } from 'react'
 import clsx from 'clsx'
+import { XIcon } from 'lucide-react'
 import { useMemo, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { useClickOn } from '@/shared/hooks'
@@ -85,6 +86,13 @@ export function ModalContent({ children, className }: ModalContentProps) {
       ref={register}
     >
       <div className={clsx(styles.content, className)}>
+        <button
+          type="button"
+          className={styles.close}
+          onClick={() => setIsOpen(false)}
+        >
+          <XIcon />
+        </button>
         {children}
       </div>
     </div>,
