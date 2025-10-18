@@ -10,7 +10,6 @@
     "baseUrl": ".",
     "module": "ESNext",
 
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "paths": {
       "@/*": ["src/*"]

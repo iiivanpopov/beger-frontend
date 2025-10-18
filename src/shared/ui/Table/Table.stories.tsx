@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Table } from './Table'
 
-const meta = {
+const meta: Meta<typeof Table> = {
   component: Table,
   title: 'UI/Table',
-} satisfies Meta<typeof Table>
+}
 
 type Story = StoryObj<typeof meta>
 
@@ -89,10 +89,9 @@ export const WithActions: Story = {
             <Table.Cell>Admin</Table.Cell>
             <Table.Cell>Active</Table.Cell>
             <Table.Cell>
-              <button>Edit</button>
-              {' '}
+              Edit
               |
-              <button>Delete</button>
+              Delete
             </Table.Cell>
           </Table.Row>
           <Table.Row>
@@ -101,10 +100,9 @@ export const WithActions: Story = {
             <Table.Cell>User</Table.Cell>
             <Table.Cell>Active</Table.Cell>
             <Table.Cell>
-              <button>Edit</button>
-              {' '}
+              Edit
               |
-              <button>Delete</button>
+              Delete
             </Table.Cell>
           </Table.Row>
         </Table.Body>

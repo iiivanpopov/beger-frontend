@@ -3,8 +3,7 @@
   justify-content: space-between;
   align-items: center;
   gap: var(--spacing-sm);
-  width: 100%;
-  min-width: var(--width-sm);
+  width: var(--width-sm);
   height: var(--size-md);
   padding: var(--spacing-xs) var(--spacing-md);
   border: 1px solid transparent;

@@ -75,27 +75,22 @@
   gap: var(--spacing-sm);
 }
 
-@media (width <= 767px) {
-  .header {
-    gap: var(--spacing-sm);
-  }
-
-  .brand {
-    justify-content: center;
-  }
-
-  .tabs {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .actions {
-    justify-content: center;
-  }
+.burger {
+  display: none;
 }
 
-@media (width >= 768px) and (width <= 1023px) {
+@media (width <= 767px) {
   .header {
-    gap: var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .tabs,
+  .actions {
+    display: none;
+  }
+
+  .burger {
+    display: block;
   }
 }

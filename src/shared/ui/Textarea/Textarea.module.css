@@ -1,4 +1,5 @@
 .textarea {
+  width: var(--width-md);
   padding: var(--spacing-md);
   border: none;
   border-radius: var(--radius-lg);

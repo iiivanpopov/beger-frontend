@@ -75,7 +75,7 @@ export function RepairsPage() {
             )}
           />
         </Form.Row>
-        <Form.Row>
+        <Form.Row className={styles.row}>
           <Controller
             name="note"
             control={form.control}

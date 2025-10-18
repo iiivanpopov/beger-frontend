@@ -34,17 +34,3 @@
 .invalid {
   border-color: var(--error);
 }
-
-/* Mobile layout adaptation */
-@media (width <= 767px) {
-  .input {
-    width: 100%;
-  }
-}
-
-/* Tablet layout adaptation */
-@media (width >= 768px) and (width <= 1023px) {
-  .input {
-    width: var(--width-md);
-  }
-}

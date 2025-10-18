@@ -56,7 +56,7 @@ export function TestResultsPage() {
             )}
           />
         </Form.Row>
-        <Form.Row>
+        <Form.Row className={styles.row}>
           <Controller
             name="firstTry"
             control={form.control}

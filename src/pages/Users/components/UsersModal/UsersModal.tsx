@@ -1,7 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react'
 import type { User } from '@/api'
 import type { usePagination } from '@/shared/hooks/usePagination'
-import { GridIcon, Trash2Icon } from 'lucide-react'
+import { GridIcon, Trash2Icon, XIcon } from 'lucide-react'
 import { Button, Modal, Table, Typography } from '@/shared/ui'
 import { Pagination } from '@/shared/ui/Pagination/Pagination'
 import styles from './UsersModal.module.css'
@@ -22,16 +22,20 @@ export function UsersModal({ users, modal, pagination, onDelete }: UsersModalPro
       <Modal.Trigger>
         <Button icon variant="ghost"><GridIcon /></Button>
       </Modal.Trigger>
-      <Modal.Content className={styles.contentWrapper}>
+      <Modal.Content className={styles.wrapper}>
         <div className={styles.content}>
-          <Typography variant="subheading" tag="h2">Users table view</Typography>
+          <div className={styles.header}>
+            <Typography variant="subheading" tag="h2">Users table view</Typography>
+            <Button onClick={() => modal.setIsOpen(false)} icon variant="ghost">
+              <XIcon />
+            </Button>
+          </div>
           <Table>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>ID</Table.HeaderCell>
                 <Table.HeaderCell>Full Name</Table.HeaderCell>
                 <Table.HeaderCell>Username</Table.HeaderCell>
-                <Table.HeaderCell>Role</Table.HeaderCell>
                 <Table.HeaderCell>Created At</Table.HeaderCell>
                 <Table.HeaderCell>{null}</Table.HeaderCell>
               </Table.Row>
@@ -42,7 +46,6 @@ export function UsersModal({ users, modal, pagination, onDelete }: UsersModalPro
                   <Table.Cell>{user.id}</Table.Cell>
                   <Table.Cell>{user.fullName}</Table.Cell>
                   <Table.Cell>{user.userName}</Table.Cell>
-                  <Table.Cell>{user.role}</Table.Cell>
                   <Table.Cell>{new Date(user.createdAt).toLocaleDateString()}</Table.Cell>
                   <Table.Cell>
                     <Button

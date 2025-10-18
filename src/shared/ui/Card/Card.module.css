@@ -11,6 +11,7 @@
   justify-content: center;
   align-items: center;
   width: var(--size-sm);
+  padding: var(--spacing-xs);
   border-top-left-radius: var(--radius-md);
   border-bottom-left-radius: var(--radius-md);
   color: var(--background-primary);
@@ -65,7 +66,6 @@
   }
 }
 
-/* Mobile layout adaptation */
 @media (width <= 767px) {
   .card {
     flex-direction: column;
@@ -77,7 +77,6 @@
   }
 }
 
-/* Tablet layout adaptation */
 @media (width >= 768px) and (width <= 1023px) {
   .card {
     flex-direction: row;
