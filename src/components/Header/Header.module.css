@@ -32,7 +32,7 @@
   border: none;
   outline: none;
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: var(--font-size-md);
   text-decoration: none;
   color: var(--text-secondary);
   background: none;

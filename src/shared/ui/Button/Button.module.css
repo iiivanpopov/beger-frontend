@@ -8,7 +8,7 @@
   border-radius: var(--radius-full);
   outline: none;
   font-family: var(--font-body);
-  font-size: 17px;
+  font-size: var(--font-size-lg);
   font-weight: 500;
   background: none;
   transition:
@@ -108,7 +108,7 @@
 
 .small {
   padding: var(--spacing-xs) var(--spacing-md);
-  font-size: 15px;
+  font-size: var(--font-size-md);
 
   &.icon {
     width: var(--size-sm);
@@ -124,7 +124,7 @@
 
 .medium {
   padding: var(--spacing-sm) var(--spacing-lg);
-  font-size: 17px;
+  font-size: var(--font-size-lg);
 
   &.icon {
     width: var(--size-md);

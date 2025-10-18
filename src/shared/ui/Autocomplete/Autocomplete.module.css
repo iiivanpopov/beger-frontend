@@ -8,7 +8,7 @@
   border: 1px solid transparent;
   border-radius: var(--radius-full);
   outline: none;
-  font-size: 16px;
+  font-size: var(--font-size-md);
   background: var(--background-primary);
   cursor: pointer;
 
@@ -17,7 +17,7 @@
     border: none;
     outline: none;
     font-family: var(--font-body);
-    font-size: 16px;
+    font-size: var(--font-size-md);
     text-overflow: ellipsis;
     white-space: nowrap;
     color: var(--text-primary);

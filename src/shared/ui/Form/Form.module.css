@@ -12,7 +12,7 @@
 
 .label {
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--text-secondary);
 }
 
@@ -23,6 +23,6 @@
 
 .error {
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--error);
 }

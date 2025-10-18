@@ -1,7 +1,7 @@
 .card {
   display: flex;
-  min-width: 200px;
-  border-radius: 8px;
+  min-width: var(--width-sm);
+  border-radius: var(--radius-md);
   background: var(--background-primary);
 }
 
@@ -10,9 +10,9 @@
   flex-shrink: 0;
   justify-content: center;
   align-items: center;
-  width: 36px;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
+  width: var(--size-sm);
+  border-top-left-radius: var(--radius-md);
+  border-bottom-left-radius: var(--radius-md);
   color: var(--background-primary);
   background: var(--accent);
 }
@@ -21,15 +21,15 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  gap: 4px;
-  padding: 10px;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm);
 }
 
 .row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  gap: var(--spacing-sm);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -37,21 +37,21 @@
 .title {
   display: block;
   overflow: hidden;
-  max-width: 200px;
-  font-size: 16px;
+  max-width: var(--width-sm);
+  font-size: var(--font-size-md);
   text-overflow: ellipsis;
   white-space: nowrap;
   color: var(--text-primary);
 }
 
 .description {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--text-tertiary);
 }
 
 .action {
-  width: 20px;
-  height: 20px;
+  width: var(--size-xs);
+  height: var(--size-xs);
   border: none;
   outline: none;
   color: var(--text-secondary);
@@ -59,8 +59,8 @@
   cursor: pointer;
 
   svg {
-    width: 20px;
-    height: 20px;
+    width: var(--size-xs);
+    height: var(--size-xs);
     stroke-width: 1.5;
   }
 }

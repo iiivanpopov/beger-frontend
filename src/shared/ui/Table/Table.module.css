@@ -37,13 +37,13 @@
   vertical-align: middle;
   padding: var(--spacing-sm);
   border-bottom: 1px solid var(--background-tertiary);
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   line-height: 1.4;
   text-align: left;
 }
 
 .headerCell {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   font-weight: 500;
   letter-spacing: 0.5px;
   text-transform: uppercase;
