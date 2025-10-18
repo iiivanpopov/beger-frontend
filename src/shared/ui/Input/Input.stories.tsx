@@ -8,6 +8,7 @@ const meta: Meta<typeof Input> = {
     disabled: { control: 'boolean' },
     placeholder: { control: 'text' },
     value: { control: 'text' },
+    invalid: { control: 'boolean' },
   },
 }
 
@@ -31,6 +32,13 @@ export const WithValue: Story = {
   args: {
     value: 'Hello World',
     disabled: false,
+  },
+}
+
+export const Invalid: Story = {
+  args: {
+    placeholder: 'Invalid input',
+    invalid: true,
   },
 }
 

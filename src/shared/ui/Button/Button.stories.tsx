@@ -8,6 +8,7 @@ const meta = {
   argTypes: {
     variant: { control: 'radio', options: ['contained', 'ghost'] },
     color: { control: 'radio', options: ['primary', 'white'] },
+    size: { control: 'radio', options: ['small', 'medium'] },
     icon: { control: 'boolean' },
     loading: { control: 'boolean' },
     disabled: { control: 'boolean' },
@@ -39,6 +40,24 @@ export const Icon: Story = {
     'children': <SearchIcon />,
     'icon': true,
     'aria-label': 'Search',
+  },
+}
+
+export const Small: Story = {
+  args: {
+    variant: 'contained',
+    color: 'primary',
+    size: 'small',
+    children: 'Small Button',
+  },
+}
+
+export const Loading: Story = {
+  args: {
+    variant: 'contained',
+    color: 'primary',
+    loading: true,
+    children: 'Loading...',
   },
 }
 
