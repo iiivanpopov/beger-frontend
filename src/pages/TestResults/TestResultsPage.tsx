@@ -17,8 +17,8 @@ export function TestResultsPage() {
           <Modal.Trigger>
             <Button className={styles.open} variant="ghost">View last</Button>
           </Modal.Trigger>
-          <Modal.Content>
-            {!testResults?.length && <Typography className={styles.noRecords}>No records found.</Typography>}
+          <Modal.Content className={styles.records}>
+            {!testResults?.length && <Typography>No records found.</Typography>}
             {testResults?.map((testResult, i) =>
               <TestResultCard key={testResult.pcbName} testResult={testResult} i={i} onDelete={handlers.onDelete} />,
             )}

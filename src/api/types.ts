@@ -77,8 +77,14 @@ export interface Tokens {
 }
 
 export interface PaginationQuery {
-  offset?: number
-  limit?: number
+  page: number
+  limit: number
+}
+
+export interface PaginationMeta {
+  pages: number
+  page: number
+  total: number
 }
 
 export interface LoginBody {
@@ -105,7 +111,7 @@ export type RefreshResponse = ApiResponse<Tokens>
 
 export type GetCurrentUserResponse = ApiResponse<User>
 
-export type GetAllUsersResponse = ApiResponse<User[]>
+export type GetUsersResponse = ApiResponse<{ users: User[], meta: PaginationMeta }>
 
 export interface UpdateUserBody {
   userName: string
@@ -118,7 +124,7 @@ export type DeleteUserResponse = ApiSuccess
 
 export type GetSelfRepairsResponse = ApiResponse<Repair[]>
 
-export type GetAllRepairsResponse = ApiResponse<Repair[]>
+export type GetRepairsResponse = ApiResponse<{ repairs: Repair[], meta: PaginationMeta }>
 
 export interface CreateRepairBody {
   pcbName: string
@@ -133,7 +139,7 @@ export type DeleteRepairResponse = ApiSuccess
 
 export type GetSelfTestResults = ApiResponse<TestResult[]>
 
-export type GetAllTestResultsResponse = ApiResponse<TestResult[]>
+export type GetTestResultsResponse = ApiResponse<{ testResults: TestResult[], meta: PaginationMeta }>
 
 export interface CreateTestResultBody {
   pcbName: string

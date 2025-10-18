@@ -17,8 +17,8 @@ export function RepairsPage() {
           <Modal.Trigger>
             <Button variant="ghost">View last</Button>
           </Modal.Trigger>
-          <Modal.Content>
-            {!repairs?.length && <Typography className={styles.noRecords}>No records found.</Typography>}
+          <Modal.Content className={styles.records}>
+            {!repairs?.length && <Typography>No records found.</Typography>}
             {repairs?.map((repair, i) =>
               <RepairCard key={repair.pcbName} repair={repair} i={i} onDelete={handlers.onDelete} />,
             )}

@@ -1,16 +1,16 @@
 import type { Options } from 'ky'
-import type { CreateTestResultBody, CreateTestResultResponse, DeleteTestResultResponse, GetAllTestResultsResponse, GetSelfTestResults, PaginationQuery } from '@/api/types'
+import type { CreateTestResultBody, CreateTestResultResponse, DeleteTestResultResponse, GetSelfTestResults, GetTestResultsResponse, PaginationQuery } from '@/api/types'
 import { $api } from '@/api/instance'
 
-export type GetAllTestResultsParams = PaginationQuery
+export type GetTestResultsParams = PaginationQuery
 export type CreateTestResultParams = CreateTestResultBody
 export interface DeleteTestResultParams {
   id: number
 }
 
-export async function getAllTestResults({ params, config }: { params?: GetAllTestResultsParams, config?: Options } = {}) {
-  return $api.get<GetAllTestResultsResponse>(`test-results`, {
-    searchParams: { offset: params?.offset, limit: params?.limit },
+export async function getTestResults({ params, config }: { params?: GetTestResultsParams, config?: Options } = {}) {
+  return $api.get<GetTestResultsResponse>(`test-results`, {
+    searchParams: { page: params?.page, limit: params?.limit },
     ...config,
   }).json()
 }

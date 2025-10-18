@@ -1,0 +1,10 @@
+.users {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  min-width: 600px;
+  max-width: 900px;
+  padding: 25px;
+  border-radius: 15px;
+  background: var(--background-primary);
+}

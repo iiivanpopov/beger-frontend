@@ -4,8 +4,10 @@
   gap: var(--spacing-sm);
 }
 
-.noRecords {
-  display: block;
+.records {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   padding: 15px;
   border-radius: 10px;
   background: var(--background-primary);

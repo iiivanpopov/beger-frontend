@@ -1,8 +1,8 @@
 import type { Options } from 'ky'
-import type { DeleteUserResponse, GetAllUsersResponse, GetCurrentUserResponse, PaginationQuery, UpdateUserBody, UpdateUserResponse } from '@/api/types'
+import type { DeleteUserResponse, GetCurrentUserResponse, GetUsersResponse, PaginationQuery, UpdateUserBody, UpdateUserResponse } from '@/api/types'
 import { $api } from '@/api/instance'
 
-export type GetAllUsersParams = PaginationQuery
+export type GetUsersParams = PaginationQuery
 export interface UpdateUserParams extends UpdateUserBody {
   id: number
 }
@@ -16,9 +16,9 @@ export async function getCurrentUser(config?: Options) {
   }).json()
 }
 
-export async function getAllUsers({ params, config }: { params?: GetAllUsersParams, config?: Options } = {}) {
-  return $api.get<GetAllUsersResponse>(`users`, {
-    searchParams: { offset: params?.offset ?? 0, limit: params?.limit ?? 10 },
+export async function getUsers({ params, config }: { params?: GetUsersParams, config?: Options } = {}) {
+  return $api.get<GetUsersResponse>(`users`, {
+    searchParams: { page: params?.page, limit: params?.limit },
     ...config,
   }).json()
 }
