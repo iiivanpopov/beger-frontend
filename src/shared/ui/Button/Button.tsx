@@ -5,10 +5,12 @@ import styles from './Button.module.css'
 
 type Variant = 'contained' | 'ghost'
 type Color = 'primary' | 'white'
+type Size = 'small' | 'medium'
 
 interface ButtonProps extends ComponentProps<'button'> {
   variant?: Variant
   color?: Color
+  size?: Size
   icon?: boolean
   loading?: boolean
   children: ReactNode
@@ -19,6 +21,7 @@ export function Button({
   type = 'button',
   variant = 'contained',
   color = 'primary',
+  size = 'medium',
   loading,
   icon,
   className,
@@ -32,6 +35,7 @@ export function Button({
         styles.button,
         styles[variant],
         styles[color],
+        styles[size],
         icon && styles.icon,
         loading && styles.loading,
         className,

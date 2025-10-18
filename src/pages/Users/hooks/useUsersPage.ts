@@ -20,7 +20,7 @@ export function useUsersPage() {
   const mutationHandler = useMutationErrorHandler()
 
   const usersPreviewQuery = useGetUsersQuery({ page: 1, limit: 5 })
-  const usersQuery = useGetUsersQuery({ page: search.page, limit: 10 })
+  const usersQuery = useGetUsersQuery({ page: search.page, limit: 1 })
   const pagination = usePagination({ pages: usersQuery.data?.data.meta.pages })
 
   const registerMutation = useRegisterMutation({

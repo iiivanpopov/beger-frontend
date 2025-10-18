@@ -6,6 +6,8 @@ export interface PaginationProps {
   page: number
   nextDisabled: boolean
   prevDisabled: boolean
+  availablePrev: number[]
+  availableNext: number[]
   onNextPage: () => void
   onPrevPage: () => void
   onGotoPage: (page: number) => void
@@ -15,19 +17,31 @@ export function Pagination({
   page,
   nextDisabled,
   prevDisabled,
+  availablePrev,
+  availableNext,
   onNextPage,
   onPrevPage,
   onGotoPage,
 }: PaginationProps) {
   return (
     <div className={styles.pagination}>
-      <Button icon onClick={onPrevPage} disabled={prevDisabled}>
+      <Button icon size="small" onClick={onPrevPage} disabled={prevDisabled}>
         <ArrowLeftIcon />
       </Button>
-      <Button icon onClick={() => onGotoPage(page)}>
+      {availablePrev.map(p => (
+        <Button key={p} size="small" icon onClick={() => onGotoPage(p)}>
+          {p}
+        </Button>
+      ))}
+      <Button icon size="medium" onClick={() => onGotoPage(page)} disabled>
         {page}
       </Button>
-      <Button icon onClick={onNextPage} disabled={nextDisabled}>
+      {availableNext.map(p => (
+        <Button size="small" key={p} icon onClick={() => onGotoPage(p)}>
+          {p}
+        </Button>
+      ))}
+      <Button icon size="small" onClick={onNextPage} disabled={nextDisabled}>
         <ArrowRightIcon />
       </Button>
     </div>
