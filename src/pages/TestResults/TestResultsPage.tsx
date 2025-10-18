@@ -1,4 +1,5 @@
 import { Controller } from 'react-hook-form'
+import { TestResultCard } from '@/components/TestResultCard'
 import { Autocomplete, Button, Datepicker, Form, Input, Modal, Typography } from '@/shared/ui'
 import { useTestResultsPage } from './hooks/useTestResultsPage'
 import styles from './TestResultsPage.module.css'
@@ -17,7 +18,10 @@ export function TestResultsPage() {
             <Button className={styles.open} variant="ghost">View last</Button>
           </Modal.Trigger>
           <Modal.Content>
-            {!testResults?.length && <Typography>No records found.</Typography>}
+            {!testResults?.length && <Typography className={styles.noRecords}>No records found.</Typography>}
+            {testResults?.map((testResult, i) =>
+              <TestResultCard key={testResult.pcbName} testResult={testResult} i={i} onDelete={handlers.onDelete} />,
+            )}
           </Modal.Content>
         </Modal>
       </div>

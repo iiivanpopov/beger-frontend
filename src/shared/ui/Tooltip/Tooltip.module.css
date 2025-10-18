@@ -1,11 +1,8 @@
-.trigger {
-  z-index: var(--z-tooltip);
-}
-
 .content {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: var(--z-tooltip);
   padding: var(--spacing-sm);
   border-radius: var(--radius-sm);
   font-family: var(--font-body);

@@ -1,0 +1,17 @@
+.delete {
+  color: var(--accent);
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: var(--accent-hover);
+  }
+}
+
+.title {
+  padding: 0;
+  border: none;
+  outline: none;
+  font-family: var(--font-body);
+  background: none;
+  cursor: pointer;
+}

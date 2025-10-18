@@ -1,4 +1,5 @@
 import { Controller } from 'react-hook-form'
+import { RepairCard } from '@/components/RepairCard'
 import { Autocomplete, Button, Datepicker, Form, Modal, Textarea, Typography } from '@/shared/ui'
 import { useRepairsPage } from './hooks/useRepairsPage'
 import styles from './RepairsPage.module.css'
@@ -17,7 +18,10 @@ export function RepairsPage() {
             <Button variant="ghost">View last</Button>
           </Modal.Trigger>
           <Modal.Content>
-            {!repairs?.length && <Typography>No records found.</Typography>}
+            {!repairs?.length && <Typography className={styles.noRecords}>No records found.</Typography>}
+            {repairs?.map((repair, i) =>
+              <RepairCard key={repair.pcbName} repair={repair} i={i} onDelete={handlers.onDelete} />,
+            )}
           </Modal.Content>
         </Modal>
       </div>
