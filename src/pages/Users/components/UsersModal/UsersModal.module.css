@@ -1,10 +1,17 @@
-.users {
+.contentWrapper {
   display: flex;
   flex-direction: column;
-  gap: 50px;
-  min-width: 600px;
-  max-width: 900px;
-  padding: 25px;
-  border-radius: 15px;
+  justify-content: space-between;
+  gap: var(--spacing-2xl);
+  width: var(--width-xl);
+  height: 500px;
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-xl);
   background: var(--background-primary);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
 }

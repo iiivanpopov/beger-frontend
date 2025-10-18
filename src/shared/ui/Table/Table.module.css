@@ -1,0 +1,67 @@
+.table {
+  overflow: hidden;
+  width: 100%;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  background-color: var(--background-primary);
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.header {
+  background-color: var(--background-secondary);
+}
+
+.body {
+  background-color: var(--background-primary);
+}
+
+.row {
+  transition: background-color 0.2s ease;
+}
+
+.row:hover {
+  background-color: var(--background-secondary);
+}
+
+.row:nth-child(even) {
+  background-color: var(--background-secondary);
+}
+
+.row:nth-child(even):hover {
+  background-color: var(--background-tertiary);
+}
+
+.cell,
+.headerCell {
+  vertical-align: middle;
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid var(--background-tertiary);
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.headerCell {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  background-color: var(--background-secondary);
+}
+
+.cell {
+  color: var(--text-secondary);
+}
+
+.cell:last-child,
+.headerCell:last-child {
+  padding-right: var(--spacing-lg);
+  text-align: right;
+}
+
+.cell:first-child,
+.headerCell:first-child {
+  padding-left: var(--spacing-lg);
+}

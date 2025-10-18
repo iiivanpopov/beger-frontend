@@ -1,8 +1,8 @@
 import type { Dispatch, SetStateAction } from 'react'
 import type { User } from '@/api'
 import type { usePagination } from '@/shared/hooks/usePagination'
-import { GridIcon } from 'lucide-react'
-import { Button, Modal } from '@/shared/ui'
+import { GridIcon, Trash2Icon } from 'lucide-react'
+import { Button, Modal, Table, Typography } from '@/shared/ui'
 import { Pagination } from '@/shared/ui/Pagination/Pagination'
 import styles from './UsersModal.module.css'
 
@@ -12,17 +12,53 @@ export interface UsersModalProps {
     isOpen: boolean
     setIsOpen: Dispatch<SetStateAction<boolean>>
   }
+  onDelete: (id: number) => void
   pagination: ReturnType<typeof usePagination>
 }
 
-export function UsersModal({ users, modal, pagination }: UsersModalProps) {
+export function UsersModal({ users, modal, pagination, onDelete }: UsersModalProps) {
   return (
     <Modal isOpen={modal.isOpen} setIsOpen={modal.setIsOpen}>
       <Modal.Trigger>
         <Button icon variant="ghost"><GridIcon /></Button>
       </Modal.Trigger>
-      <Modal.Content className={styles.users}>
-        {users?.map(user => JSON.stringify(user))}
+      <Modal.Content className={styles.contentWrapper}>
+        <div className={styles.content}>
+          <Typography variant="subheading" tag="h2">Users table view</Typography>
+          <Table>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>ID</Table.HeaderCell>
+                <Table.HeaderCell>Full Name</Table.HeaderCell>
+                <Table.HeaderCell>Username</Table.HeaderCell>
+                <Table.HeaderCell>Role</Table.HeaderCell>
+                <Table.HeaderCell>Created At</Table.HeaderCell>
+                <Table.HeaderCell>{null}</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {users?.map(user => (
+                <Table.Row key={user.id}>
+                  <Table.Cell>{user.id}</Table.Cell>
+                  <Table.Cell>{user.fullName}</Table.Cell>
+                  <Table.Cell>{user.userName}</Table.Cell>
+                  <Table.Cell>{user.role}</Table.Cell>
+                  <Table.Cell>{new Date(user.createdAt).toLocaleDateString()}</Table.Cell>
+                  <Table.Cell>
+                    <Button
+                      icon
+                      size="small"
+                      variant="ghost"
+                      onClick={() => onDelete(user.id)}
+                    >
+                      <Trash2Icon />
+                    </Button>
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
+        </div>
         <Pagination {...pagination} />
       </Modal.Content>
     </Modal>

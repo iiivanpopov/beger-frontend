@@ -115,8 +115,9 @@
     height: var(--size-sm);
 
     svg {
-      width: var(--size-3xs);
-      height: var(--size-3xs);
+      width: var(--size-2xs);
+      height: var(--size-2xs);
+      stroke-width: 1.5;
     }
   }
 }

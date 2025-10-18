@@ -10,7 +10,7 @@ export function UsersPage() {
     <>
       <section className={styles.section}>
         <Typography tag="h2" variant="subheading">New user</Typography>
-        <CreateUserForm form={form} onSubmit={actions.submit} />
+        <CreateUserForm form={form} onSubmit={actions.onSubmit} />
       </section>
       <section className={styles.section}>
         <div className={styles.header}>
@@ -18,12 +18,13 @@ export function UsersPage() {
           <UsersModal
             users={data.users.data?.data.users}
             modal={ui.modal}
+            onDelete={actions.onDelete}
             pagination={actions.pagination}
           />
         </div>
         <UsersList
           users={data.usersPreview.data?.data.users}
-          onDelete={actions.delete}
+          onDelete={actions.onDelete}
         />
       </section>
     </>
